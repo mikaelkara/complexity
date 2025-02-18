@@ -1,0 +1,22 @@
+{
+  "languageModelSelector": {
+    "tooltip": "Dil modelini seçin",
+    "proSearch": {
+      "tooltip": "3 kata kadar web kaynağı alın"
+    },
+    "reasoningModels": {
+      "label": "Akıl Yürütme Modelleri",
+      "tooltip": {
+        "description": "Yanıtların oluşturulması daha uzun sürecek, ancak daha detaylı ve doğru olma eğiliminde olacak.",
+        "proSearchNote": "Bir akıl yürütme modeli seçildiğinde <emphasis>Pro Arama</emphasis> her zaman etkindir."
+      },
+      "usesLeft": {
+        "unlimited": "Sınırsız",
+        "limited": "{{count}} kullanım hakkı kaldı"
+      }
+    }
+  },
+  "imageGenModelSelector": {
+    "tooltip": "Görsel modelini seçin"
+  }
+}

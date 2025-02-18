@@ -1,0 +1,96 @@
+{
+  "commandMenu": {
+    "input": {
+      "placeholder": "Bir komut yazın veya arayın..."
+    },
+    "noResults": "<emphasis>{{code}}</emphasis> için sonuç bulunamadı.",
+    "groups": {
+      "search": "Ara",
+      "quickNavigations": "Hızlı gezinme",
+      "zenMode": "Zen Modu",
+      "colorScheme": "Renk şemasını değiştir"
+    },
+    "filters": {
+      "threads": {
+        "label": "Konular",
+        "searchPlaceholder": "Konularda ara..."
+      },
+      "spaces": {
+        "label": "Alanlar",
+        "searchPlaceholder": "Alanlarda ara..."
+      }
+    },
+    "navigation": {
+      "home": "Ana Sayfa",
+      "discover": "Keşfet",
+      "library": "Kütüphane",
+      "userSettings": "Kullanıcı ayarları",
+      "labs": "Laboratuvar"
+    },
+    "colorSchemes": {
+      "dark": "Koyu",
+      "light": "Açık",
+      "system": "Sistem"
+    },
+    "threadSearch": {
+      "error": "Konular getirilemedi. Lütfen daha sonra tekrar deneyin.",
+      "loading": "Konular yükleniyor",
+      "empty": {
+        "withSearch": "Konu bulunamadı.",
+        "withoutSearch": "Aramak için yazmaya başlayın"
+      },
+      "heading": {
+        "withSearch": "Arama terimiyle ilgili {{count}} en son konu",
+        "withoutSearch": "Son konular"
+      },
+      "spacePreview": {
+        "tooltip": "Bu alandaki konularda arama yapmak için tıklayın"
+      }
+    },
+    "spaceSearch": {
+      "error": "Alanlar getirilemedi. Lütfen daha sonra tekrar deneyin.",
+      "loading": "Alanlar yükleniyor",
+      "empty": "Alan bulunamadı.",
+      "spaceThreads": {
+        "loading": "\"{{title}}\" için konular yükleniyor",
+        "error": "Konular getirilemedi. Lütfen daha sonra tekrar deneyin.",
+        "empty": "Bu alanda konu bulunamadı.",
+        "heading": "Complexity yalnızca en son 50 konuda arama yapabilir."
+      },
+      "spaceItem": {
+        "details": {
+          "description": "Açıklama:",
+          "instructions": "Talimatlar:"
+        },
+        "searchHint": "bu Alandaki konularda arama yapmak için"
+      }
+    },
+    "zenMode": {
+      "enable": "Zen Modunu Etkinleştir",
+      "disable": "Zen Modunu Devre Dışı Bırak"
+    },
+    "keywords": {
+      "enable": "etkinleştir",
+      "zen": "zen",
+      "mode": "mod",
+      "disable": "devre dışı bırak",
+      "threads": "konular",
+      "spaces": "alanlar",
+      "search": "ara",
+      "home": "ana sayfa",
+      "discover": "keşfet",
+      "library": "kütüphane",
+      "user": "kullanıcı",
+      "settings": "ayarlar",
+      "labs": "laboratuvar",
+      "navigate": "git",
+      "dark": "koyu",
+      "light": "açık",
+      "system": "sistem",
+      "theme": "tema",
+      "change": "değiştir",
+      "color": "renk",
+      "scheme": "şema"
+    }
+  }
+}

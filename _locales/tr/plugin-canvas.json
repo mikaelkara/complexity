@@ -1,0 +1,47 @@
+{
+  "canvas": {
+    "placeholder": {
+      "markdown": {
+        "description": "İçeriği görüntülemek için tıklayın"
+      },
+      "mermaid": {
+        "description": "Diyagramı görüntülemek için tıklayın"
+      },
+      "html": {
+        "description": "Web sayfasını görüntülemek için tıklayın"
+      },
+      "react": {
+        "description": "Web sayfasını görüntülemek için tıklayın"
+      },
+      "markmap": {
+        "description": "Zihin haritasını görüntülemek için tıklayın"
+      }
+    },
+    "version": "Sürüm {{number}}",
+    "toggle": {
+      "preview": "Önizleme",
+      "markdown": {
+        "raw": "Ham metin"
+      },
+      "code": "Kod"
+    },
+    "list": {
+      "title": "Bu konudaki Canvas blokları",
+      "generating": "Oluşturuluyor...",
+      "versions": "{{count}} sürüm"
+    },
+    "tooltip": {
+      "refresh": "Yenile",
+      "openList": "Canvas Listesini Aç",
+      "openInCodeSandbox": "CodeSandbox'ta Aç",
+      "openInMermaid": "Mermaid Live Editor'da Aç",
+      "downloadSvg": "SVG İndir",
+      "downloadAsInteractiveHtml": "Etkileşimli HTML olarak indir",
+      "viewAsInteractiveHtml": "Etkileşimli HTML olarak görüntüle"
+    },
+    "error": {
+      "noSvg": "SVG bulunamadı",
+      "previewUrl": "Önizleme URL'si oluşturulamadı"
+    }
+  }
+}

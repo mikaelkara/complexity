@@ -37,7 +37,7 @@
   "i18n-ally.namespace": true,
   "i18n-ally.displayLanguage": "en",
   "i18n-ally.pathMatcher": "{locale}/{namespaces}.json",
-  "i18n-ally.sourceLanguage": "en",
+  "i18n-ally.sourceLanguage": "tr",
   "npm.exclude": ["**/build", "**/dist", "**/package"],
   "npm.scriptExplorerExclude": ["preinstall"],
   "search.exclude": {

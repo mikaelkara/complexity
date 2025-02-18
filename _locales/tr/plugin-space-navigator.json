@@ -1,0 +1,36 @@
+{
+  "spaceNavigator": {
+    "button": {
+      "label": "Alan Ara ve Gezin",
+      "defaultText": "Alanlar"
+    },
+    "search": {
+      "placeholder": "Ara...",
+      "noResults": "Sonuç bulunamadı."
+    },
+    "loading": "Yükleniyor...",
+    "spaceItem": {
+      "currentLocation": "Buradasınız",
+      "details": {
+        "description": "Açıklama",
+        "instructions": "Talimatlar",
+        "files": "Dosyalar ({{count}})",
+        "focusedWebLinks": "Odaklanmış Web Bağlantıları ({{count}})"
+      },
+      "noPreviewData": "Önizleme verisi mevcut değil",
+      "pinActions": {
+        "pin": "Sabitle",
+        "unpin": "Sabitlemeyi Kaldır",
+        "pinToSidebar": "Kenar çubuğuna sabitle",
+        "unpinFromSidebar": "Kenar çubuğundan kaldır"
+      }
+    },
+    "pinnedSpaces": {
+      "unpin": "Sabitlemeyi Kaldır",
+      "toggleVisibility": {
+        "collapse": "Sabitlenmiş Alanları Daralt",
+        "expand": "Sabitlenmiş Alanları Genişlet"
+      }
+    }
+  }
+}

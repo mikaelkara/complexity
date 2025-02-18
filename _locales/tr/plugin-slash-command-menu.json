@@ -1,0 +1,37 @@
+{
+  "slashCommandMenu": {
+    "filterItems": {
+      "heading": "Ara",
+      "promptHistory": {
+        "label": "Komut Geçmişi",
+        "description": "otomatik kaydedilen komutlar",
+        "clearButton": {
+          "label": "temizle",
+          "dialog": {
+            "title": "Tüm Geçmişi Temizle",
+            "description": "Tüm komut geçmişini temizlemek istediğinizden emin misiniz? Bu işlem geri alınamaz.",
+            "actions": {
+              "cancel": "İptal",
+              "confirm": "Tümünü Temizle"
+            }
+          }
+        }
+      }
+    },
+    "actionItems": {
+      "heading": "İşlem",
+      "changeFocusMode": {
+        "label": "Odak modunu değiştir"
+      },
+      "changeModel": {
+        "label": "Dil modelini değiştir"
+      },
+      "searchSpaces": {
+        "label": "Alanlarda Ara ve Gezin"
+      }
+    },
+    "triggerButton": {
+      "label": "Eğik Çizgi Komutları"
+    }
+  }
+}

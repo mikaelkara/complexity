@@ -1,0 +1,36 @@
+{
+  "extensionDescription": "Complexity - Perplexity AI ile Güçlendirilmiş",
+  "sidebar": {
+    "supporterMessage": "Projeyi canlı tutmak için lütfen bir <emphasis>Destekçi</emphasis> olmayı düşünün!"
+  },
+  "sponsorDialog": {
+    "title": "Complexity'nin Yardımınıza İhtiyacı Var!",
+    "description": "Bu özenle hazırlanmış ve zengin özellikli eklenti, sayısız saatlik özverili geliştirme ve iyileştirmenin sonucudur. Detaylara gösterilen özeni ve sürekli iyileştirmeleri takdir ediyorsanız, lütfen geliştirmeyi desteklemeyi düşünün",
+    "donation": {
+      "title": "💖 Bağış yapın"
+    },
+    "sponsorship": {
+      "title": "🌟 Uzun vadeli sponsorluk teklifiniz mi var?",
+      "contactEmail": "E-posta ile İletişim"
+    }
+  },
+  "misc": {
+    "words": "kelime",
+    "characters": "karakter",
+    "expand": "Genişlet",
+    "collapse": "Daralt",
+    "instantRewriteShort": "Yeniden Yaz",
+    "instantRewrite": "Aynı model ile yeniden yaz"
+  },
+  "releaseNotes": {
+    "title": "v{{version}} sürümüne güncellendi",
+    "dontShowAgain": "Kapat ve gelecek güncellemeler için gösterme",
+    "confirmDialog": {
+      "title": "Onayla",
+      "message": "Gelecekteki güncellemeler için kapatmak ve bir daha göstermemek istediğinizden emin misiniz? Bu açılır pencereyi her zaman ayarlar sayfasından tekrar etkinleştirebilirsiniz.",
+      "cancel": "İptal",
+      "confirm": "Anladım"
+    },
+    "dismiss": "Kapat"
+  }
+}

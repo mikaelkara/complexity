@@ -1,0 +1,12 @@
+{
+  "headerButtons": {
+    "wrap": {
+      "wrap": "Satırları kaydır",
+      "unwrap": "Satırları kaydırma"
+    },
+    "expand": {
+      "expand": "Genişlet",
+      "collapse": "Daralt"
+    }
+  }
+}

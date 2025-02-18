@@ -1,0 +1,10 @@
+{
+  "dialog": {
+    "header": "Oturum zaman aşımı",
+    "description": "Oturumunuzun süresi doldu (muhtemelen Cloudflare nedeniyle).",
+    "buttons": {
+      "reload": "Yenile",
+      "dismiss": "Kapat"
+    }
+  }
+}

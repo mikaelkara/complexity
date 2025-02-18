@@ -1,0 +1,31 @@
+{
+  "focusSelector": {
+    "tooltip": "Odak: {{mode}}",
+    "modes": {
+      "internet": "Web",
+      "writing": "Yazma",
+      "scholar": "Akademik",
+      "wolfram": "Matematik",
+      "youtube": "Video",
+      "reddit": "Sosyal"
+    },
+    "descriptions": {
+      "internet": "Tüm internette arama yap",
+      "writing": "Web'de arama yapmadan metin oluştur veya sohbet et",
+      "scholar": "Yayınlanmış akademik makalelerde ara",
+      "wolfram": "Denklemleri çöz ve sayısal cevaplar bul",
+      "youtube": "Videoları keşfet ve izle",
+      "reddit": "Tartışmaları ve görüşleri ara"
+    }
+  },
+  "focusWebRecencySelector": {
+    "tooltip": "Zaman Aralığı: {{mode}}",
+    "modes": {
+      "all": "Tüm zamanlar",
+      "last24Hours": "Bugün",
+      "lastWeek": "Son hafta",
+      "lastMonth": "Son ay",
+      "lastYear": "Son yıl"
+    }
+  }
+}

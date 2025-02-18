@@ -1,0 +1,9 @@
+{
+  "copyButton": {
+    "tooltip": "Mesajı Kopyala",
+    "options": {
+      "default": "Varsayılan",
+      "withoutCitations": "Alıntılar olmadan"
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "exportButton": {
+    "action": "Dışa Aktar",
+    "copied": "Kopyalandı",
+    "format": {
+      "label": "Format seçin",
+      "placeholder": "Bir format seçin"
+    },
+    "includeCitations": "Alıntıları dahil et",
+    "actions": {
+      "download": "İndir",
+      "copy": "Kopyala"
+    },
+    "errors": {
+      "downloadFailed": {
+        "title": "❌ İndirme başarısız",
+        "unknownError": "Bilinmeyen bir hata oluştu"
+      }
+    }
+  }
+}
