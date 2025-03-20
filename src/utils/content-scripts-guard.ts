@@ -1,6 +1,5 @@
 import { sendMessage } from "webext-bridge/content-script";
 
-import { removeInitializingIndicator } from "@/components/loading-indicator";
 import { ExtensionLocalStorageService } from "@/services/extension-local-storage";
 
 export function contentScriptGuard() {
@@ -14,7 +13,6 @@ export function contentScriptGuard() {
     checkForExistingExtensionInstance();
   } catch (error) {
     removePreloadedTheme();
-    removeInitializingIndicator();
     throw error;
   }
 }

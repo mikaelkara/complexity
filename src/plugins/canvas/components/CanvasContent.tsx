@@ -8,6 +8,7 @@ import { CANVAS_INITIAL_STATE } from "@/plugins/canvas/canvases";
 import CanvasCodeView from "@/plugins/canvas/components/CodeView";
 import CanvasPreview from "@/plugins/canvas/components/Preview";
 import { useCanvasStore } from "@/plugins/canvas/store";
+import { PPLX_SCROLLBAR_CLASSES } from "@/utils/pplx-scrollbar-classes";
 
 export default function CanvasContent() {
   const selectedCodeBlockLocation = useCanvasStore(
@@ -36,15 +37,15 @@ export default function CanvasContent() {
           ? "code"
           : canvasViewMode
       }
-      className="custom-scrollbar x-size-full x-overflow-auto"
+      className={cn(PPLX_SCROLLBAR_CLASSES, "x:size-full x:overflow-auto")}
     >
-      <TabsContent value="code" className="x-size-full">
+      <TabsContent value="code" className="x:size-full">
         <CanvasCodeView />
       </TabsContent>
       <TabsContent
         value="preview"
-        className={cn("x-size-full", {
-          "x-hidden":
+        className={cn("x:size-full", {
+          "x:hidden":
             isInFlight && CANVAS_INITIAL_STATE[language] !== "preview",
         })}
       >

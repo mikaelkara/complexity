@@ -27,7 +27,7 @@ export default function CanvasSimpleModeRenderButton() {
     <CsUiPluginsGuard desktopOnly dependentPluginIds={["thread:canvas"]}>
       <Tooltip content="Render in Canvas">
         <div
-          className="x-cursor-pointer x-text-muted-foreground x-transition-colors hover:x-text-foreground"
+          className="x:cursor-pointer x:text-muted-foreground x:transition-colors x:hover:text-foreground"
           onClick={() => {
             canvasStore.setState((draft) => {
               draft.selectedCodeBlockLocation = {
@@ -38,7 +38,7 @@ export default function CanvasSimpleModeRenderButton() {
             });
           }}
         >
-          <LuPlay className="x-size-4" />
+          <LuPlay className="x:size-4" />
         </div>
       </Tooltip>
     </CsUiPluginsGuard>

@@ -1,64 +1,38 @@
-import Tooltip from "@/components/Tooltip";
+import ProSearchIcon from "@/components/icons/ProSearchIcon";
 import { Switch } from "@/components/ui/switch";
-import {
-  isFastLanguageModelCode,
-  isReasoningLanguageModelCode,
-} from "@/data/plugins/query-box/language-model-selector/language-models.types";
-import usePplxUserSettings from "@/hooks/usePplxUserSettings";
-import { useSharedQueryBoxStore } from "@/plugins/_core/ui-groups/query-box/shared-store";
+import { LanguageModelSelectorContext } from "@/plugins/language-model-selector/context";
 
-export default function ProSearchSwitch({
-  setHighlightedItem,
-}: {
-  setHighlightedItem: (item: string) => void;
-}) {
-  const { selectedLanguageModel } = useSharedQueryBoxStore((store) => ({
-    selectedLanguageModel: store.selectedLanguageModel,
-  }));
+export default function ProSearchSwitch() {
+  const context = use(LanguageModelSelectorContext);
 
-  const { isProSearchEnabled, setIsProSearchEnabled } = useSharedQueryBoxStore(
-    (store) => ({
-      isProSearchEnabled: store.isProSearchEnabled,
-      setIsProSearchEnabled: store.setIsProSearchEnabled,
-    }),
-  );
+  if (!context) throw new Error("LanguageModelSelectorContext not found");
 
-  const { data: userSettings } = usePplxUserSettings();
-
-  const handleToggleOff = useCallback(
-    (checked: boolean) => {
-      if (checked) return;
-
-      if (!isReasoningLanguageModelCode(selectedLanguageModel)) return;
-
-      if (
-        userSettings?.default_model == null ||
-        !isFastLanguageModelCode(userSettings?.default_model)
-      )
-        return;
-
-      setHighlightedItem(userSettings?.default_model);
-    },
-    [selectedLanguageModel, setHighlightedItem, userSettings?.default_model],
-  );
+  const { isProSearchEnabled, setIsProSearchEnabled } = context;
 
   return (
-    <Tooltip
-      content={t(
-        "plugin-model-selectors:languageModelSelector.proSearch.tooltip",
-      )}
-      positioning={{
-        placement: "right",
+    <div
+      className="x:flex x:w-full x:cursor-pointer x:items-start x:justify-between x:gap-8 x:rounded-md x:p-2 x:transition-all x:hover:bg-primary-foreground"
+      onClick={() => {
+        setIsProSearchEnabled(!isProSearchEnabled);
       }}
     >
-      <Switch
-        checked={isProSearchEnabled}
-        textLabel="Pro Search"
-        onCheckedChange={({ checked }) => {
-          setIsProSearchEnabled(checked);
-          handleToggleOff(checked);
-        }}
-      />
-    </Tooltip>
+      <div
+        className={cn(
+          "x:flex x:items-start x:gap-2 x:transition-all",
+          isProSearchEnabled && "x:text-primary",
+        )}
+      >
+        <ProSearchIcon className="x:mt-0.5 x:size-3.5" />
+        <div className="x:flex x:flex-col x:gap-y-0.5">
+          <div className="x:text-sm x:font-medium">Pro</div>
+          <div className="x:text-xs x:text-muted-foreground">
+            {t(
+              "plugin-model-selectors:languageModelSelector.proSearch.tooltip",
+            )}
+          </div>
+        </div>
+      </div>
+      <Switch size="sm" checked={isProSearchEnabled} />
+    </div>
   );
 }

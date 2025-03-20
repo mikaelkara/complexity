@@ -15,7 +15,6 @@ export default function SlashCommandMenuWrapper({
 }: SlashCommandMenuWrapperProps) {
   const { store } = useScopedQueryBoxContext();
 
-  const isMainQueryBox = store.type === "main";
   const isActive = UiUtils.getActiveQueryBox()[0] === anchor;
 
   const { isOpen } = useSlashCommandMenuStore();
@@ -29,9 +28,21 @@ export default function SlashCommandMenuWrapper({
 
   if (!anchor || !document.contains(anchor) || !isActive) return null;
 
-  if (isMainQueryBox) {
-    $(anchor).find(">div").toggleClass("[&>div]:!x-rounded-t-none", isOpen);
-  }
+  useEffect(() => {
+    $(anchor)
+      .find(">div>div")
+      .toggleClass(
+        cn({
+          "x:!rounded-t-none":
+            (popover.getContentProps() as any)?.["data-placement"] ===
+            "top-start",
+          "x:!rounded-b-none":
+            (popover.getContentProps() as any)?.["data-placement"] ===
+            "bottom-start",
+        }),
+        isOpen,
+      );
+  }, [isOpen, anchor, popover]);
 
   return (
     <PopoverRootProvider value={popover} unmountOnExit={true} lazyMount={true}>

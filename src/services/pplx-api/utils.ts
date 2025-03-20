@@ -1,4 +1,4 @@
-import { InternalWebSocketManager } from "@/plugins/_api/web-socket/internal-web-socket-manager";
+import { internalWebSocketStore } from "@/plugins/_core/web-socket/store";
 import { ENDPOINTS } from "@/services/pplx-api/endpoints";
 
 export async function saveSettingViaFetch(settings: Record<string, unknown>) {
@@ -19,9 +19,9 @@ export async function saveSettingViaWebSocket(
   settings: Record<string, unknown>,
 ) {
   try {
-    await InternalWebSocketManager.getInstance().sendMessageWithAck({
-      data: ["save_user_settings", settings],
-    });
+    await internalWebSocketStore
+      .getState()
+      .common?.emitWithAck("save_user_settings", settings);
     return true;
   } catch (e) {
     alert("Failed to save setting");

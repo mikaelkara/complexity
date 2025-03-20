@@ -29,6 +29,8 @@ export const LOADER_IDS = [
 
   "plugins:core",
 
+  "plugin:cookiesNormalization",
+
   "plugin:pplxThemeLoader",
 
   "plugin:hideGetMobileAppCtaBtn",
@@ -38,23 +40,25 @@ export const LOADER_IDS = [
   "plugin:thread:canvas:resetOpenStateOnRouteChange",
   "plugin:thread:canvas:codeBlockPlaceholdersData",
   "plugin:thread:dragAndDropFileToUploadInThread",
+  "plugin:thread:rawHeadings",
   "plugin:thread:collapseEmptyThreadVisualCols",
   "plugin:thread:betterMessageToolbars:explicitModelName",
   "plugin:thread:betterMessageToolbars:messageWordsAndCharactersCount",
-  "plugin:thread:betterMessageToolbars:collapsibleQuery",
-  "plugin:thread:instantRewriteButton:nativeBtnBind",
   "plugin:thread:customThreadContainerWidth",
+
   "plugin:spaceNavigator:networkInterceptMiddleware",
+
   "plugin:queryBox:initSharedStore",
   "plugin:queryBox:languageModelSelector:respectSpaceModel",
+  "plugin:queryBox:languageModelSelector:syncNativeModelSelector",
   "plugin:queryBox:promptHistory:networkInterceptMiddleware",
   "plugin:queryBox:promptHistory:listeners",
   "plugin:queryBox:noFileCreationOnPaste",
   "plugin:queryBox:submitOnCtrlEnter",
   "plugin:queryBox:fullWidthFollowUp",
+
   "plugin:home:customSlogan",
   "plugin:home:hideHomepageWidgets",
-  "plugin:thread:rawHeadings",
 
   "store:colorScheme",
   "store:pplxCookies",
@@ -159,9 +163,22 @@ class CsLoaderRegistry {
 
   async executeAll(): Promise<void> {
     const registeredLoaders = Array.from(this.loaderMap.keys());
+    // const timings: Record<string, number> = {};
+
     for (const loaderId of registeredLoaders) {
+      // const start = performance.now();
       await this.loadLoader(loaderId);
+      // timings[loaderId] = performance.now() - start;
     }
+
+    // const sortedLoaders = Object.entries(timings)
+    //   .sort(([, a], [, b]) => b - a)
+    //   .map(([id, time]) => ({
+    //     id,
+    //     time: Math.round(time),
+    //   }));
+
+    // console.table(sortedLoaders);
   }
 }
 

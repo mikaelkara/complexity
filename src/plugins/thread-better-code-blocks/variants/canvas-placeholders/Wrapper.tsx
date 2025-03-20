@@ -33,9 +33,9 @@ const CanvasPlaceholderWrapper = memo(function CanvasPlaceholderWrapper() {
   return (
     <div
       className={cn(
-        "x-group x-my-4 x-flex x-w-max x-cursor-pointer x-select-none x-items-center x-divide-x-2 x-divide-border/50 x-overflow-hidden x-rounded-lg x-border x-border-border/50 x-bg-secondary x-transition-all hover:x-border-primary",
+        "x:group x:my-4 x:flex x:w-max x:cursor-pointer x:items-center x:divide-x-2 x:divide-border/50 x:overflow-hidden x:rounded-lg x:border x:border-border/50 x:bg-secondary x:transition-all x:select-none x:hover:border-primary",
         {
-          "x-border-primary": isSelected,
+          "x:border-primary": isSelected,
         },
       )}
       onClick={() => {
@@ -51,32 +51,32 @@ const CanvasPlaceholderWrapper = memo(function CanvasPlaceholderWrapper() {
     >
       <div
         className={cn(
-          "x-group-hover:x-bg-primary/10 x-flex x-size-16 x-items-center x-justify-center",
+          "x:flex x:size-16 x:items-center x:justify-center x:group-hover:bg-primary/10",
           {
-            "x-bg-primary/10": isSelected,
+            "x:bg-primary/10": isSelected,
           },
         )}
       >
         {codeBlock?.states.isInFlight ? (
-          <LuLoaderCircle className="x-size-4 x-animate-spin x-text-muted-foreground" />
+          <LuLoaderCircle className="x:size-4 x:animate-spin x:text-muted-foreground" />
         ) : (
-          <placeholderElements.icon className="x-size-8" />
+          <placeholderElements.icon className="x:size-8" />
         )}
       </div>
-      <div className="x-flex x-max-w-[300px] x-flex-col x-border-l x-bg-background x-px-4 x-py-2">
+      <div className="x:flex x:max-w-[300px] x:flex-col x:bg-background x:px-4 x:py-2">
         <div
           className={cn(
-            "x-line-clamp-1 x-text-base x-text-foreground x-transition-all group-hover:x-text-primary",
+            "x:line-clamp-1 x:text-base x:text-foreground x:transition-all x:group-hover:text-primary",
             {
-              "x-text-primary": isSelected,
+              "x:text-primary": isSelected,
             },
           )}
         >
           {title.length > 0 ? title : placeholderElements.defaultTitle}
         </div>
-        <div className="x-w-max x-text-sm x-text-muted-foreground">
+        <div className="x:w-max x:text-sm x:text-muted-foreground">
           {codeBlock?.states.isInFlight ? (
-            <span className="x-animate-pulse">Generating...</span>
+            <span className="x:animate-pulse">Generating...</span>
           ) : (
             placeholderElements.description
           )}

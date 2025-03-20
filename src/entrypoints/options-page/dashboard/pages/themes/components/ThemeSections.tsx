@@ -39,7 +39,7 @@ function ThemesGrid({
   type: "local" | "built-in";
 }) {
   return (
-    <div className="x-grid x-grid-cols-1 x-gap-4 md:x-grid-cols-2 lg:x-grid-cols-3 xl:x-grid-cols-4">
+    <div className="x:grid x:grid-cols-1 x:gap-4 x:md:grid-cols-2 x:lg:grid-cols-3 x:xl:grid-cols-4">
       {themes.map((theme) => (
         <ThemeCard key={theme.id} theme={theme} type={type} />
       ))}
@@ -66,19 +66,19 @@ function MobileThemeSections({
       </TabsList>
 
       {builtInThemes.length > 0 && (
-        <TabsContent value="built-in" className="x-mt-4">
+        <TabsContent value="built-in" className="x:mt-4">
           <ThemesGrid themes={builtInThemes} type="built-in" />
         </TabsContent>
       )}
 
       {localThemes.length > 0 && (
-        <TabsContent value="local" className="x-mt-4">
+        <TabsContent value="local" className="x:mt-4">
           <ThemesGrid themes={localThemes} type="local" />
         </TabsContent>
       )}
 
-      <TabsContent value="community" className="x-mt-4">
-        <div className="x-text-muted-foreground">Coming soon</div>
+      <TabsContent value="community" className="x:mt-4">
+        <div className="x:text-muted-foreground">Coming soon</div>
       </TabsContent>
     </Tabs>
   );
@@ -89,24 +89,24 @@ function DesktopThemeSections({
   localThemes,
 }: ThemeSectionsProps) {
   return (
-    <div className="x-flex x-flex-col x-gap-8">
+    <div className="x:flex x:flex-col x:gap-8">
       {localThemes.length > 0 && (
         <section>
-          <h2 className="x-mb-4 x-text-lg x-font-semibold">Local Themes</h2>
+          <h2 className="x:mb-4 x:text-lg x:font-semibold">Local Themes</h2>
           <ThemesGrid themes={localThemes} type="local" />
         </section>
       )}
 
       {builtInThemes.length > 0 && (
         <section>
-          <h2 className="x-mb-4 x-text-lg x-font-semibold">Built-in Themes</h2>
+          <h2 className="x:mb-4 x:text-lg x:font-semibold">Built-in Themes</h2>
           <ThemesGrid themes={builtInThemes} type="built-in" />
         </section>
       )}
 
       <section>
-        <h2 className="x-mb-4 x-text-lg x-font-semibold">Community Themes</h2>
-        <div className="x-text-muted-foreground">Coming soon</div>
+        <h2 className="x:mb-4 x:text-lg x:font-semibold">Community Themes</h2>
+        <div className="x:text-muted-foreground">Coming soon</div>
       </section>
     </div>
   );

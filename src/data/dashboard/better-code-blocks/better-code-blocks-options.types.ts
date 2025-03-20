@@ -6,6 +6,7 @@ export const BetterCodeBlockGlobalOptionsSchema = z.object({
     enabled: z.boolean(),
     showToggleButton: z.boolean(),
   }),
+  showLineNumbers: z.boolean(),
   maxHeight: z.object({
     enabled: z.boolean(),
     collapseByDefault: z.boolean(),

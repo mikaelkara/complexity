@@ -1,6 +1,8 @@
-body#__next .x-prose,
-.x-prose {
+@reference "./index.css";
+
+body#__next .x\:prose,
+.x\:prose {
   code:not(pre code) {
-    @apply x-relative x-inline-block x-rounded x-bg-muted x-px-[0.3rem] x-py-[0.2rem] x-font-mono x-text-sm x-font-semibold;
+    @apply x:relative x:inline-block x:rounded x:bg-muted x:px-[0.3rem] x:py-[0.2rem] x:font-mono x:text-sm x:font-semibold;
   }
 }

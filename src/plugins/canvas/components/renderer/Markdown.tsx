@@ -1,7 +1,4 @@
-import ReactMarkdown from "react-markdown";
-import rehypeRaw from "rehype-raw";
-import remarkGfm from "remark-gfm";
-
+import MarkdownRendererComponent from "@/components/MarkdownRenderer";
 import useThreadCodeBlock from "@/plugins/_core/dom-observers/thread/code-blocks/hooks/useThreadCodeBlock";
 import { useCanvasStore } from "@/plugins/canvas/store";
 
@@ -18,10 +15,8 @@ export default function MarkdownRenderer() {
   const code = selectedCodeBlock?.content.code;
 
   return (
-    <div className="x-prose x-mx-auto x-p-4 x-py-8 dark:x-prose-invert">
-      <ReactMarkdown remarkPlugins={[remarkGfm]} rehypePlugins={[rehypeRaw]}>
-        {code}
-      </ReactMarkdown>
+    <div className="x:mx-auto x:prose x:p-4 x:py-8 x:dark:prose-invert">
+      <MarkdownRendererComponent markdown={code ?? ""} />
     </div>
   );
 }

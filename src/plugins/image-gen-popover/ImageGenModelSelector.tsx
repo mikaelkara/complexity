@@ -16,6 +16,7 @@ import usePplxUserSettings from "@/hooks/usePplxUserSettings";
 import { useImageGenModelSelectorStore } from "@/plugins/image-gen-popover/store";
 import { isReactNode } from "@/types/utils.types";
 import { TEST_ID_SELECTORS } from "@/utils/dom-selectors";
+import { PPLX_SCROLLBAR_CLASSES } from "@/utils/pplx-scrollbar-classes";
 
 export default function ImageGenModelSelector() {
   const { data: pplxUserSettings } = usePplxUserSettings();
@@ -40,7 +41,7 @@ export default function ImageGenModelSelector() {
       collection={createListCollection({
         items: imageGenModels.map((model) => model.code),
       })}
-      className="x-mb-4 x-ml-auto x-w-fit"
+      className="x:mb-4 x:ml-auto x:w-fit"
       value={[value]}
       onValueChange={handleValueChange}
     >
@@ -51,18 +52,23 @@ export default function ImageGenModelSelector() {
         }}
       >
         <SelectTrigger variant="ghost">
-          <div className="x-flex x-min-h-8 x-items-center x-justify-center x-gap-1">
-            <Image className="x-size-4" />
-            <SelectValue className="x-font-medium">
+          <div className="x:flex x:min-h-8 x:items-center x:justify-center x:gap-1">
+            <Image className="x:size-4" />
+            <SelectValue className="x:font-medium">
               {imageGenModels.find((model) => model.code === value)?.shortLabel}
             </SelectValue>
-            <span className="x-self-start x-text-[.5rem] x-text-primary">
+            <span className="x:self-start x:text-[.5rem] x:text-primary">
               {limit}
             </span>
           </div>
         </SelectTrigger>
       </Tooltip>
-      <SelectContent className="custom-scrollbar x-max-h-[500px] x-max-w-[200px] x-overflow-auto x-font-sans">
+      <SelectContent
+        className={cn(
+          PPLX_SCROLLBAR_CLASSES,
+          "x:max-h-[500px] x:max-w-[200px] x:overflow-auto x:font-sans",
+        )}
+      >
         {imageGenModels.map((model) => {
           const Icon = imageGenModelIcons[model.code];
           return (
@@ -77,20 +83,20 @@ export default function ImageGenModelSelector() {
               <SelectItem
                 key={model.code}
                 item={model.code}
-                className="x-font-medium"
+                className="x:font-medium"
                 onClick={(e) => {
                   e.stopPropagation();
                 }}
               >
-                <div className="x-flex x-max-w-full x-items-center x-justify-around x-gap-2">
+                <div className="x:flex x:max-w-full x:items-center x:justify-around x:gap-2">
                   {isReactNode(<Icon />) ? (
-                    <div className="x-text-[1.1rem]">
-                      <Icon className="x-size-4" />
+                    <div className="x:text-[1.1rem]">
+                      <Icon className="x:size-4" />
                     </div>
                   ) : (
-                    <Cpu className="x-size-4" />
+                    <Cpu className="x:size-4" />
                   )}
-                  <span className="x-truncate">{model.label}</span>
+                  <span className="x:truncate">{model.label}</span>
                 </div>
               </SelectItem>
             </Tooltip>

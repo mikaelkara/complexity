@@ -1,4 +1,3 @@
-import { useCallback } from "react";
 import { LuCheck, LuLoaderCircle } from "react-icons/lu";
 
 import AsyncButton from "@/components/AsyncButton";
@@ -29,9 +28,9 @@ export default function ExportDataButtons() {
     const settings = await getExportData();
     await navigator.clipboard.writeText(settings);
     toggleCopyButtonText(
-      <div className="x-flex x-items-center x-gap-2">
+      <div className="x:flex x:items-center x:gap-2">
         <LuCheck />
-        <span>Copied</span>
+        <span className="x:text-sm">Copied</span>
       </div>,
     );
   }, [getExportData, toggleCopyButtonText]);
@@ -60,13 +59,13 @@ export default function ExportDataButtons() {
   }, [getExportData]);
 
   return (
-    <div className="x-flex x-gap-4">
+    <div className="x:flex x:gap-4">
       <AsyncButton
         variant="outline"
         loadingText={
-          <div className="x-flex x-items-center x-gap-2">
-            <LuLoaderCircle className="x-animate-spin" />
-            <span>Exporting</span>
+          <div className="x:flex x:items-center x:gap-2">
+            <LuLoaderCircle className="x:animate-spin" />
+            <span className="x:text-sm">Exporting</span>
           </div>
         }
         onClick={handleCopy}

@@ -1,3 +1,5 @@
+import { useSyncExternalStore } from "react";
+
 import { useThreadMessageBlocksDomObserverStore } from "@/plugins/_core/dom-observers/thread/message-blocks/store";
 
 type TocItem = {
@@ -7,30 +9,82 @@ type TocItem = {
   isActive?: boolean;
 };
 
-export function useThreadTocItems() {
-  const [tocItems, setTocItems] = useState<TocItem[]>([]);
-  const observerRef = useRef<IntersectionObserver | null>(null);
-  const activeItemIdRef = useRef<string | null>(null);
+type MessageBlock = {
+  nodes: {
+    $wrapper: JQuery<Element>;
+  };
+  content: {
+    title: string;
+  };
+};
 
-  const messageBlocks = useThreadMessageBlocksDomObserverStore(
-    (state) => state.messageBlocks,
-    deepEqual,
-  );
+type TocStore = {
+  items: TocItem[];
+  activeId: string | null;
+  observer: IntersectionObserver | null;
+};
 
-  useEffect(() => {
+const createTocStore = () => {
+  const state: TocStore = {
+    items: [],
+    activeId: null,
+    observer: null,
+  };
+
+  let lastMessageBlocks: MessageBlock[] | null = null;
+
+  const listeners = new Set<() => void>();
+
+  const getSnapshot = () => {
+    const messageBlocks =
+      useThreadMessageBlocksDomObserverStore.getState().messageBlocks;
+
+    if (!deepEqual(messageBlocks, lastMessageBlocks)) {
+      lastMessageBlocks = messageBlocks;
+      updateItems(messageBlocks);
+    }
+
+    return state.items;
+  };
+
+  const subscribe = (listener: () => void) => {
+    listeners.add(listener);
+
+    const unsubscribeMessageBlocks =
+      useThreadMessageBlocksDomObserverStore.subscribe(listener);
+
+    return () => {
+      listeners.delete(listener);
+      unsubscribeMessageBlocks();
+
+      if (listeners.size === 0 && state.observer) {
+        state.observer.disconnect();
+        state.observer = null;
+      }
+    };
+  };
+
+  const notify = () => {
+    listeners.forEach((listener) => listener());
+  };
+
+  const updateItems = (messageBlocks: MessageBlock[] | null) => {
     if (!messageBlocks) return;
+
+    if (state.observer) {
+      state.observer.disconnect();
+    }
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            activeItemIdRef.current = entry.target.id;
-            setTocItems((prev) =>
-              prev.map((item) => ({
-                ...item,
-                isActive: item.id === entry.target.id,
-              })),
-            );
+            state.activeId = entry.target.id;
+            state.items = state.items.map((item) => ({
+              ...item,
+              isActive: item.id === entry.target.id,
+            }));
+            notify();
           }
         });
       },
@@ -40,27 +94,34 @@ export function useThreadTocItems() {
       },
     );
 
-    observerRef.current = observer;
+    state.observer = observer;
 
-    setTocItems((prevTocItems) =>
-      messageBlocks.map(({ nodes: { $wrapper }, content: { title } }, idx) => {
+    state.items = messageBlocks.map(
+      ({ nodes: { $wrapper }, content: { title } }, idx: number) => {
         const id = `toc-item-${idx}`;
         $wrapper.attr("id", id);
         observer.observe($wrapper[0]);
 
         return {
           id,
-          title: title.length > 0 ? title : (prevTocItems[idx]?.title ?? ""),
+          title: title.length > 0 ? title : (state.items[idx]?.title ?? ""),
           element: $wrapper,
-          isActive: id === activeItemIdRef.current,
+          isActive: id === state.activeId,
         };
-      }),
+      },
     );
 
-    return () => {
-      observer.disconnect();
-    };
-  }, [messageBlocks]);
+    notify();
+  };
 
-  return tocItems;
+  return {
+    subscribe,
+    getSnapshot,
+  };
+};
+
+const tocStore = createTocStore();
+
+export function useThreadTocItems() {
+  return useSyncExternalStore(tocStore.subscribe, tocStore.getSnapshot);
 }

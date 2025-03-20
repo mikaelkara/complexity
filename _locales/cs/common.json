@@ -19,8 +19,9 @@
     "characters": "znaků",
     "expand": "Rozbalit",
     "collapse": "Sbalit",
-    "instantRewriteShort": "Přepsat",
-    "instantRewrite": "Přepsat stejným modelem"
+    "rewrite": "Přepsat",
+    "speakAloud": "Přečíst nahlas",
+    "stop": "Zastavit"
   },
   "releaseNotes": {
     "title": "Aktualizováno na v{{version}}",

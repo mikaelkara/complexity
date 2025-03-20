@@ -15,17 +15,18 @@ export const LanguageModelSchema = z.object({
   isReasoningModel: z.boolean(),
   limitKey: z.string().optional(),
   description: z.string().optional(),
+  hideFromList: z.boolean().optional(),
 });
 
 export type LanguageModel = z.infer<typeof LanguageModelSchema>;
 
 export type LanguageModelCode =
   | (typeof localLanguageModels)[number]["code"]
-  | (string & {});
+  | (string & Record<string, unknown>);
 
 export type LanguageModelProvider =
   | (typeof localLanguageModels)[number]["provider"]
-  | (string & {});
+  | (string & Record<string, unknown>);
 
 export function isLanguageModelCode(
   value: string,

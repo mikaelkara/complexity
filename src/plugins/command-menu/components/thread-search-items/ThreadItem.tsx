@@ -19,7 +19,7 @@ export function ThreadItem({ thread }: ThreadItemProps) {
       key={thread.slug}
       asChild
       value={thread.slug}
-      className="x-flex x-h-10 x-items-center x-justify-between x-gap-8 x-font-medium"
+      className="x:flex x:h-10 x:items-center x:justify-between x:gap-8 x:font-medium"
       onSelect={() => {
         if (isHotkeyPressed("ctrl"))
           return window.open(`/search/${thread.slug}`, "_blank");
@@ -37,16 +37,16 @@ export function ThreadItem({ thread }: ThreadItemProps) {
     >
       <a
         href={`/search/${thread.slug}`}
-        className="x-flex x-w-full x-items-center x-justify-between"
+        className="x:flex x:w-full x:items-center x:justify-between"
       >
-        <div className="x-flex-1">
-          <div className="x-line-clamp-1" title={thread.title}>
+        <div className="x:flex-1">
+          <div className="x:line-clamp-1" title={thread.title}>
             {thread.title.slice(0, 100)}
           </div>
         </div>
-        <div className="x-flex x-flex-shrink-0 x-items-center x-gap-2">
+        <div className="x:flex x:flex-shrink-0 x:items-center x:gap-2">
           <SpacePreview thread={thread} />
-          <div className="x-flex-shrink-0 x-text-xs x-text-muted-foreground">
+          <div className="x:flex-shrink-0 x:text-xs x:text-muted-foreground">
             {formatHowLongAgo(thread.last_query_datetime)}
           </div>
         </div>

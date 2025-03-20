@@ -5,6 +5,7 @@ import type { MarkmapRendererEvents as MarkmapRendererEventHandlers } from "@/pl
 import type { MermaidRendererEvents as MermaidRendererEventHandlers } from "@/plugins/_core/mermaid-renderer/listeners";
 import type { InterceptorsEvents as NetworkInterceptInterceptorsEventHandlers } from "@/plugins/_core/network-intercept/listeners";
 import type { ReactVdomEvents as ReactVdomEventHandlers } from "@/plugins/_core/react-vdom/listeners";
+
 export type AllEventHandlers = BackgroundEventHandlers &
   NetworkInterceptInterceptorsEventHandlers &
   SpaRouterCsUtilEventHandlers &

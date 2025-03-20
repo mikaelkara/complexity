@@ -19,8 +19,9 @@
     "characters": "문자",
     "expand": "펼치기",
     "collapse": "접기",
-    "instantRewriteShort": "다시 쓰기",
-    "instantRewrite": "동일한 모델로 다시 쓰기"
+    "rewrite": "다시 쓰기",
+    "speakAloud": "소리내어 읽기",
+    "stop": "정지"
   },
   "releaseNotes": {
     "title": "v{{version}}로 업데이트됨",

@@ -27,35 +27,35 @@ export default function ReleaseNotesPage() {
   });
 
   return (
-    <div className="x-flex x-flex-col x-gap-4">
-      <div className="x-flex x-flex-col x-gap-2">
-        <h1 className="x-text-2xl x-font-bold">Release Notes</h1>
-        <p className="x-text-sm x-text-muted-foreground">
+    <div className="x:flex x:flex-col x:gap-4">
+      <div className="x:flex x:flex-col x:gap-2">
+        <h1 className="x:text-2xl x:font-bold">Release Notes</h1>
+        <p className="x:text-sm x:text-muted-foreground">
           Stay up to date with the latest changes and features.
         </p>
       </div>
-      <div className="x-flex x-items-center x-gap-4">
+      <div className="x:flex x:items-center x:gap-4">
         {hasPrev && (
           <Button variant="outline" size="sm" onClick={goToPrev}>
-            <LuChevronLeft className="x-size-4" />
+            <LuChevronLeft className="x:size-4" />
           </Button>
         )}
-        <div className="x-text-2xl x-font-semibold">{currentVersion}</div>
+        <div className="x:text-2xl x:font-semibold">{currentVersion}</div>
         {hasNext && (
           <Button variant="outline" size="sm" onClick={goToNext}>
-            <LuChevronRight className="x-size-4" />
+            <LuChevronRight className="x:size-4" />
           </Button>
         )}
       </div>
       <div
         className={cn(
-          "x-flex x-max-w-screen-xl x-flex-col x-flex-wrap x-gap-4",
-          isPlaceholderData && "x-opacity-50",
+          "x:flex x:max-w-screen-xl x:flex-col x:flex-wrap x:gap-4",
+          isPlaceholderData && "x:opacity-50",
         )}
       >
         {isLoading && (
-          <div className="x-flex x-items-center x-gap-2">
-            <LuLoaderCircle className="x-size-4 x-animate-spin" />
+          <div className="x:flex x:items-center x:gap-2">
+            <LuLoaderCircle className="x:size-4 x:animate-spin" />
             <span>Loading...</span>
           </div>
         )}

@@ -28,12 +28,12 @@ export const CommandSearchInput = memo(function CommandSearchInput() {
     }
   };
 
-  const inputClassName = cn("x-grow x-border-none", {
-    "x-font-medium": !searchValue,
+  const inputClassName = cn("x:grow x:border-none", {
+    "x:font-medium": !searchValue,
   });
 
   return (
-    <div className="x-flex x-items-center x-border-b x-border-border/50">
+    <div className="x:flex x:items-center x:border-b x:border-border/50">
       <SearchFilterBadge />
       <CommandInput
         ref={ref}

@@ -7,7 +7,7 @@ const Label = ({
   return (
     <label
       className={cn(
-        "x-text-sm x-font-medium x-leading-none peer-disabled:x-cursor-not-allowed peer-disabled:x-opacity-70",
+        "x:text-sm x:leading-none x:font-medium x:peer-disabled:cursor-not-allowed x:peer-disabled:opacity-70",
         className,
       )}
       {...props}

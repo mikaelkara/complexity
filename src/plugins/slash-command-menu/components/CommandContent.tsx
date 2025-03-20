@@ -16,7 +16,6 @@ import {
   useSlashCommandMenuFilter,
 } from "@/plugins/slash-command-menu/store";
 import { useCommandFilter } from "@/plugins/slash-command-menu/useCommandFilter";
-import { getPopoverContentClasses } from "@/plugins/slash-command-menu/utils";
 
 type CommandContentProps = {
   commandRef: React.RefObject<HTMLDivElement | null>;
@@ -57,7 +56,13 @@ export const CommandContent = memo((props: CommandContentProps) => {
   return (
     <PopoverContent
       ref={props.commandRef}
-      className={getPopoverContentClasses(storeType)}
+      className={cn(
+        "x:overflow-y-auto x:border-border x:p-0 x:font-medium x:shadow-none",
+        {
+          "x:rounded-b-none x:border-2 x:border-b-0": storeType !== "space",
+          "x:rounded-t-none x:border-2 x:border-t-0": storeType === "space",
+        },
+      )}
       portal={false}
       style={{ width: anchor.clientWidth }}
     >
@@ -65,13 +70,14 @@ export const CommandContent = memo((props: CommandContentProps) => {
         filter={memoizedFilter}
         shouldFilter={shouldFilterItems(filter)}
         value={selectedValue}
-        className={cn("x-bg-background dark:x-bg-secondary", {
-          "x-rounded-b-none": storeType === "main",
+        className={cn("x:bg-background x:dark:bg-secondary", {
+          "x:rounded-b-none": storeType !== "space",
+          "x:rounded-t-none": storeType === "space",
         })}
         onValueChange={handleValueChange}
       >
         <CommandInputHandler {...props} />
-        <CommandList className="x-max-h-[200px] x-p-1">
+        <CommandList className="x:max-h-[200px] x:p-1">
           <CommandEmpty>No results found</CommandEmpty>
           {!filter && <DefaultCommandGroup />}
           {filter === "promptHistory" && <PromptHistorySlashMenuItemsWrapper />}

@@ -44,7 +44,7 @@ export function SpacePreview({ thread }: { thread: ThreadSearchApi }) {
       )}
     >
       <div
-        className="x-rounded-md x-border x-border-border/50 x-bg-secondary x-px-2 x-py-1 x-text-xs x-outline-none focus:x-outline-2 focus:x-outline-primary focus-visible:x-outline-2 focus-visible:x-outline-primary"
+        className="x:rounded-md x:border x:border-border/50 x:bg-secondary x:px-2 x:py-1 x:text-xs x:outline-none x:focus:outline-2 x:focus:outline-primary x:focus-visible:outline-2 x:focus-visible:outline-primary"
         title={thread.collection.title}
         tabIndex={isHighlighted ? 0 : -1}
         onClick={handleChangeFilter}
@@ -54,7 +54,7 @@ export function SpacePreview({ thread }: { thread: ThreadSearchApi }) {
           }
         }}
       >
-        <div className="x-max-w-[100px] x-truncate">
+        <div className="x:max-w-[100px] x:truncate">
           {thread.collection.title}
         </div>
       </div>

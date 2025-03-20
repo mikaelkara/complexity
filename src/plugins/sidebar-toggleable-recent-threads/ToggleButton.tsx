@@ -26,13 +26,13 @@ export default function SidebarToggleableRecentThreadsToggleButton() {
 
     $libraryButtonWrapper
       .find(".group\\/history")
-      .toggleClass("x-hidden", isCollapsed);
+      .toggleClass("x:hidden", isCollapsed);
   }, [$libraryButtonWrapper, isCollapsed, isMobile]);
 
   return (
     <Tooltip content={isCollapsed ? t("misc.expand") : t("misc.collapse")}>
       <div
-        className="x-invisible x-flex x-size-6 x-items-center x-justify-center x-text-foreground x-opacity-0 x-transition-all hover:x-bg-black/5 group-hover:x-visible group-hover:x-opacity-100 dark:hover:x-bg-white/5"
+        className="x:invisible x:flex x:size-6 x:items-center x:justify-center x:text-foreground x:opacity-0 x:transition-all x:group-hover:visible x:group-hover:opacity-100 x:hover:bg-black/5 x:dark:hover:bg-white/5"
         onClick={(e) => {
           e.preventDefault();
           e.stopPropagation();

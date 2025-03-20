@@ -20,29 +20,29 @@ export default function ThemesPagePermissionGuardPage({
   if (hasPermissions) return children;
 
   return (
-    <div className="x-flex x-size-full x-items-center x-justify-center">
-      <div className="x-flex x-flex-col x-items-center x-justify-center x-gap-4">
-        <div className="x-text-balance x-text-center x-text-2xl">
+    <div className="x:flex x:size-full x:items-center x:justify-center">
+      <div className="x:flex x:flex-col x:items-center x:justify-center x:gap-4">
+        <div className="x:text-center x:text-2xl x:text-balance">
           Please allow the extension to use both{" "}
           <InlineCode>scripting</InlineCode> and{" "}
           <InlineCode>webNavigation</InlineCode> permission.
         </div>
         <Tooltip
           content={
-            <div className="x-text-balance x-p-2">
+            <div className="x:p-2 x:text-balance">
               Instead of inserting <InlineCode>&lt;style&gt;</InlineCode> tags,
               Complexity uses <InlineCode>scripting</InlineCode> and{" "}
               <InlineCode>webNavigation</InlineCode> permissions to inject
               styles before the page loads. This results in a smooth,
               flicker-free experience. Complexity{" "}
-              <span className="x-font-semibold x-underline">ONLY</span> uses
+              <span className="x:font-semibold x:underline">ONLY</span> uses
               these permissions for theme injection - it never tracks your
               browsing history or collects any personal data. Please review the
               source code if you have further questions.
             </div>
           }
         >
-          <div className="x-cursor-default x-text-balance x-text-sm x-text-muted-foreground x-underline">
+          <div className="x:cursor-default x:text-sm x:text-balance x:text-muted-foreground x:underline">
             Why?
           </div>
         </Tooltip>

@@ -11,7 +11,7 @@ export default function CanvasPreview({
   if (Component == null) return null;
 
   return (
-    <div className="x-size-full">
+    <div className="x:size-full">
       <Component />
     </div>
   );

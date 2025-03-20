@@ -9,7 +9,7 @@ export default function FullWidthFollowUpQueryBoxPluginDetails() {
   if (!settings) return null;
 
   return (
-    <div className="x-flex x-max-w-lg x-flex-col x-gap-4">
+    <div className="x:flex x:max-w-lg x:flex-col x:gap-4">
       <Switch
         textLabel="Enable"
         checked={pluginSettings?.enabled ?? false}
@@ -20,11 +20,11 @@ export default function FullWidthFollowUpQueryBoxPluginDetails() {
         }}
       />
 
-      <div className="x-mx-auto x-w-full x-max-w-[700px]">
+      <div className="x:mx-auto x:w-full x:max-w-[700px]">
         <Image
           src="https://i.imgur.com/lFqauaw.png"
           alt="full-width-follow-up-query-box"
-          className="x-w-full"
+          className="x:w-full"
         />
       </div>
     </div>

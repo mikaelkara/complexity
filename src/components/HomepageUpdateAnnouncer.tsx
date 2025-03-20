@@ -15,7 +15,7 @@ export default function HomepageUpdateAnnouncer() {
   return (
     <Portal container={$anchor[0]}>
       <ExtensionUpdateInfoDialogWrapper>
-        <div className="x-text-sm x-text-muted-foreground">
+        <div className="x:text-sm x:text-muted-foreground">
           A new version of the extension is available!
         </div>
       </ExtensionUpdateInfoDialogWrapper>

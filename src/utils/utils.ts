@@ -134,7 +134,7 @@ export function getCookie(name: string): string | null {
   for (const cookie of cookies) {
     const trimmedCookie = cookie.trim();
     if (trimmedCookie.startsWith(nameEQ)) {
-      return trimmedCookie.substring(nameEQ.length);
+      return decodeURIComponent(trimmedCookie.substring(nameEQ.length));
     }
   }
 
@@ -343,18 +343,16 @@ export function injectMainWorldScriptBlock({
   });
 }
 
-export function waitForDocumentReady() {
-  return new Promise((resolve) => {
-    if (
-      document.readyState === "complete" &&
-      document.head != null &&
-      document.body != null
-    ) {
-      resolve(null);
-    } else {
-      $(resolve);
-    }
-  });
+export async function waitForDocumentReady() {
+  if (APP_CONFIG.BROWSER === "firefox") {
+    return new Promise((resolve) => {
+      return $(resolve);
+    });
+  }
+
+  while (document.head == null || document.body == null) {
+    await sleep(50);
+  }
 }
 
 export function insertCss({

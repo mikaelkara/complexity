@@ -8,47 +8,123 @@ export function initFetchInterceptor() {
       return originalFetch.call(window, input, init);
     }
 
-    const resp = await sendMessage(
-      "network-intercept:fetchEvent",
-      {
-        event: "request",
-        payload: {
-          url: constructUrl(input),
-          data: init.body,
-        },
-      },
-      "content-script",
-    );
+    const modifiedBody = await interceptRequest(input, init.body);
 
-    if (resp?.data) {
-      init.body = resp.data;
+    if (modifiedBody === "") {
+      return new Response("", { status: 200 });
     }
 
+    init.body = modifiedBody;
+
     const response = await originalFetch.call(window, input, init);
-    const clonedResponse = response.clone();
-    const body = await clonedResponse.text();
+    const url = constructUrl(input);
 
-    await sendMessage(
-      "network-intercept:fetchEvent",
-      {
-        event: "response",
-        payload: {
-          url: constructUrl(input),
-          status: response.status,
-          data: body,
-        },
-      },
-      "content-script",
-    );
+    if (response.headers.get("content-type")?.includes("text/event-stream")) {
+      return handleStreamingResponse(response, url);
+    }
 
-    return response;
+    return handleRegularResponse(response, url);
   };
+}
+
+async function interceptRequest(input: RequestInfo | URL, body: string) {
+  const resp = await sendMessage(
+    "network-intercept:fetchEvent",
+    {
+      event: "request",
+      payload: {
+        url: constructUrl(input),
+        data: body,
+      },
+    },
+    "content-script",
+  );
+
+  return resp?.data;
+}
+
+function parseSSEChunk(chunk: string): { event: string; data: string }[] {
+  const events: { event: string; data: string }[] = [];
+  const eventStrings = chunk.split("\n\n").filter(Boolean);
+
+  for (const eventString of eventStrings) {
+    const lines = eventString.split("\n");
+    let event = "message";
+    let data = "";
+
+    for (const line of lines) {
+      if (line.startsWith("event:")) {
+        event = line.slice(6).trim();
+      } else if (line.startsWith("data:")) {
+        data = line.slice(5).trim();
+      }
+    }
+
+    if (data) {
+      events.push({ event, data });
+    }
+  }
+
+  return events;
+}
+
+function handleStreamingResponse(response: Response, url: string) {
+  const reader = response.body?.getReader();
+  if (!reader) return response;
+
+  const decoder = new TextDecoder();
+
+  return new Response(
+    new ReadableStream({
+      async start(controller) {
+        try {
+          let result = await reader.read();
+          while (!result.done) {
+            const chunk = decoder.decode(result.value, { stream: true });
+            const events = parseSSEChunk(chunk);
+
+            for (const event of events) {
+              await notifyContentScript(url, response.status, event.data);
+            }
+
+            controller.enqueue(result.value);
+            result = await reader.read();
+          }
+          controller.close();
+        } catch (error) {
+          controller.error(error);
+          reader.cancel();
+        }
+      },
+    }),
+    {
+      headers: response.headers,
+      status: response.status,
+      statusText: response.statusText,
+    },
+  );
+}
+
+async function handleRegularResponse(response: Response, url: string) {
+  const clonedResponse = response.clone();
+  const body = await clonedResponse.text();
+  await notifyContentScript(url, response.status, body);
+  return response;
+}
+
+async function notifyContentScript(url: string, status: number, data: string) {
+  await sendMessage(
+    "network-intercept:fetchEvent",
+    {
+      event: "response",
+      payload: { url, status, data },
+    },
+    "content-script",
+  );
 }
 
 function constructUrl(url: unknown) {
   if (url instanceof URL) return url.href;
-
   if (typeof url === "string") return url;
-
   return "";
 }

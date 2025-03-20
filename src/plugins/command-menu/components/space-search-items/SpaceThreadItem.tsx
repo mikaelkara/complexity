@@ -25,7 +25,7 @@ export default function SpaceThreadItem({ thread }: SpaceThreadItemProps) {
       asChild
       value={thread.uuid}
       keywords={[searchKeyword]}
-      className="x-flex x-min-h-10 x-justify-between x-gap-4"
+      className="x:flex x:min-h-10 x:justify-between x:gap-4"
       onSelect={() => {
         if (isHotkeyPressed("ctrl")) {
           window.open(`/search/${thread.slug}`, "_blank");
@@ -43,13 +43,13 @@ export default function SpaceThreadItem({ thread }: SpaceThreadItemProps) {
     >
       <a
         href={`/search/${thread.slug}`}
-        className="x-flex x-w-full x-items-center x-justify-between"
+        className="x:flex x:w-full x:items-center x:justify-between"
       >
-        <div className="x-flex-1">
-          <div className="x-line-clamp-1">{thread.title.slice(0, 100)}</div>
+        <div className="x:flex-1">
+          <div className="x:line-clamp-1">{thread.title.slice(0, 100)}</div>
         </div>
-        <div className="x-flex x-flex-shrink-0 x-items-center x-gap-2">
-          <div className="x-flex-shrink-0 x-text-xs x-text-muted-foreground">
+        <div className="x:flex x:flex-shrink-0 x:items-center x:gap-2">
+          <div className="x:flex-shrink-0 x:text-xs x:text-muted-foreground">
             {formatHowLongAgo(thread.last_query_datetime)}
           </div>
         </div>

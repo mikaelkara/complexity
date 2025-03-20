@@ -42,11 +42,11 @@ export function ColorInput({
     <FormItem>
       <FormLabel>{label}</FormLabel>
       <FormControl>
-        <div className="x-flex x-gap-2">
+        <div className="x:flex x:gap-2">
           <Input
             disabled={disabled}
             type="color"
-            className="x-h-10 x-w-14"
+            className="x:h-10 x:w-14"
             value={value || "#000000"}
             tabIndex={-1}
             onChange={handleColorChange}
@@ -54,7 +54,7 @@ export function ColorInput({
           <Input
             type="text"
             disabled={disabled}
-            className="x-font-mono"
+            className="x:font-mono"
             placeholder="#000000"
             value={inputValue}
             maxLength={7}

@@ -1,5 +1,4 @@
 import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
 import { LuPlus } from "react-icons/lu";
 
 import Tooltip from "@/components/Tooltip";
@@ -33,6 +32,7 @@ export default function CreateNewLanguageOptionButton() {
 
       const options: BetterCodeBlockFineGrainedOptions = {
         language,
+        showLineNumbers: false,
         stickyHeader: false,
         unwrap: {
           enabled: false,
@@ -94,7 +94,7 @@ export default function CreateNewLanguageOptionButton() {
         <DialogHeader>Fine-tune specific block</DialogHeader>
         <Input
           value={language}
-          className="x-font-mono"
+          className="x:font-mono"
           placeholder="Language/Block name"
           onChange={({ target }) => setLanguage(target.value)}
           onKeyDown={(e) => {

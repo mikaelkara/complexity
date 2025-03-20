@@ -13,7 +13,7 @@ export default function ChangeModelActionItem() {
     <CommandItem
       value="m"
       keywords={label.split(" ")}
-      className="x-min-h-10"
+      className="x:min-h-10"
       onSelect={() => {
         slashCommandMenuStore.getState().actions.deleteTriggerWord();
         slashCommandMenuStore.getState().actions.setIsOpen(false);
@@ -24,9 +24,9 @@ export default function ChangeModelActionItem() {
         }, 0);
       }}
     >
-      <div className="x-flex x-items-center x-gap-2">
-        <div className="x-flex x-items-center x-gap-2">
-          <LuCpu className="x-size-4" />
+      <div className="x:flex x:items-center x:gap-2">
+        <div className="x:flex x:items-center x:gap-2">
+          <LuCpu className="x:size-4" />
           <div>{label}</div>
         </div>
       </div>

@@ -1,6 +1,5 @@
 import { InfiniteData, useInfiniteQuery } from "@tanstack/react-query";
 import { usePrevious } from "@uidotdev/usehooks";
-import { useMemo } from "react";
 
 import { PromptHistory } from "@/data/plugins/prompt-history/prompt-history.type";
 import { promptHistoryQueries } from "@/services/indexed-db/prompt-history/query-keys";

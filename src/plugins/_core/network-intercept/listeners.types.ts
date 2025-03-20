@@ -1,17 +1,5 @@
-export type WebSocketEventData =
-  | WebSocketSendEventData
-  | WebSocketMessageEventData;
-
-type WebSocketSendEventData = {
-  event: "send";
-  payload: {
-    url: string;
-    data: string;
-  };
-};
-
-type WebSocketMessageEventData = {
-  event: "message";
+export type WebSocketEventData = {
+  event: "send" | "message";
   payload: {
     url: string;
     data: string;
@@ -40,5 +28,27 @@ type FetchEventResponseData = {
   event: "response";
   payload: FetchEventRequestData["payload"] & {
     status?: number;
+  };
+};
+
+export type BeaconEventData = BeaconRequestData | BeaconResponseData;
+
+export type BeaconEventDataCatalog = {
+  [P in BeaconEventData as P["event"]]: P;
+};
+
+type BeaconRequestData = {
+  event: "request";
+  payload: {
+    url: string;
+    data: string;
+  };
+};
+
+type BeaconResponseData = {
+  event: "response";
+  payload: {
+    url: string;
+    success: boolean;
   };
 };

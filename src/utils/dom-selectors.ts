@@ -1,3 +1,6 @@
+/**
+ * Mixes of both native css and jquery selectors
+ */
 export const DOM_SELECTORS = {
   SIDEBAR: {
     WRAPPER: ".group\\/bar",
@@ -16,36 +19,37 @@ export const DOM_SELECTORS = {
   },
   THREAD: {
     /** The outermost container that wraps the thread container and the query box */
-    WRAPPER:
-      ".flex-1.basis-0.overflow-auto.scrollbar-thin:has(>.max-w-threadWidth)",
     NAVBAR: ".sticky.left-0.right-0.top-0.z-10.border-b",
+    WRAPPER: ".sticky.left-0.right-0 + .scrollable-container > div > div",
     /** The container that wraps all messages */
     CONTAINER: {
       /** Normal thread*/
-      NORMAL: ".size-full.max-w-threadWidth > div.relative > div:first-child",
+      NORMAL:
+        ".sticky.left-0.right-0 + .scrollable-container > div > div > div.relative > div:last-child > div:first-child",
       /** Branched thread */
       BRANCHED:
-        ".size-full.max-w-threadWidth > div.relative > div:first-of-type",
+        ".sticky.left-0.right-0 + .scrollable-container > div > div > div.relative > div:last-child > div:first-child",
     },
     MESSAGE: {
       WRAPPER: ".grid-cols-12",
-      TEXT_COL: ".col-span-8",
+      TEXT_COL: ".isolate.col-span-8",
       /** Columns that contain images, videos, image gen popover */
-      VISUAL_COL: ".col-span-4",
+      VISUAL_COL: ".isolate.col-span-4",
       TEXT_COL_CHILD: {
         /** The query box */
-        QUERY_WRAPPER: `div.mt-md.md\\:mt-lg.mb-3.md\\:mb-6:has(> .group\\/title), div.mt-md.md\\:mt-lg.mb-3.md\\:mb-6:has(div[style*="height"])`,
+        QUERY_WRAPPER: `.isolate.col-span-8>div:first-child`,
         QUERY: ".group\\/query",
-        QUERY_HOVER_CONTAINER: ".pointer-events-none.absolute.bottom-0.right-0",
+        QUERY_HOVER_CONTAINER:
+          ".absolute.bottom-0.right-0:not(.pointer-events-none)",
         QUERY_HOVER_CONTAINER_CHILD: {
           EDIT_QUERY_BUTTON: "button:has(svg[data-icon='pen-to-square'])",
         },
         EDIT_TEXT_AREA: "textarea[placeholder]",
         /** The answer heading */
         ANSWER_HEADING:
-          ".mb-sm.flex.w-full.items-center.justify-between:has(svg.transform-gpu)",
+          ".flex.w-full.items-center.justify-between:has(svg.transform-gpu)",
         /** The sources heading */
-        SOURCES: ".mb-lg.border-borderMain\\/50.ring-borderMain\\/50",
+        SOURCES: ".grid.grid-flow-col.md\\:grid-cols-4",
         /** The answer wrapper */
         ANSWER: ".mb-md > .relative.default.font-sans.text-base",
         /** The bottom toolbar of the message (share, rewrite, model name, etc.) */
@@ -81,17 +85,18 @@ export const DOM_SELECTORS = {
   },
   QUERY_BOX: {
     TEXTAREA: {
-      MAIN: '[location="home"] textarea[placeholder][autocomplete][style*="height"]:not([data-testid="quick-search-modal"] textarea)',
+      MAIN: 'body[location="home"] textarea[placeholder][autocomplete][style*="height"]:not([data-testid="quick-search-modal"] textarea)',
       MAIN_MODAL:
         '[data-testid="quick-search-modal"] textarea[placeholder][autocomplete][style*="height"]',
       SPACE:
-        '[location="collection"] textarea[placeholder][autocomplete][style*="height"]:not([data-testid="quick-search-modal"] textarea)',
+        'body[location="collection"] textarea[placeholder][autocomplete][style*="height"]:not([data-testid="quick-search-modal"] textarea)',
       FOLLOW_UP:
-        '[location="thread"] .pointer-events-none.fixed.bottom-mobileNavHeight textarea[placeholder][autocomplete]',
+        'body[location="thread"] .pointer-events-none.fixed.bottom-mobileNavHeight textarea[placeholder][autocomplete]',
       ARBITRARY: "textarea[placeholder][autocomplete]",
     },
     ATTACH_BUTTON: 'button:has([data-icon="paperclip"]):last',
-    SUBMIT_BUTTON: 'button[aria-label="Submit"]',
+    SUBMIT_BUTTON:
+      'button[aria-label="Submit"], button:has(svg.tabler-icon-square)',
     FORK_BUTTON: 'button svg[data-icon="code-fork"]',
     /** The floating container that wraps the query box */
     WRAPPER: ".grow.block",
@@ -99,7 +104,7 @@ export const DOM_SELECTORS = {
     INCOGNITO_TOGGLE: ".mr-xs.flex.shrink-0.items-center",
   },
   SPACES_PAGE: {
-    INFO_CARD: ".col-span-4 > div > div",
+    INFO_CARD: ".isolate.col-span-4 > div > div",
     SPACE_CARD: `.contents a[data-testid="collection-preview"]`,
   },
   SETTINGS_PAGE: {
@@ -116,8 +121,7 @@ export const DOM_SELECTORS = {
     THREAD_TITLE:
       ".min-w-0 .cursor-pointer.transition.duration-300.hover\\:opacity-70",
     THREAD_TITLE_INPUT: 'input[placeholder="Untitled"]',
-    BOOKMARK_BUTTON:
-      "button[aria-label]:has(svg[class*='tabler-icon-bookmark'])",
+    OVERFLOW_MENU_BUTTON_WRAPPER: "div:has(>span>button):has(svg.fa-ellipsis)",
   },
 } as const;
 
@@ -144,7 +148,7 @@ export const INTERNAL_ATTRIBUTES = {
     NAVBAR: "thread-navbar",
     NAVBAR_CHILD: {
       EXPORT_THREAD_BUTTON: "thread-export-button",
-      BOOKMARK_BUTTON: "thread-bookmark-button",
+      OVERFLOW_MENU_BUTTON_WRAPPER: "thread-overflow-menu-button-wrapper",
     },
     WRAPPER: "thread-wrapper",
     POPPER: {

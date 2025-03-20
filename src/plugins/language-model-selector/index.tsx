@@ -12,33 +12,31 @@ import { useSharedQueryBoxStore } from "@/plugins/_core/ui-groups/query-box/shar
 import DesktopContent from "@/plugins/language-model-selector/components/desktop";
 import MobileContent from "@/plugins/language-model-selector/components/mobile";
 import BetterLanguageModelSelectorTriggerButton from "@/plugins/language-model-selector/components/TriggerButton";
+import { LanguageModelSelectorContext } from "@/plugins/language-model-selector/context";
 import { useColumnNavigation } from "@/plugins/language-model-selector/hooks/useColumnNavigation";
 import { TEST_ID_SELECTORS } from "@/utils/dom-selectors";
 import { UiUtils } from "@/utils/ui-utils";
 
-const selectItems = [...fastLanguageModels, ...reasoningLanguageModels].map(
-  (model) => ({
-    id: model.code,
-    label: model.label,
-  }),
-);
+const selectItems = getSelectItems();
 
 export default function BetterLanguageModelSelectorWrapper() {
   const { isMobile } = useIsMobileStore();
-
-  const { selectedLanguageModel, setSelectedLanguageModel } =
-    useSharedQueryBoxStore((store) => ({
-      selectedLanguageModel: store.selectedLanguageModel,
-      setSelectedLanguageModel: store.setSelectedLanguageModel,
-    }));
-
+  const {
+    selectedLanguageModel,
+    setSelectedLanguageModel,
+    isProSearchEnabled,
+    setIsProSearchEnabled,
+  } = useSharedQueryBoxStore((store) => ({
+    selectedLanguageModel: store.selectedLanguageModel,
+    setSelectedLanguageModel: store.setSelectedLanguageModel,
+    isProSearchEnabled: store.isProSearchEnabled,
+    setIsProSearchEnabled: store.setIsProSearchEnabled,
+  }));
   const [highlightedItem, setHighlightedItem] = useState<LanguageModelCode>(
     selectedLanguageModel,
   );
-
   const [isOpen, setIsOpen] = useState(false);
-
-  useColumnNavigation({
+  const hotkeyRef = useColumnNavigation({
     highlightedItem,
     setHighlightedItem,
     enabled: isOpen,
@@ -63,7 +61,6 @@ export default function BetterLanguageModelSelectorWrapper() {
       onOpenChange={({ open }) => setIsOpen(open)}
       onValueChange={({ value }) => {
         setSelectedLanguageModel(value[0] as LanguageModelCode);
-
         setTimeout(() => {
           UiUtils.getActiveQueryBoxTextarea().trigger("focus");
         }, 100);
@@ -75,29 +72,48 @@ export default function BetterLanguageModelSelectorWrapper() {
         if (event.key === Key.Escape) {
           event.preventDefault();
           event.stopPropagation();
-
           setTimeout(() => {
             UiUtils.getActiveQueryBoxTextarea().trigger("focus");
           }, 100);
         }
       }}
     >
-      <SelectTrigger variant="noStyle" className="x-m-0 x-p-0">
+      <SelectTrigger variant="noStyle" className="x:m-0 x:p-0">
         <BetterLanguageModelSelectorTriggerButton />
       </SelectTrigger>
-      {isMobile ? (
-        <SelectContext>
-          {({ open, setOpen }) => (
-            <MobileContent
-              open={open}
-              setHighlightedItem={setHighlightedItem}
-              onOpenChange={({ open }) => setOpen(open)}
-            />
-          )}
-        </SelectContext>
-      ) : (
-        <DesktopContent setHighlightedItem={setHighlightedItem} />
-      )}
+      <LanguageModelSelectorContext
+        value={{
+          component: "select",
+          isProSearchEnabled,
+          hotkeyRef,
+          setIsProSearchEnabled,
+          setHighlightedItem,
+        }}
+      >
+        {isMobile ? (
+          <SelectContext>
+            {({ open, setOpen }) => (
+              <MobileContent
+                open={open}
+                onOpenChange={({ open }) => setOpen(open)}
+              />
+            )}
+          </SelectContext>
+        ) : (
+          <DesktopContent />
+        )}
+      </LanguageModelSelectorContext>
     </Select>
   );
+}
+
+function getSelectItems() {
+  const modelItems = [...fastLanguageModels, ...reasoningLanguageModels].map(
+    (model) => ({
+      id: model.code,
+      label: model.label,
+    }),
+  );
+
+  return modelItems;
 }

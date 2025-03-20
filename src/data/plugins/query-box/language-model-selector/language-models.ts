@@ -8,20 +8,22 @@ import { queryClient } from "@/utils/ts-query-client";
 
 export const localLanguageModels = [
   {
-    label: "Claude 3.5 Sonnet",
+    label: "Claude 3.7 Sonnet",
     shortLabel: "Sonnet",
     code: "claude2",
     provider: "Anthropic",
     limitKey: "gpt4_limit",
     isReasoningModel: false,
+    hideFromList: false,
   },
   {
-    label: "Claude 3.5 Haiku",
-    shortLabel: "Haiku",
-    code: "claude35haiku",
+    label: "Claude 3.7 Sonnet",
+    shortLabel: "Sonnet",
+    code: "claude37sonnetthinking",
     provider: "Anthropic",
-    limitKey: "gpt4_limit",
-    isReasoningModel: false,
+    limitKey: "pro_reasoning_limit",
+    isReasoningModel: true,
+    hideFromList: false,
   },
   {
     label: "DeepSeek R1",
@@ -30,6 +32,16 @@ export const localLanguageModels = [
     provider: "DeepSeek",
     limitKey: "pro_reasoning_limit",
     isReasoningModel: true,
+    hideFromList: false,
+  },
+  {
+    label: "GPT-4.5",
+    shortLabel: "GPT-4.5",
+    code: "gpt45",
+    provider: "OpenAI",
+    limitKey: "gpt45_limit",
+    isReasoningModel: false,
+    hideFromList: false,
   },
   {
     label: "O3 Mini",
@@ -38,6 +50,7 @@ export const localLanguageModels = [
     provider: "OpenAI",
     limitKey: "o1_limit",
     isReasoningModel: true,
+    hideFromList: false,
   },
   {
     label: "GPT-4o",
@@ -46,6 +59,7 @@ export const localLanguageModels = [
     provider: "OpenAI",
     limitKey: "gpt4_limit",
     isReasoningModel: false,
+    hideFromList: false,
   },
   {
     label: "Gemini 2.0 Flash",
@@ -54,6 +68,7 @@ export const localLanguageModels = [
     provider: "Google",
     limitKey: "gpt4_limit",
     isReasoningModel: false,
+    hideFromList: false,
   },
   {
     label: "Grok-2",
@@ -62,6 +77,7 @@ export const localLanguageModels = [
     provider: "xAI",
     limitKey: "gpt4_limit",
     isReasoningModel: false,
+    hideFromList: false,
   },
   {
     label: "Deep Research",
@@ -70,6 +86,7 @@ export const localLanguageModels = [
     provider: "PerplexityDeepResearch",
     limitKey: "pro_reasoning_limit",
     isReasoningModel: true,
+    hideFromList: false,
   },
   {
     label: "Sonar",
@@ -78,21 +95,15 @@ export const localLanguageModels = [
     provider: "Perplexity",
     limitKey: "gpt4_limit",
     isReasoningModel: false,
+    hideFromList: false,
   },
   {
-    label: "Sonar Huge",
-    shortLabel: "Sonar XL",
-    code: "llama_x_large",
-    provider: "Perplexity",
-    limitKey: "gpt4_limit",
-    isReasoningModel: false,
-  },
-  {
-    label: "Default",
-    shortLabel: "Default",
+    label: "Auto",
+    shortLabel: "Auto",
     code: "turbo",
     provider: "Perplexity",
     isReasoningModel: false,
+    hideFromList: true,
   },
 ] as const;
 

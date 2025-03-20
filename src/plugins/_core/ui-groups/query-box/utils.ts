@@ -1,22 +1,25 @@
-import { QueryObserver } from "@tanstack/react-query";
 import { sendMessage } from "webext-bridge/content-script";
 
-import { fastLanguageModels } from "@/data/plugins/query-box/language-model-selector/language-models";
 import {
-  isReasoningLanguageModelCode,
+  fastLanguageModels,
+  reasoningLanguageModels,
+} from "@/data/plugins/query-box/language-model-selector/language-models";
+import {
   isLanguageModelCode,
+  isReasoningLanguageModelCode,
 } from "@/data/plugins/query-box/language-model-selector/language-models.types";
 import { sharedQueryBoxStore } from "@/plugins/_core/ui-groups/query-box/shared-store";
-import { ExtensionLocalStorageService } from "@/services/extension-local-storage";
+import {
+  PplxCookieSearchModels,
+  PplxCookieSearchModelsSchema,
+  PplxCookieSearchModes,
+} from "@/plugins/_core/ui-groups/query-box/types";
 import { PluginsStatesService } from "@/services/plugins-states";
 import { PplxApiService } from "@/services/pplx-api";
-import { PplxUserSettingsApiResponse } from "@/services/pplx-api/pplx-api.types";
-import { pplxApiQueries } from "@/services/pplx-api/query-keys";
 import { INTERNAL_ATTRIBUTES } from "@/utils/dom-selectors";
-import { queryClient } from "@/utils/ts-query-client";
-import { getCookie, setCookie, whereAmI } from "@/utils/utils";
+import { getCookie, jsonUtils, setCookie } from "@/utils/utils";
 
-export function findToolbarPortalContainer(queryBox: HTMLElement): {
+export function createToolbarPortalContainers(queryBox: HTMLElement): {
   leftContainer: HTMLElement | null;
   rightContainer: HTMLElement | null;
 } {
@@ -47,7 +50,7 @@ export function findToolbarPortalContainer(queryBox: HTMLElement): {
 
     if ($existingLeftContainer.length) return $existingLeftContainer;
 
-    const $newLeftContainer = $("<div>");
+    const $newLeftContainer = $("<x:div>").addClass("x:[&:empty]:hidden");
 
     $newLeftContainer.internalComponentAttr(
       INTERNAL_ATTRIBUTES.QUERY_BOX_CHILD.CPLX_COMPONENTS_LEFT_WRAPPER,
@@ -69,7 +72,7 @@ export function findToolbarPortalContainer(queryBox: HTMLElement): {
 
     if ($existingRightContainer.length) return $existingRightContainer;
 
-    const $newRightContainer = $("<div>");
+    const $newRightContainer = $("<x:div>").addClass("x:[&:empty]:hidden");
 
     $newRightContainer.internalComponentAttr(
       INTERNAL_ATTRIBUTES.QUERY_BOX_CHILD.CPLX_COMPONENTS_RIGHT_WRAPPER,
@@ -114,113 +117,125 @@ export function handleSearchModeChange() {
         PplxApiService.setDefaultLanguageModel(selectedLanguageModel);
       }
 
+      const { data: searchModels } = PplxCookieSearchModelsSchema.safeParse(
+        jsonUtils.safeParse(getCookie("pplx.search-models-raw") ?? ""),
+      );
+
+      const searchModelsCookie =
+        searchModels ??
+        ({
+          pro: "turbo",
+          reasoning: "",
+        } as PplxCookieSearchModels);
+
+      let searchMode: PplxCookieSearchModes;
+
       if (isReasoningModel) {
-        if (!previousIsProSearchEnabled) {
-          sharedQueryBoxStore.setState({
-            isProSearchEnabled: true,
-          });
-          return;
-        } else if (previousIsProSearchEnabled && !isProSearchEnabled) {
-          setCookie("pplx.search-mode", "default", 30);
-          sharedQueryBoxStore.setState((state) => {
-            const defaultLanguageModel =
-              queryClient.getQueryData<PplxUserSettingsApiResponse>(
-                pplxApiQueries.userSettings.queryKey,
-              )?.default_model;
-
-            if (
-              !defaultLanguageModel ||
-              !isLanguageModelCode(defaultLanguageModel)
-            ) {
-              state.selectedLanguageModel = "turbo";
-            } else {
-              if (isReasoningLanguageModelCode(defaultLanguageModel)) {
-                state.selectedLanguageModel =
-                  fastLanguageModels[0]?.code ?? "claude2";
-              } else {
-                state.selectedLanguageModel = defaultLanguageModel;
-              }
-            }
-          });
-          return;
+        searchMode =
+          selectedLanguageModel === "pplx_alpha" ? "deepResearch" : "reasoning";
+        if (selectedLanguageModel !== "pplx_alpha") {
+          searchModelsCookie.reasoning = selectedLanguageModel;
         }
+      } else {
+        searchMode =
+          !isProSearchEnabled || selectedLanguageModel === "turbo"
+            ? "auto"
+            : "pro";
 
-        if (isProSearchEnabled) {
-          syncNativeModelSelector(selectedLanguageModel);
-          return;
-        }
+        searchModelsCookie.pro = selectedLanguageModel;
       }
 
-      if (isProSearchEnabled) {
-        syncNativeModelSelector("pro");
+      setCookie(
+        "pplx.search-mode",
+        searchMode satisfies PplxCookieSearchModes,
+        30,
+      );
+      setCookie(
+        "pplx.search-models-raw",
+        JSON.stringify(searchModelsCookie satisfies PplxCookieSearchModels),
+        30,
+      );
+
+      // Enable pro search if using reasoning model but pro search is disabled
+      if (isReasoningModel && !previousIsProSearchEnabled) {
+        sharedQueryBoxStore.setState({
+          isProSearchEnabled: true,
+        });
         return;
       }
 
-      syncNativeModelSelector("default");
+      // Reset to standard model if pro search get disabled while a reasoning model is selected
+      if (isReasoningModel && !isProSearchEnabled) {
+        const defaultLanguageModel =
+          searchModels?.pro ?? fastLanguageModels[0]?.code ?? "turbo";
+
+        setCookie(
+          "pplx.search-mode",
+          "auto" satisfies PplxCookieSearchModes,
+          30,
+        );
+
+        searchMode = "auto";
+
+        sharedQueryBoxStore.setState((store) => {
+          store.selectedLanguageModel = isLanguageModelCode(
+            defaultLanguageModel,
+          )
+            ? defaultLanguageModel
+            : "turbo";
+        });
+        return;
+      }
+
+      sendMessage(
+        "reactVdom:syncNativeModelSelector",
+        { searchMode },
+        "window",
+      );
     },
   );
 }
 
-function syncNativeModelSelector(searchMode: string) {
-  setCookie("pplx.search-mode", searchMode, 30);
-  sendMessage("reactVdom:syncNativeModelSelector", { searchMode }, "window");
-}
-
 export function populateDefaults() {
-  const searchMode = getCookie("pplx.search-mode");
+  const searchMode = getCookie("pplx.search-mode") as PplxCookieSearchModes;
+  const { data: searchModels } = PplxCookieSearchModelsSchema.safeParse(
+    jsonUtils.safeParse(getCookie("pplx.search-models-raw") ?? ""),
+  );
 
-  populateLanguageModelDefaults(searchMode);
-  populateProSearchDefaults(searchMode);
-}
-
-function populateLanguageModelDefaults(searchMode: string | null) {
-  const settings = ExtensionLocalStorageService.getCachedSync();
-
-  if (
-    settings.plugins["queryBox:languageModelSelector"]
-      .respectDefaultSpaceModel &&
-    whereAmI() === "collection"
-  )
-    return;
-
-  if (searchMode == null || !isReasoningLanguageModelCode(searchMode)) {
-    const pplxUserSettingsObserverRemove = new QueryObserver(
-      queryClient,
-      pplxApiQueries.userSettings,
-    ).subscribe((data) => {
-      if (!data.data) return;
-
-      sharedQueryBoxStore.setState((state) => {
-        state.selectedLanguageModel = isLanguageModelCode(
-          data.data.default_model,
-        )
-          ? data.data.default_model
-          : "turbo";
+  switch (searchMode) {
+    case "auto":
+      sharedQueryBoxStore.setState((draft) => {
+        draft.selectedLanguageModel = searchModels?.pro ?? "turbo";
       });
 
-      pplxUserSettingsObserverRemove();
-    });
-  } else {
-    sharedQueryBoxStore.setState((draft) => {
-      if (!isReasoningLanguageModelCode(searchMode)) return;
-      draft.selectedLanguageModel = searchMode;
-    });
+      break;
+    case "pro":
+      sharedQueryBoxStore.setState((draft) => {
+        draft.selectedLanguageModel = searchModels?.pro ?? "turbo";
+        draft.isProSearchEnabled = true;
+      });
+
+      break;
+    case "reasoning":
+      sharedQueryBoxStore.setState((draft) => {
+        draft.selectedLanguageModel =
+          searchModels?.reasoning ??
+          reasoningLanguageModels[0]?.code ??
+          "turbo";
+        draft.isProSearchEnabled = true;
+      });
+
+      break;
+    case "deepResearch":
+      sharedQueryBoxStore.setState((draft) => {
+        draft.selectedLanguageModel = "pplx_alpha";
+        draft.isProSearchEnabled = true;
+      });
+
+      break;
+    default:
+      sharedQueryBoxStore.setState((draft) => {
+        draft.isProSearchEnabled = true;
+      });
   }
-}
-
-function populateProSearchDefaults(searchMode: string | null) {
-  sharedQueryBoxStore.setState((draft) => {
-    if (searchMode == null) return;
-
-    const isInvalidMode =
-      !isReasoningLanguageModelCode(searchMode) &&
-      !isLanguageModelCode(searchMode) &&
-      searchMode !== "pro" &&
-      searchMode !== "default";
-
-    draft.isProSearchEnabled =
-      isInvalidMode ||
-      searchMode === "pro" ||
-      isReasoningLanguageModelCode(searchMode);
-  });
 }

@@ -6,6 +6,7 @@ import {
 import { PLUGINS_METADATA } from "@/data/plugins-data/plugins-data";
 import { CorePluginId } from "@/data/plugins-data/plugins-data.types";
 import { InternalWebSocketManager } from "@/plugins/_api/web-socket/internal-web-socket-manager";
+import { internalWebSocketStore } from "@/plugins/_core/web-socket/store";
 import { ExtensionLocalStorageService } from "@/services/extension-local-storage";
 import { PluginId } from "@/services/extension-local-storage/plugins.types";
 import { PluginsStatesService } from "@/services/plugins-states";
@@ -63,7 +64,13 @@ export async function initCorePlugins() {
   });
 
   if (shouldEnableCorePlugin("webSocket")) {
-    InternalWebSocketManager.getInstance().handShake();
+    InternalWebSocketManager.getInstance()
+      .handShake()
+      .then((socket) => {
+        internalWebSocketStore.setState({
+          common: socket,
+        });
+      });
   }
 }
 

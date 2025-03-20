@@ -115,23 +115,23 @@ function isCodeBlockInFlight({
 
   if (!isMessageBlockInFlight) return false;
 
-  const selector = `[data-cplx-component="${INTERNAL_ATTRIBUTES.THREAD.MESSAGE.BLOCK}"][data-index="${messageBlockIndex}"] [data-cplx-component="${INTERNAL_ATTRIBUTES.THREAD.MESSAGE.TEXT_COL_CHILD.CODE_BLOCK}"][data-index="${codeBlockIndex}"]`;
+  const codeBlock = document.querySelector(
+    `[data-cplx-component="${INTERNAL_ATTRIBUTES.THREAD.MESSAGE.BLOCK}"][data-index="${messageBlockIndex}"] [data-cplx-component="${INTERNAL_ATTRIBUTES.THREAD.MESSAGE.TEXT_COL_CHILD.CODE_BLOCK}"][data-index="${codeBlockIndex}"]`,
+  );
 
-  const codeBlock = document.querySelector(selector);
-
-  const parentElement = codeBlock?.parentElement;
+  let parentElement = codeBlock?.parentElement;
 
   const hasAnimationWrapper = parentElement?.classList.contains("animate-in");
 
   if (hasAnimationWrapper) {
-    return (
-      !!messageBlocks[messageBlockIndex]?.states.isInFlight &&
-      parentElement?.nextElementSibling == null
-    );
+    return parentElement?.nextElementSibling == null;
   }
 
-  return (
-    !!messageBlocks[messageBlockIndex]?.states.isInFlight &&
-    codeBlock?.nextElementSibling == null
+  const hasNextCodeBlock = document.querySelector(
+    `[data-cplx-component="${INTERNAL_ATTRIBUTES.THREAD.MESSAGE.BLOCK}"][data-index="${messageBlockIndex}"] [data-cplx-component="${INTERNAL_ATTRIBUTES.THREAD.MESSAGE.TEXT_COL_CHILD.CODE_BLOCK}"][data-index="${codeBlockIndex + 1}"]`,
   );
+
+  if (hasNextCodeBlock) return false;
+
+  return codeBlock?.nextElementSibling == null;
 }

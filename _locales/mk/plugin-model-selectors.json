@@ -2,18 +2,22 @@
   "languageModelSelector": {
     "tooltip": "Избери јазичен модел",
     "proSearch": {
-      "tooltip": "Добијте до 3 веб извори"
+      "tooltip": "Повеќе извори, Python интерпретер на код"
     },
     "reasoningModels": {
       "label": "Модели за резонирање",
       "tooltip": {
         "description": "Генерирањето на одговори ќе трае подолго, но одговорите се обично подетални и попрецизни.",
-        "proSearchNote": "<emphasis>Pro Search</emphasis> е секогаш активен при избор на модел за резонирање."
+        "proSearchNote": "<emphasis>Pro</emphasis> е секогаш активен при избор на модел за резонирање."
       },
       "usesLeft": {
         "unlimited": "Неограничено",
         "limited": "Преостануваат {{count}} користења"
       }
+    },
+    "autoMode": {
+      "title": "Авто",
+      "description": "Се прилагодува на вашето барање"
     }
   },
   "imageGenModelSelector": {

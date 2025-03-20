@@ -26,7 +26,7 @@ export function SponsorHomeLink() {
   return (
     <Portal container={portalContainer}>
       <SponsorDialogWrapper>
-        <div className="x-cursor-pointer x-text-sm x-text-muted-foreground x-decoration-muted-foreground/50 hover:x-underline">
+        <div className="x:cursor-pointer x:text-sm x:text-muted-foreground x:decoration-muted-foreground/50 x:hover:underline">
           Support Complexity
         </div>
       </SponsorDialogWrapper>

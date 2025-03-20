@@ -12,7 +12,7 @@ type ThemeCardBannerProps = {
 
 export default function ThemeCardBanner({ theme }: ThemeCardBannerProps) {
   return (
-    <div className="x-size-full x-transition-transform x-duration-500 group-hover:x-scale-110">
+    <div className="x:size-full x:transition-transform x:duration-500 x:group-hover:scale-110">
       <BannerContent theme={theme} />
     </div>
   );
@@ -24,7 +24,7 @@ function BannerContent({ theme }: { theme: Theme }) {
       <img
         src={theme.featuredImage}
         alt={theme.title}
-        className="x-size-full x-object-cover"
+        className="x:size-full x:object-cover"
       />
     );
   }
@@ -32,7 +32,7 @@ function BannerContent({ theme }: { theme: Theme }) {
   const svgBanner = SVG_FEATURED_BANNERS[theme.id as BuiltInThemeId];
 
   if (svgBanner != null) {
-    return <div className="x-h-full x-w-full">{svgBanner}</div>;
+    return <div className="x:h-full x:w-full">{svgBanner}</div>;
   }
 
   return (

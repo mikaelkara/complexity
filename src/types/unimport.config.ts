@@ -1,6 +1,7 @@
-import { normalizePath } from "../utils/normalize-path";
-
+/* eslint-disable @limegrass/import-alias/import-alias */
 import { UnimportPluginOptions } from "unimport/unplugin";
+
+import { normalizePath } from "../utils/normalize-path";
 
 const unimportConfig: Partial<UnimportPluginOptions> = {
   dts: "./src/types/unimport.d.ts",

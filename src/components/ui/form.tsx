@@ -71,7 +71,7 @@ const FormItem = ({ className, ...props }: ComponentProps<"div">) => {
 
   return (
     <FormItemContext value={{ id }}>
-      <div className={cn("x-space-y-2", className)} {...props} />
+      <div className={cn("x:space-y-2", className)} {...props} />
     </FormItemContext>
   );
 };
@@ -82,7 +82,7 @@ const FormLabel = ({ className, ...props }: ComponentProps<typeof Label>) => {
 
   return (
     <Label
-      className={cn(error && "x-text-destructive", className)}
+      className={cn(error && "x:text-destructive", className)}
       htmlFor={formItemId}
       {...props}
     />
@@ -115,7 +115,7 @@ const FormDescription = ({ className, ...props }: ComponentProps<"p">) => {
   return (
     <p
       id={formDescriptionId}
-      className={cn("x-text-sm x-text-muted-foreground", className)}
+      className={cn("x:text-sm x:text-muted-foreground", className)}
       {...props}
     />
   );
@@ -136,7 +136,7 @@ const FormMessage = ({
   return (
     <p
       id={formMessageId}
-      className={cn("x-text-sm x-font-medium x-text-destructive", className)}
+      className={cn("x:text-sm x:font-medium x:text-destructive", className)}
       {...props}
     >
       {errorMessage}

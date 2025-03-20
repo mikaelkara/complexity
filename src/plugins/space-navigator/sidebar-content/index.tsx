@@ -51,7 +51,7 @@ export default function SpaceNavigatorWrapper() {
     <>
       {triggerButtonsPortalContainer != null && (
         <Portal container={triggerButtonsPortalContainer}>
-          <div className="-x-mr-2 x-flex x-w-full x-flex-1 x-items-center x-justify-end x-gap-1">
+          <div className="x:-mr-2 x:flex x:w-full x:flex-1 x:items-center x:justify-end x:gap-1">
             <SidebarPinnedSpacesVisToggle />
             <SpaceNavigator />
           </div>

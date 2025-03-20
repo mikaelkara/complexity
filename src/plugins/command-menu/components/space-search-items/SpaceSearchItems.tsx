@@ -23,8 +23,8 @@ export default function SpaceSearchItems() {
 
   return (
     <div
-      className={cn("x-transition-opacity", {
-        "x-opacity-50": isLoadingSpaces,
+      className={cn("x:transition-opacity", {
+        "x:opacity-50": isLoadingSpaces,
       })}
     >
       {!isLoadingSpaces && !isErrorSpaces && (

@@ -22,11 +22,9 @@ export function parseWebSocketData<T = unknown>(
       return { payload: data as T };
     }
 
-    // Extract the number prefix as messageId
     const match = parsedPacket.data.match(/^(\d+)/);
     const messageId = match != null ? parseInt(match[1]) : undefined;
 
-    // Remove the number prefix to get the payload
     const payloadStr = parsedPacket.data.replace(/^\d+/, "");
     const payload = jsonUtils.safeParse(payloadStr) ?? payloadStr;
 

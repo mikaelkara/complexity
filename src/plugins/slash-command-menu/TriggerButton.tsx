@@ -46,10 +46,10 @@ export default function SlashCommandMenuTriggerButton() {
       )}
     >
       <button
-        className="x-flex x-min-h-8 x-w-max x-cursor-pointer x-items-center x-justify-between x-gap-1 x-rounded-md x-px-2 x-text-center x-text-sm x-font-medium x-text-muted-foreground x-outline-none x-transition-all x-duration-150 placeholder:x-text-muted-foreground hover:x-bg-primary-foreground hover:x-text-foreground focus-visible:x-bg-primary-foreground focus-visible:x-outline-none active:x-scale-95 disabled:x-cursor-not-allowed disabled:x-opacity-50 [&>span]:!x-truncate"
+        className="x:flex x:size-8 x:cursor-pointer x:items-center x:justify-center x:gap-1 x:rounded-full x:text-center x:text-sm x:font-medium x:text-muted-foreground x:transition-all x:duration-150 x:outline-none x:placeholder:text-muted-foreground x:hover:bg-primary-foreground x:hover:text-foreground x:focus-visible:bg-primary-foreground x:focus-visible:outline-none x:active:scale-95 x:disabled:cursor-not-allowed x:disabled:opacity-50 x:[&>span]:!truncate"
         onClick={handleTrigger}
       >
-        <LuSquareSlash className="x-size-4" />
+        <LuSquareSlash className="x:size-4" />
       </button>
     </Tooltip>
   );

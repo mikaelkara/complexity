@@ -1,3 +1,4 @@
+/* eslint-disable @limegrass/import-alias/import-alias */
 import { defineManifest } from "@crxjs/vite-plugin";
 import { ExtendedManifestV3Export, baseManifest } from "./manifest.base";
 import { produce } from "immer";
@@ -21,8 +22,6 @@ const defineMozManifest = defineManifest as unknown as (
 
 export default defineMozManifest(
   produce(baseManifest as MozManifest, (draft) => {
-    draft.permissions = ["storage", "unlimitedStorage", "contextMenus"];
-    draft.optional_permissions = [];
     draft.browser_specific_settings = {
       gecko: {
         id: "complexity@ngocdg",

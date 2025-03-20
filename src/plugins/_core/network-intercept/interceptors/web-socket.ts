@@ -48,7 +48,7 @@ function passivelyCaptureWebSocket() {
           event: "send",
           payload: {
             url: this.url,
-            data: data,
+            data,
           },
         },
         "content-script",
@@ -60,6 +60,16 @@ function passivelyCaptureWebSocket() {
         }
 
         data = resp.data;
+      }
+    } else if (data instanceof Blob) {
+      try {
+        const arrayBuffer = await data.arrayBuffer();
+        const binaryData = Array.from(new Uint8Array(arrayBuffer));
+        data = new Blob([new Uint8Array(binaryData)], {
+          type: data.type,
+        });
+      } catch (error) {
+        console.error("Failed to process Blob data:", error);
       }
     }
 

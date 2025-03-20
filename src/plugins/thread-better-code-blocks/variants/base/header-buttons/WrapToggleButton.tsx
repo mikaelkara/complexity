@@ -15,13 +15,13 @@ export function WrapToggleButton() {
       }
     >
       <div
-        className="x-cursor-pointer x-text-muted-foreground x-transition-colors hover:x-text-foreground"
+        className="x:cursor-pointer x:text-muted-foreground x:transition-colors x:hover:text-foreground"
         onClick={() => setIsWrapped(!isWrapped)}
       >
         {isWrapped ? (
-          <LuAlignJustify className="x-size-4" />
+          <LuAlignJustify className="x:size-4" />
         ) : (
-          <LuWrapText className="x-size-4" />
+          <LuWrapText className="x:size-4" />
         )}
       </div>
     </Tooltip>

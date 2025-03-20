@@ -1,60 +1,32 @@
+@reference "../../../../assets/index.css";
+
 [cplx-main-query-box],
 [cplx-space-query-box],
 [cplx-main-modal-query-box] {
   [data-cplx-component="query-box-components-wrapper"] {
-    & > div:nth-child(2) {
+    & > :nth-child(2) {
       grid-column-start: 1 !important;
       grid-column-end: 3 !important;
       display: flex;
       flex-wrap: wrap;
-      @apply x-gap-2 x-gap-y-1;
-
-      button.rounded-full {
-        @apply x-rounded-md;
-      }
+      @apply x:gap-y-1;
     }
 
-    & > div:nth-child(3) {
+    & > :nth-child(3) {
       max-height: max-content;
     }
   }
 }
 
-[data-cplx-component="query-box-pplx-components-wrapper"] {
-  @apply x-h-8 x-gap-2;
-
-  button {
-    margin: 0;
-  }
-
-  button:has(svg[data-icon="sources"]) {
-    > div {
-      @apply x-h-8;
-
-      > div {
-        @apply x-h-8;
-      }
-
-      svg {
-        @apply x-h-8;
-      }
-    }
-  }
-
-  .-ml-2 {
-    @apply x-ml-0;
-  }
-
-  > :nth-child(2) > button {
-    aspect-ratio: unset;
-    @apply x-min-w-8;
-  }
+[data-cplx-component="query-box-components-wrapper"]
+  > :last-child
+  button:not([aria-label="Submit"]) {
+  @apply x:min-h-8 x:min-w-8;
+  aspect-ratio: unset;
 }
 
-[cplx-space-query-box]
-  [data-cplx-component="query-box-components-wrapper"]
-  [data-cplx-component="query-box-pplx-components-wrapper"] {
-  > :has(button:disabled) {
-    display: none;
+[data-cplx-component="query-box-pplx-components-wrapper"] {
+  .-ml-2 {
+    margin-left: unset;
   }
 }

@@ -10,7 +10,7 @@ import { pplxApiQueries } from "@/services/pplx-api/query-keys";
 
 export default function ThreadSearchItems() {
   const { searchValue, filter } = useCommandMenuStore();
-  const debouncedValue = useDebounce(searchValue, 300);
+  const debouncedSearchValue = useDebounce(searchValue, 300);
 
   const {
     data: threads,
@@ -19,8 +19,8 @@ export default function ThreadSearchItems() {
     isError,
   } = useQuery({
     ...pplxApiQueries.threadsSearch({
-      searchValue: debouncedValue,
-      limit: debouncedValue.length > 0 ? 5 : undefined,
+      searchValue: debouncedSearchValue,
+      limit: debouncedSearchValue.length > 0 ? 20 : undefined,
     }),
     enabled: filter === "threads",
     placeholderData: keepPreviousData,
@@ -31,8 +31,8 @@ export default function ThreadSearchItems() {
 
   return (
     <div
-      className={cn("x-transition-opacity", {
-        "x-opacity-50": isFetchingThreads || isLoadingThreads,
+      className={cn("x:transition-opacity", {
+        "x:opacity-50": isFetchingThreads || isLoadingThreads,
       })}
     >
       {!isError && !isLoadingThreads && (

@@ -1,9 +1,7 @@
-body[data-cplx-zen-mode-always-hide-related-questions="true"][location="thread"] {
-  [data-cplx-component="message-block"] {
-    [data-cplx-component="message-block-query"]
-      + div
-      + div:has(> div.mt-lg.border-t.pt-lg.duration-1000) {
-      display: none;
-    }
-  }
+body[data-cplx-zen-mode-always-hide-related-questions="true"][location="thread"]
+  [data-cplx-component="message-block"]
+  .pb-32
+  > :last-child
+  > .mt-xs.pt-lg {
+  display: none;
 }

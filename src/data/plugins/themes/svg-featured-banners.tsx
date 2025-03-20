@@ -14,17 +14,17 @@ export function ThemeBanner({ color }: { color?: string }) {
   if (!color) color = THEME_COLORS["complexity-perplexity"];
 
   return (
-    <div className="x-relative x-flex x-size-full x-items-center x-justify-center x-bg-[oklch(21.67%_0.0016_197.04)]">
+    <div className="x:relative x:flex x:size-full x:items-center x:justify-center x:bg-[oklch(21.67%_0.0016_197.04)]">
       {shouldGlow && (
         <div
-          className="x-absolute x-size-[50%] x-rounded-full x-blur-2xl"
+          className="x:absolute x:size-[50%] x:rounded-full x:blur-2xl"
           style={{
             backgroundColor: `color-mix(in srgb, ${color} 20%, transparent)`,
           }}
         />
       )}
       <Cplx
-        className="x-relative x-size-[50%] x-fill-[oklch(93.34%_0.0025_106.45)]"
+        className="x:relative x:size-[50%] x:fill-[oklch(93.34%_0.0025_106.45)]"
         primary={color}
       />
     </div>

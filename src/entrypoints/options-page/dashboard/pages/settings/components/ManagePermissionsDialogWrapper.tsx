@@ -38,16 +38,16 @@ export default function ManagePermissionsDialogWrapper({
             TOGGLEABLE_PERMISSIONS.map((permission) => (
               <div
                 key={permission}
-                className="!x-mt-4 x-flex x-flex-col x-gap-2"
+                className="x:!mt-4 x:flex x:flex-col x:gap-2"
               >
                 <Switch
-                  className="x-items-start x-text-muted-foreground"
+                  className="x:items-start x:text-muted-foreground"
                   textLabel={
-                    <div className="x-flex x-flex-col">
+                    <div className="x:flex x:flex-col">
                       <div>
                         {TOGGLEABLE_PERMISSIONS_DETAILS[permission]?.title}
                       </div>
-                      <div className="x-text-sm x-text-muted-foreground">
+                      <div className="x:text-sm x:text-muted-foreground">
                         {
                           TOGGLEABLE_PERMISSIONS_DETAILS[permission]
                             ?.description
@@ -71,7 +71,7 @@ export default function ManagePermissionsDialogWrapper({
               </div>
             ))
           ) : (
-            <div className="x-mx-auto x-block x-py-16 x-italic x-text-muted-foreground">
+            <div className="x:mx-auto x:block x:py-16 x:text-muted-foreground x:italic">
               You&apos;re all set!
             </div>
           )}

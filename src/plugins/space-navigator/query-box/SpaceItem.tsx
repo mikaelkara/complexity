@@ -24,8 +24,8 @@ export default function SpaceItem({
     <CommandItem
       key={space.uuid}
       asChild
-      className={cn("x-relative x-min-h-10 x-text-sm x-font-medium", {
-        "x-text-primary": isOnSpacePage,
+      className={cn("x:relative x:min-h-10 x:text-sm x:font-medium", {
+        "x:text-primary": isOnSpacePage,
       })}
       value={space.uuid}
       keywords={[
@@ -56,13 +56,13 @@ export default function SpaceItem({
           e.stopPropagation();
         }}
       >
-        <div className="x-flex x-items-center x-gap-2">
+        <div className="x:flex x:items-center x:gap-2">
           {space.emoji && <div>{emojiCodeToString(space.emoji)}</div>}
           {space.title}
         </div>
-        <div className="x-ml-2 x-flex x-items-center x-gap-1">
+        <div className="x:ml-2 x:flex x:items-center x:gap-1">
           {isOnSpacePage && (
-            <div className="x-text-xs x-text-muted-foreground">
+            <div className="x:text-xs x:text-muted-foreground">
               {t(
                 "plugin-space-navigator:spaceNavigator.spaceItem.currentLocation",
               )}

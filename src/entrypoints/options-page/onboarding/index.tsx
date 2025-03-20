@@ -63,9 +63,9 @@ export default function Onboarding() {
   const navigate = useNavigate();
 
   return (
-    <div className="x-flex x-min-h-screen x-bg-background">
-      <div className="x-m-auto x-w-full x-max-w-3xl x-px-4 md:x-px-8">
-        <div className="x-flex x-justify-center x-rounded-lg x-py-4 md:x-py-8">
+    <div className="x:flex x:min-h-screen x:bg-background">
+      <div className="x:m-auto x:w-full x:max-w-3xl x:px-4 x:md:px-8">
+        <div className="x:flex x:justify-center x:rounded-lg x:py-4 x:md:py-8">
           <Steps
             count={steps.length}
             onStepChange={() => window.scrollTo(0, 0)}
@@ -77,22 +77,22 @@ export default function Onboarding() {
             ))}
 
             <StepsCompletedContent>
-              <div className="x-flex x-flex-col x-items-center x-justify-center x-space-y-8 x-animate-in x-fade-in md:x-space-y-12">
-                <div className="x-rounded-full x-bg-primary/10 x-p-6 md:x-p-8">
-                  <div className="x-rounded-full x-bg-foreground x-p-4 md:x-p-5">
-                    <LuCheck className="x-h-8 x-w-8 x-text-primary-foreground md:x-h-10 md:x-w-10" />
+              <div className="x:flex x:flex-col x:items-center x:justify-center x:space-y-8 x:animate-in x:fade-in x:md:space-y-12">
+                <div className="x:rounded-full x:bg-primary/10 x:p-6 x:md:p-8">
+                  <div className="x:rounded-full x:bg-foreground x:p-4 x:md:p-5">
+                    <LuCheck className="x:h-8 x:w-8 x:text-primary-foreground x:md:h-10 x:md:w-10" />
                   </div>
                 </div>
-                <H3 className="x-text-xl x-font-semibold md:x-text-2xl">
+                <H3 className="x:text-xl x:font-semibold x:md:text-2xl">
                   Setup Complete! 🎉
                 </H3>
-                <P className="x-text-center x-leading-relaxed x-text-muted-foreground">
+                <P className="x:text-center x:leading-relaxed x:text-muted-foreground">
                   You&apos;re all set to start using the extension.
                 </P>
               </div>
             </StepsCompletedContent>
 
-            <div className="x-mx-auto x-mt-6 x-flex x-max-w-max x-justify-between x-gap-3 md:x-mt-8 md:x-gap-4">
+            <div className="x:mx-auto x:mt-6 x:flex x:max-w-max x:justify-between x:gap-3 x:md:mt-8 x:md:gap-4">
               <StepsContext>
                 {({ hasPrevStep, hasNextStep }) => (
                   <>
@@ -123,29 +123,29 @@ function FirstStep() {
   const fromAlpha = useIsFromAlpha();
 
   return (
-    <div className="x-my-8 x-flex x-flex-col x-items-center x-justify-center x-space-y-8 md:x-my-16 md:x-space-y-12">
-      <H1 className="x-text-balance x-text-center">
+    <div className="x:my-8 x:flex x:flex-col x:items-center x:justify-center x:space-y-8 x:md:my-16 x:md:space-y-12">
+      <H1 className="x:text-center x:text-balance">
         Make the most of your Perplexity AI
       </H1>
-      <div className="x-space-y-8 x-text-center md:x-space-y-12">
-        <div className="x-relative">
-          <div className="x-group x-relative x-z-0 x-mt-8 x-flex x-flex-col x-place-items-center x-transition-all before:x-absolute before:x-h-[300px] before:x-w-full before:-x-translate-x-1/2 before:x-rounded-full before:x-bg-gradient-to-br before:x-from-transparent before:x-to-primary before:x-opacity-10 before:x-blur-2xl before:x-duration-1000 before:x-ease-in-out before:x-content-[''] before:x-animate-in before:x-fade-in before:x-zoom-in-0 after:x-absolute after:-x-z-20 after:x-h-[180px] after:x-w-[240px] after:x-translate-x-1/3 after:x-bg-gradient-conic after:x-from-primary after:x-via-primary after:x-opacity-40 after:x-blur-2xl after:x-duration-1000 after:x-ease-in-out after:x-content-[''] after:x-animate-in after:x-fade-in after:x-zoom-in-0 sm:before:x-w-[560px] md:x-mt-12 md:before:x-h-[400px] md:after:x-h-[240px] md:after:x-w-[320px] lg:x-mb-0 lg:x-mt-0 before:lg:x-h-[480px]">
-            <Cplx className="x-mx-auto x-size-32 x-fill-foreground x-text-primary md:x-size-48" />
+      <div className="x:space-y-8 x:text-center x:md:space-y-12">
+        <div className="x:relative">
+          <div className="x:group before:x:-translate-x-1/2 after:x:-z-20 x:after:bg-gradient-conic x:relative x:z-0 x:mt-8 x:flex x:flex-col x:place-items-center x:transition-all x:before:absolute x:before:h-[300px] x:before:w-full x:before:rounded-full x:before:bg-gradient-to-br x:before:from-transparent x:before:to-primary x:before:opacity-10 x:before:blur-2xl x:before:duration-1000 x:before:ease-in-out x:before:content-[''] x:before:animate-in x:before:fade-in x:before:zoom-in-0 x:after:absolute x:after:h-[180px] x:after:w-[240px] x:after:translate-x-1/3 x:after:from-primary x:after:via-primary x:after:opacity-40 x:after:blur-2xl x:after:duration-1000 x:after:ease-in-out x:after:content-[''] x:after:animate-in x:after:fade-in x:after:zoom-in-0 x:sm:before:w-[560px] x:md:mt-12 x:md:before:h-[400px] x:md:after:h-[240px] x:md:after:w-[320px] x:lg:mt-0 x:lg:mb-0 x:before:lg:h-[480px]">
+            <Cplx className="x:mx-auto x:size-32 x:fill-foreground x:text-primary x:md:size-48" />
           </div>
         </div>
-        <div className="x-relative x-z-10">
+        <div className="x:relative x:z-10">
           {fromAlpha ? (
-            <H2 className="x-text-lg x-text-muted-foreground md:x-text-xl">
+            <H2 className="x:text-lg x:text-muted-foreground x:md:text-xl">
               A brand new version of Complexity is here!
             </H2>
           ) : (
             <>
-              <H2 className="x-text-lg x-text-muted-foreground md:x-text-xl">
+              <H2 className="x:text-lg x:text-muted-foreground x:md:text-xl">
                 Let&apos;s get started with a quick setup
               </H2>
               <Link
                 to="/"
-                className="x-cursor-pointer x-text-center x-text-base x-leading-relaxed x-text-muted-foreground x-underline md:x-text-lg"
+                className="x:cursor-pointer x:text-center x:text-base x:leading-relaxed x:text-muted-foreground x:underline x:md:text-lg"
               >
                 or skip and take me to the dashboard
               </Link>

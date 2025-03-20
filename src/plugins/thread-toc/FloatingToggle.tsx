@@ -21,9 +21,9 @@ export default function FloatingToggle({
     <div
       role="button"
       className={cn(
-        "x-fixed -x-right-3 x-top-[--panel-top] x-flex x-h-16 x-w-8 x-items-center x-justify-center x-rounded-md x-border x-border-border/50 x-bg-secondary x-text-muted-foreground x-shadow-lg x-transition-colors x-animate-in x-fade-in hover:x-text-foreground",
+        "x:fixed x:top-(--panel-top) x:-right-3 x:flex x:h-16 x:w-8 x:items-center x:justify-center x:rounded-md x:border x:border-border/50 x:bg-secondary x:text-muted-foreground x:shadow-lg x:transition-colors x:animate-in x:fade-in x:hover:text-foreground",
         {
-          "x-hidden": isOpen,
+          "x:hidden": isOpen,
         },
       )}
       style={
@@ -33,7 +33,7 @@ export default function FloatingToggle({
       }
       onClick={onClick}
     >
-      <LuList className="x-size-4" />
+      <LuList className="x:size-4" />
     </div>
   );
 }

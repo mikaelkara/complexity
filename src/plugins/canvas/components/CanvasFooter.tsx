@@ -24,9 +24,9 @@ export default function CanvasFooter() {
   ) as CanvasLanguage;
 
   return (
-    <div className="x-flex x-w-full x-items-center x-justify-between x-border-t x-border-border/50 x-bg-background x-p-2 x-px-4">
+    <div className="x:flex x:w-full x:items-center x:justify-between x:border-t x:border-border/50 x:bg-background x:p-2 x:px-4">
       <AutonomousCanvasVersionsNavigator />
-      <div className="x-ml-auto x-flex x-items-center x-gap-1">
+      <div className="x:ml-auto x:flex x:items-center x:gap-1">
         {CANVAS_LANGUAGE_ACTION_BUTTONS[language] &&
           (() => {
             const ActionButtons = CANVAS_LANGUAGE_ACTION_BUTTONS[language];
@@ -34,13 +34,13 @@ export default function CanvasFooter() {
           })()}
         <Button
           asChild
-          className="x-group x-animate-in x-fade-in"
+          className="x:group x:animate-in x:fade-in"
           variant="ghost"
           size="iconSm"
         >
           <CopyButton
             content={selectedCodeBlock?.content.code ?? ""}
-            className="group-hover:x-text-primary"
+            className="x:group-hover:text-primary"
           />
         </Button>
       </div>

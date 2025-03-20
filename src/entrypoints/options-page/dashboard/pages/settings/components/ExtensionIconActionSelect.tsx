@@ -39,7 +39,7 @@ export default function ExtensionIconActionSelect() {
       }}
     >
       <SelectTrigger>
-        <Button asChild className="x-p-0">
+        <Button asChild className="x:p-0">
           <span>{OPTIONS_LABEL[selectedValue]}</span>
         </Button>
       </SelectTrigger>

@@ -21,8 +21,8 @@ export function generateDarkModeColorOverrides({
   --teal-200: ${color200};
   --pale-blue-200: ${paleColor200};
 
-  --primary: ${color100};
-  --ring: ${color100};
+  --primary: oklch(${color100});
+  --ring: oklch(${color100});
 }
 `;
 }
@@ -41,7 +41,7 @@ export function generateUiFontsOverrides({
   }
 
   return `
-body#__next {
+body#__next main {
   ${uiFont ? `--font-fk-grotesk: "${uiFont}";` : ""}
   ${uiFont ? `--font-fk-grotesk-neue: "${uiFont}";` : ""}
   ${monoFont ? `--font-berkeley-mono: "${monoFont}";` : ""}

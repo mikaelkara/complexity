@@ -47,63 +47,67 @@ export const webStoreLangsMap = {
   "sr-Cyrl-ME": "sr",
 };
 
-type Resources = {
-  [key: string]: {
-    common: any;
-    "plugin-focus-selector": any;
-    "plugin-model-selectors": any;
-    "plugin-drag-n-drop-file-to-upload-in-thread": any;
-    "plugin-export-thread": any;
-    "plugin-better-copy-buttons": any;
-    "plugin-canvas": any;
-    "plugin-better-code-blocks": any;
-    "plugin-on-cloudflare-timeout-reload": any;
-    "plugin-command-menu": any;
-    "plugin-slash-command-menu": any;
-    "plugin-space-navigator": any;
-  };
+type PluginResources = {
+  common: any;
+  "plugin-model-selectors": any;
+  "plugin-drag-n-drop-file-to-upload-in-thread": any;
+  "plugin-export-thread": any;
+  "plugin-better-copy-buttons": any;
+  "plugin-canvas": any;
+  "plugin-better-code-blocks": any;
+  "plugin-on-cloudflare-timeout-reload": any;
+  "plugin-command-menu": any;
+  "plugin-slash-command-menu": any;
+  "plugin-space-navigator": any;
 };
 
-async function loadLanguageResources(language: string) {
+type Resources = {
+  [key: string]: PluginResources;
+};
+
+async function loadLanguageResources(
+  language: string,
+): Promise<PluginResources> {
   const langFolderName =
     webStoreLangsMap[language as keyof typeof webStoreLangsMap];
 
-  return {
-    common: await import(`~/_locales/${langFolderName}/common.json`),
-    "plugin-focus-selector": await import(
-      `~/_locales/${langFolderName}/plugin-focus-selector.json`
-    ),
-    "plugin-model-selectors": await import(
+  const imports = {
+    common: import(`~/_locales/${langFolderName}/common.json`),
+    "plugin-model-selectors": import(
       `~/_locales/${langFolderName}/plugin-model-selectors.json`
     ),
-    "plugin-drag-n-drop-file-to-upload-in-thread": await import(
+    "plugin-drag-n-drop-file-to-upload-in-thread": import(
       `~/_locales/${langFolderName}/plugin-drag-n-drop-file-to-upload-in-thread.json`
     ),
-    "plugin-export-thread": await import(
+    "plugin-export-thread": import(
       `~/_locales/${langFolderName}/plugin-export-thread.json`
     ),
-    "plugin-better-copy-buttons": await import(
+    "plugin-better-copy-buttons": import(
       `~/_locales/${langFolderName}/plugin-better-copy-buttons.json`
     ),
-    "plugin-canvas": await import(
-      `~/_locales/${langFolderName}/plugin-canvas.json`
-    ),
-    "plugin-better-code-blocks": await import(
+    "plugin-canvas": import(`~/_locales/${langFolderName}/plugin-canvas.json`),
+    "plugin-better-code-blocks": import(
       `~/_locales/${langFolderName}/plugin-better-code-blocks.json`
     ),
-    "plugin-on-cloudflare-timeout-reload": await import(
+    "plugin-on-cloudflare-timeout-reload": import(
       `~/_locales/${langFolderName}/plugin-on-cloudflare-timeout-reload.json`
     ),
-    "plugin-command-menu": await import(
+    "plugin-command-menu": import(
       `~/_locales/${langFolderName}/plugin-command-menu.json`
     ),
-    "plugin-slash-command-menu": await import(
+    "plugin-slash-command-menu": import(
       `~/_locales/${langFolderName}/plugin-slash-command-menu.json`
     ),
-    "plugin-space-navigator": await import(
+    "plugin-space-navigator": import(
       `~/_locales/${langFolderName}/plugin-space-navigator.json`
     ),
   };
+
+  const results = await Promise.all(Object.values(imports));
+
+  return Object.fromEntries(
+    Object.keys(imports).map((key, index) => [key, results[index]]),
+  ) as PluginResources;
 }
 
 async function getCookieLocale(
@@ -156,7 +160,6 @@ export async function initializeI18next() {
     defaultNS: "common",
     ns: [
       "common",
-      "plugin-focus-selector",
       "plugin-model-selectors",
       "plugin-drag-n-drop-file-to-upload-in-thread",
       "plugin-export-thread",

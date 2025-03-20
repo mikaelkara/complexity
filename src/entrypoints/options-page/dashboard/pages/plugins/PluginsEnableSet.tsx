@@ -48,7 +48,7 @@ export default function PluginsEnableSet() {
       onOpenChange={({ open }) => setOpen(open)}
     >
       <DialogTrigger asChild>
-        <Button variant="link" className="x-p-0">
+        <Button variant="link" className="x:p-0">
           Don&apos;t know where to start? Try presets!
         </Button>
       </DialogTrigger>
@@ -61,22 +61,21 @@ export default function PluginsEnableSet() {
         </DialogDescription>
 
         {!isDefaultSettings && (
-          <div className="x-flex x-flex-col x-gap-2">
-            <div className="x-text-sm x-text-muted-foreground">
-              We noticed that you have modified the plugins settings. Presets
-              will override your current settings. Please make sure to save your
-              current settings before applying.
+          <div className="x:flex x:flex-col x:gap-2">
+            <div className="x:text-sm x:text-yellow-300">
+              Presets will override your current settings. Please make sure to
+              save your current settings before applying.
             </div>
           </div>
         )}
 
-        <div className="x-flex x-flex-col x-gap-2">
+        <div className="x:flex x:flex-col x:gap-2">
           <PresetButton
             label="Essentials Only"
             LabelIcon={LuCheck}
             description="You are new to Perplexity and using the extension for the first time."
             config={ESSENTIALS_ONLY}
-            className="x-border-primary/50"
+            className="x:border-primary/50"
             onComplete={() => setOpen(false)}
           />
           <PresetButton
@@ -84,7 +83,7 @@ export default function PluginsEnableSet() {
             LabelIcon={LuZap}
             description="You have used Perplexity for a while and want to make the most out of it."
             config={POWER_USER}
-            className="x-border-primary/50"
+            className="x:border-primary/50"
             onComplete={() => setOpen(false)}
           />
           <PresetButton
@@ -96,7 +95,7 @@ export default function PluginsEnableSet() {
           />
         </div>
 
-        <div className="x-text-sm x-text-muted-foreground">
+        <div className="x:text-sm x:text-muted-foreground">
           There are many plugins that depend on personal preferences. Feel free
           to test and enable them as you see fit.
         </div>
@@ -135,21 +134,21 @@ function PresetButton({
       <DialogTrigger asChild>
         <button
           className={cn(
-            "x-group x-flex x-flex-col x-rounded-lg x-border x-border-border/50 x-bg-secondary x-p-4 x-text-left x-transition-all hover:x-border-primary hover:x-bg-primary/10",
+            "x:group x:flex x:flex-col x:rounded-lg x:border x:border-border/50 x:bg-secondary x:p-4 x:text-left x:transition-all x:hover:border-primary x:hover:bg-primary/10",
             className,
           )}
           {...props}
         >
-          <div className="x-flex x-w-full x-items-center x-justify-between x-gap-2">
-            <div className="x-flex x-items-center x-gap-2">
-              <LabelIcon className="group-hover:x-text-primary" />
-              <div className="x-text-lg group-hover:x-text-primary">
+          <div className="x:flex x:w-full x:items-center x:justify-between x:gap-2">
+            <div className="x:flex x:items-center x:gap-2">
+              <LabelIcon className="x:group-hover:text-primary" />
+              <div className="x:text-lg x:group-hover:text-primary">
                 {label}
               </div>
             </div>
-            <LuArrowRight className="x-hidden x-animate-in x-fade-in x-spin-in-90 group-hover:x-block" />
+            <LuArrowRight className="x:hidden x:animate-in x:fade-in x:spin-in-90 x:group-hover:block" />
           </div>
-          <div className="x-text-sm x-text-muted-foreground">{description}</div>
+          <div className="x:text-sm x:text-muted-foreground">{description}</div>
         </button>
       </DialogTrigger>
       <DialogContent>

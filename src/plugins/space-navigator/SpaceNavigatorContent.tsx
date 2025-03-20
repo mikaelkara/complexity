@@ -12,6 +12,7 @@ import { useIsMobileStore } from "@/hooks/use-is-mobile-store";
 import SpaceItem from "@/plugins/space-navigator/query-box/SpaceItem";
 import SpaceItemPreview from "@/plugins/space-navigator/sidebar-content/SpaceItemPreview";
 import { pplxApiQueries } from "@/services/pplx-api/query-keys";
+import { PPLX_SCROLLBAR_CLASSES } from "@/utils/pplx-scrollbar-classes";
 import { UiUtils } from "@/utils/ui-utils";
 
 export default function SpaceNavigatorContent({
@@ -53,7 +54,7 @@ export default function SpaceNavigatorContent({
         )}
         value={searchValue}
         className={cn({
-          "x-font-medium": !searchValue,
+          "x:font-medium": !searchValue,
         })}
         searchIcon={false}
         onValueChange={(value) => setSearchValue(value)}
@@ -63,11 +64,11 @@ export default function SpaceNavigatorContent({
           {t("plugin-space-navigator:spaceNavigator.search.noResults")}
         </CommandEmpty>
       )}
-      <div className="x-flex x-items-start x-divide-x x-divide-border/50">
-        <CommandList className="x-flex-1 x-p-1">
+      <div className="x:flex x:items-start x:divide-x x:divide-border/50">
+        <CommandList className="x:flex-1 x:p-1">
           {isLoading ? (
-            <div className="x-my-10 x-w-full x-space-x-2 x-text-center">
-              <LuLoaderCircle className="x-inline-block x-size-4 x-animate-spin" />
+            <div className="x:my-10 x:w-full x:space-x-2 x:text-center">
+              <LuLoaderCircle className="x:inline-block x:size-4 x:animate-spin" />
               <span>{t("plugin-space-navigator:spaceNavigator.loading")}</span>
             </div>
           ) : (
@@ -79,7 +80,12 @@ export default function SpaceNavigatorContent({
           )}
         </CommandList>
         {!isMobile && !isLoading && spaces && (
-          <div className="custom-scrollbar x-h-[300px] x-overflow-auto sm:x-w-[300px] lg:x-w-[400px] xl:x-w-[500px]">
+          <div
+            className={cn(
+              PPLX_SCROLLBAR_CLASSES,
+              "x:h-[300px] x:overflow-auto x:sm:w-[300px] x:lg:w-[400px] x:xl:w-[500px]",
+            )}
+          >
             <SpaceItemPreview spaces={spaces} />
           </div>
         )}

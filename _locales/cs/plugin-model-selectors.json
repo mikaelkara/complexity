@@ -2,21 +2,25 @@
   "languageModelSelector": {
     "tooltip": "Vybrat jazykový model",
     "proSearch": {
-      "tooltip": "Získejte až 3 webové zdroje"
+      "tooltip": "Více zdrojů, interpret kódu Python"
     },
     "reasoningModels": {
       "label": "Modely uvažování",
       "tooltip": {
         "description": "Generování odpovědí bude trvat déle, ale odpovědi bývají podrobnější a přesnější.",
-        "proSearchNote": "Při výběru modelu uvažování je <emphasis>Pro Search</emphasis> vždy aktivní."
+        "proSearchNote": "Při výběru modelu uvažování je <emphasis>Pro</emphasis> vždy aktivní."
       },
       "usesLeft": {
         "unlimited": "Neomezeno",
         "limited": "Zbývá {{count}} použití"
       }
+    },
+    "autoMode": {
+      "title": "Auto",
+      "description": "Přizpůsobí se vašemu dotazu"
     }
   },
   "imageGenModelSelector": {
-    "tooltip": "Vybrat model pro obrázky"
+    "tooltip": "Vybrat model obrázků"
   }
 }

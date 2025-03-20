@@ -1,5 +1,7 @@
 import { produce } from "immer";
+import { ZodIssue } from "zod";
 
+import { APP_CONFIG } from "@/app.config";
 import { ExtensionLocalStorageApi } from "@/services/extension-local-storage/extension-local-storage-api";
 import {
   ExtensionLocalStorageSchema,
@@ -17,24 +19,10 @@ import {
 import { isZodError } from "@/types/utils.types";
 import { csLoaderRegistry } from "@/utils/cs-loader-registry";
 import { queryClient } from "@/utils/ts-query-client";
-import { isInContentScript, whereAmI } from "@/utils/utils";
-import packageJson from "~/package.json";
+import { migrateSchemas } from "@/utils/update-migrations";
+import { isInContentScript } from "@/utils/utils";
 
 export class ExtensionLocalStorageService {
-  public static initializeReactiveStore(): boolean {
-    if (whereAmI() !== "unknown") {
-      throw new Error(
-        "Extension local storage can not be reactive in content scripts!",
-      );
-    }
-
-    ExtensionLocalStorageApi.listen(() => {
-      invalidateExtensionLocalStorageDataQuery();
-    });
-
-    return true;
-  }
-
   public static async get(): Promise<ExtensionLocalStorage> {
     const settings = await queryClient.fetchQuery({
       ...extensionLocalStorageQueries.data,
@@ -69,7 +57,7 @@ export class ExtensionLocalStorageService {
 
     const currentSettings = isContentScript
       ? await ExtensionLocalStorageService.get()
-      : (ExtensionLocalStorageService.safeGetCachedSync() ??
+      : (ExtensionLocalStorageService.getCachedSync() ??
         (await ExtensionLocalStorageService.get()));
 
     const newSettings = produce(currentSettings, (draft) => {
@@ -78,7 +66,7 @@ export class ExtensionLocalStorageService {
 
     await ExtensionLocalStorageApi.set(newSettings);
 
-    // dont need to invalidate the query cache here because we've already listening to changes in initializeReactiveStore()
+    invalidateExtensionLocalStorageDataQuery();
 
     return newSettings;
   }
@@ -90,7 +78,7 @@ export class ExtensionLocalStorageService {
 
   public static async import(data: ExtensionLocalStorage): Promise<void> {
     await ExtensionLocalStorageApi.set(
-      await mergeData(data, await ExtensionLocalStorageService.get()),
+      await processData(data, await ExtensionLocalStorageService.get()),
     );
   }
 
@@ -99,54 +87,88 @@ export class ExtensionLocalStorageService {
   }
 }
 
-async function parseStoreData(
-  rawSettings: ExtensionLocalStorage,
-): Promise<ExtensionLocalStorage> {
-  return mergeData(rawSettings, DEFAULT_STORAGE);
-}
-
-async function mergeData(
-  rawSettings: ExtensionLocalStorage,
+async function processData(
+  rawSettings: unknown,
   defaultSettings: ExtensionLocalStorage,
 ): Promise<ExtensionLocalStorage> {
-  const { error } = ExtensionLocalStorageSchema.safeParse(rawSettings);
+  const result = await sanitizeData(rawSettings, defaultSettings);
+
+  let sanitizedSettings = result.sanitizedSettings;
+  const issues = result.issues;
+
+  if (!issues.length) {
+    return sanitizedSettings;
+  }
+
+  if (
+    rawSettings != null &&
+    typeof rawSettings === "object" &&
+    "schemaVersion" in rawSettings &&
+    issues.some((issue) => issue.path[0] === "schemaVersion")
+  ) {
+    sanitizedSettings = await migrateSchemas({
+      previousVersion: rawSettings.schemaVersion as string,
+      rawSettings: sanitizedSettings,
+    });
+
+    sanitizedSettings = (await sanitizeData(sanitizedSettings, defaultSettings))
+      .sanitizedSettings;
+  }
+
+  await ExtensionLocalStorageApi.set(sanitizedSettings);
+  return sanitizedSettings;
+}
+
+async function sanitizeData(
+  rawSettings: unknown,
+  defaultSettings: ExtensionLocalStorage,
+): Promise<{
+  sanitizedSettings: ExtensionLocalStorage;
+  issues: ZodIssue[];
+}> {
+  const { error, data } = ExtensionLocalStorageSchema.safeParse(rawSettings);
 
   if (!error) {
-    return rawSettings;
+    return {
+      sanitizedSettings: data,
+      issues: [],
+    };
   }
 
   if (!isZodError(error)) {
-    return DEFAULT_STORAGE;
+    return {
+      sanitizedSettings: DEFAULT_STORAGE,
+      issues: [],
+    };
   }
 
-  console.log("[Cplx] Settings schema mismatch, merging with defaults...");
+  console.log("[Cplx] Settings schema mismatch", error.issues);
 
-  const cleanSettings = error.issues.reduce(
+  let sanitizedSettings = error.issues.reduce(
     (settings, issue) =>
       setPathToUndefined({
         paths: issue.path as string[],
         obj: settings,
       }) as ExtensionLocalStorage,
-    rawSettings,
+    rawSettings as ExtensionLocalStorage,
   );
 
-  const updatedSettings = {
+  sanitizedSettings = {
     ...mergeUndefined({
-      target: cleanSettings,
+      target: sanitizedSettings,
       source: defaultSettings,
     }),
-    schemaVersion: packageJson.version,
+    schemaVersion: APP_CONFIG.VERSION,
   };
 
-  ExtensionLocalStorageSchema.parse(updatedSettings);
-
-  await ExtensionLocalStorageApi.set(updatedSettings);
-
-  return updatedSettings;
+  return {
+    sanitizedSettings,
+    issues: error.issues,
+  };
 }
 
 export async function fetchExtensionLocalStorageData(): Promise<ExtensionLocalStorage> {
-  return parseStoreData(await ExtensionLocalStorageApi.get());
+  return processData(await ExtensionLocalStorageApi.get(), DEFAULT_STORAGE);
 }
 
 csLoaderRegistry.register({

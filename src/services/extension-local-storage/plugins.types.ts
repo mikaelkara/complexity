@@ -1,6 +1,7 @@
 import { z } from "zod";
 
 import { BetterCodeBlockGlobalOptionsSchema } from "@/data/dashboard/better-code-blocks/better-code-blocks-options.types";
+import { TtsVoiceSchema } from "@/data/plugins/thread-message-tts/types";
 
 export const PluginSettingsSchema = z.object({
   enabled: z.boolean(),
@@ -36,11 +37,14 @@ export const PluginsSchema = z.object({
     sticky: z.boolean(),
     editQueryButton: z.boolean(),
     explicitModelName: z.boolean(),
+    hideUnnecessaryButtons: z.boolean(),
     wordsAndCharactersCount: z.boolean(),
     tokensCount: z.boolean(),
-    collapsibleQuery: z.boolean(),
   }),
-  "thread:instantRewriteButton": PluginSettingsSchema,
+  "thread:messageTts": PluginSettingsSchema.extend({
+    voice: TtsVoiceSchema,
+  }),
+  "thread:betterRewriteDropdowns": PluginSettingsSchema,
   "thread:betterCodeBlocks": PluginSettingsSchema.merge(
     BetterCodeBlockGlobalOptionsSchema,
   ),
@@ -67,6 +71,7 @@ export const PluginsSchema = z.object({
     lastState: z.boolean(),
     alwaysHideRelatedQuestions: z.boolean(),
     alwaysHideVisualCols: z.boolean(),
+    hotkey: z.array(z.string()),
   }),
 });
 

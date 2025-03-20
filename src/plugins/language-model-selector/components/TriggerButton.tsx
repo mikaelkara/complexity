@@ -1,4 +1,5 @@
 import { type ComponentType, type SVGProps } from "react";
+import { FaShuffle } from "react-icons/fa6";
 import { LuCpu } from "react-icons/lu";
 
 import FaAtom from "@/components/icons/FaAtom";
@@ -33,11 +34,20 @@ export default function BetterLanguageModelSelectorTriggerButton() {
 
   const label = useMemo(() => {
     const fragments = [];
-    if (isProSearchEnabled && !isReasoningModel && !isMobile)
+    if (
+      isProSearchEnabled &&
+      !isReasoningModel &&
+      selectedLanguageModel !== "turbo" &&
+      !isMobile
+    )
       fragments.push("Pro");
     if (selectedLanguageModel !== "pplx_alpha" && isReasoningModel && !isMobile)
       fragments.push("Reasoning");
-    fragments.push(modelInfo?.shortLabel);
+    fragments.push(
+      modelInfo?.shortLabel !== "Auto"
+        ? modelInfo?.shortLabel
+        : t("plugin-model-selectors:languageModelSelector:autoMode.title"),
+    );
     return fragments.join(" · ");
   }, [
     isProSearchEnabled,
@@ -49,13 +59,14 @@ export default function BetterLanguageModelSelectorTriggerButton() {
 
   const Icon = useMemo(() => {
     if (selectedLanguageModel === "pplx_alpha") return FaAtom;
+    if (selectedLanguageModel === "turbo") return FaShuffle;
 
     return isReasoningModel
       ? FaLightBulbOn
       : isProSearchEnabled
         ? ProSearchIcon
         : ((modelInfo?.provider != null
-            ? languageModelProviderIcons[modelInfo.provider]
+            ? (languageModelProviderIcons?.[modelInfo.provider] ?? LuCpu)
             : LuCpu) as ComponentType<SVGProps<SVGSVGElement>>);
   }, [
     selectedLanguageModel,
@@ -64,27 +75,23 @@ export default function BetterLanguageModelSelectorTriggerButton() {
     modelInfo?.provider,
   ]);
 
-  const className = useMemo(
-    () =>
-      cn(
-        "x-flex x-h-8 x-items-center x-gap-2 x-rounded-md x-border x-border-transparent x-px-2 x-text-sm x-font-medium x-text-muted-foreground x-transition-all active:x-scale-95",
-        {
-          "x-border-primary/30 x-bg-primary/10 x-text-primary":
-            isProSearchEnabled,
-          "x-border-border/50 hover:x-bg-primary-foreground hover:x-text-foreground":
-            !isProSearchEnabled,
-        },
-      ),
-    [isProSearchEnabled],
-  );
-
   return (
     <Tooltip
       content={t("plugin-model-selectors:languageModelSelector.tooltip")}
     >
-      <div className={className}>
-        <Icon className="x-size-4 x-shrink-0" />
-        <span className="x-truncate">{label}</span>
+      <div
+        className={cn(
+          "x:flex x:h-8 x:items-center x:justify-center x:gap-2 x:rounded-full x:border x:border-transparent x:bg-buttonBackground x:px-2.5 x:text-sm x:font-medium x:text-foreground x:transition-all x:active:scale-95",
+          {
+            "x:border-primary/30 x:bg-primary/10 x:text-primary":
+              isProSearchEnabled && selectedLanguageModel !== "turbo",
+            "x:border-border/50 x:hover:bg-primary-foreground x:hover:text-foreground":
+              !isProSearchEnabled || selectedLanguageModel === "turbo",
+          },
+        )}
+      >
+        <Icon className="x:size-3.5 x:shrink-0" />
+        <span className="x:truncate">{label}</span>
       </div>
     </Tooltip>
   );

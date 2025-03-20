@@ -19,8 +19,9 @@
     "characters": "文字",
     "expand": "展開",
     "collapse": "折りたたむ",
-    "instantRewriteShort": "書き直し",
-    "instantRewrite": "同じモデルで書き直す"
+    "rewrite": "書き直す",
+    "speakAloud": "音声で読み上げ",
+    "stop": "停止"
   },
   "releaseNotes": {
     "title": "v{{version}}に更新されました",

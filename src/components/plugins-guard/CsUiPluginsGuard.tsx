@@ -13,6 +13,7 @@ import {
   checkPluginDependencies,
   checkIncognito,
   checkLocation,
+  checkBrowser,
 } from "@/components/plugins-guard/guards";
 import { usePluginGuardsStore } from "@/components/plugins-guard/store";
 import {
@@ -78,6 +79,7 @@ function useGuardConditions(props: CsUiPluginsGuardProps) {
     currentLocation,
   });
   const incognitoValid = checkIncognito(props, { isIncognito });
+  const browserValid = checkBrowser(props);
 
   return {
     deviceValid,
@@ -86,6 +88,7 @@ function useGuardConditions(props: CsUiPluginsGuardProps) {
     dependenciesValid,
     locationValid,
     incognitoValid,
+    browserValid,
     pluginsEnableStates,
   };
 }
@@ -98,6 +101,7 @@ export default function CsUiPluginsGuard(props: CsUiPluginsGuardProps) {
     dependenciesValid,
     locationValid,
     incognitoValid,
+    browserValid,
     pluginsEnableStates,
   } = useGuardConditions(props);
 
@@ -117,6 +121,7 @@ export default function CsUiPluginsGuard(props: CsUiPluginsGuardProps) {
     dependenciesValid,
     locationValid,
     incognitoValid,
+    browserValid,
     additionalCheckValid,
   ].every(Boolean);
 
@@ -161,11 +166,11 @@ function useErrorTraces({
   );
 
   return (
-    <div className="x-flex x-flex-col">
+    <div className="x:flex x:flex-col">
       <div>Please provide these details to the maintainer:</div>
-      <div className="x-relative x-my-4 x-max-h-[300px] x-overflow-auto x-rounded-md x-bg-secondary x-p-2 x-font-mono">
+      <div className="x:relative x:my-4 x:max-h-[300px] x:overflow-auto x:rounded-md x:bg-secondary x:p-2 x:font-mono">
         <CopyButton
-          className="x-sticky x-right-2 x-top-2 x-float-right"
+          className="x:sticky x:top-2 x:right-2 x:float-right"
           content={tracesAsString}
         />
         <DebugInfoList traces={JSON.parse(tracesAsString)} />
@@ -182,7 +187,7 @@ function usePluginsError(
       Error occurred in dependent plugins:
       <Ul>
         {dependentPluginIds.map((pluginId) => (
-          <li key={pluginId} className="x-text-foreground">
+          <li key={pluginId} className="x:text-foreground">
             {PLUGINS_METADATA[pluginId]?.title || pluginId}
           </li>
         ))}

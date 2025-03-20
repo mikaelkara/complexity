@@ -1,12 +1,13 @@
 import { LuX } from "react-icons/lu";
 
-import { useIsMobileStore } from "@/hooks/use-is-mobile-store";
 import FloatingToggle from "@/plugins/thread-toc/FloatingToggle";
+import { useHandleTouch } from "@/plugins/thread-toc/useHandleTouch";
 import { usePanelPosition } from "@/plugins/thread-toc/usePanelPosition";
 import { useThreadTocItems } from "@/plugins/thread-toc/useThreadTocItems";
+import { PPLX_SCROLLBAR_CLASSES } from "@/utils/pplx-scrollbar-classes";
 import { scrollToElement } from "@/utils/utils";
 
-export const PANEL_WIDTH = 250;
+export const PANEL_WIDTH = 230;
 
 type TocItem = {
   id: string;
@@ -15,10 +16,14 @@ type TocItem = {
 };
 
 export default function ThreadTocWrapper() {
-  const { isMobile } = useIsMobileStore();
-
   const [isOpen, setIsOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  useHandleTouch({
+    containerRef,
+    isOpen,
+    setIsOpen,
+  });
 
   const tocItems = useThreadTocItems();
   const { position, isFloating } = usePanelPosition() ?? {};
@@ -27,36 +32,7 @@ export default function ThreadTocWrapper() {
   const handleToggleOpen = useCallback(() => setIsOpen(true), []);
   const handleToggleClose = useCallback(() => setIsOpen(false), []);
 
-  const panelStyles = useMemo(
-    () => ({
-      ["--panel-width"]: `${PANEL_WIDTH}px`,
-      ["--panel-top"]: top != null ? `${top}px` : undefined,
-      ["--panel-left"]: !isFloating && left != null ? `${left}px` : undefined,
-    }),
-    [top, left, isFloating],
-  ) as React.CSSProperties;
-
   const shouldShowToc = tocItems.length > 1 && !!position;
-
-  useEffect(() => {
-    if (!isMobile) return;
-
-    function handleClickOutside(event: MouseEvent) {
-      if (
-        containerRef.current &&
-        !containerRef.current.contains(event.target as Node) &&
-        isOpen
-      ) {
-        setIsOpen(false);
-      }
-    }
-
-    document.addEventListener("mousedown", handleClickOutside);
-
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [isMobile, isOpen]);
 
   if (!shouldShowToc) return null;
 
@@ -67,25 +43,34 @@ export default function ThreadTocWrapper() {
       )}
       <div
         ref={containerRef}
+        id="thread-toc-container"
         className={cn(
-          "x-custom-scrollbar x-fixed x-top-[--panel-top]",
-          "x-w-[--panel-width] x-overflow-y-auto",
+          PPLX_SCROLLBAR_CLASSES,
+          "x:fixed x:top-(--panel-top)",
+          "x:w-(--panel-width) x:overflow-y-auto",
           {
-            "x-max-h-[60vh]": isFloating,
-            "x-max-h-[80vh]": !isFloating,
+            "x:max-h-[60vh]": isFloating,
+            "x:max-h-[80vh]": !isFloating,
           },
-          "x-transition-all x-animate-in x-fade-in",
+          "x:transition-all x:animate-in x:fade-in",
           {
-            "x-left-[--panel-left]": !isFloating,
-            "x-right-3 x-rounded-md x-border x-border-border/50 x-bg-secondary x-p-4 x-shadow-lg md:x-right-8":
+            "x:left-(--panel-left)": !isFloating,
+            "x:right-3 x:rounded-md x:border x:border-border/50 x:bg-secondary x:p-4 x:shadow-lg x:md:right-8":
               isFloating,
-            "x-hidden": isFloating && !isOpen,
+            "x:hidden": isFloating && !isOpen,
           },
         )}
-        style={panelStyles}
+        style={
+          {
+            ["--panel-width"]: `${PANEL_WIDTH}px`,
+            ["--panel-top"]: top != null ? `${top}px` : undefined,
+            ["--panel-left"]:
+              !isFloating && left != null ? `${left}px` : undefined,
+          } as React.CSSProperties
+        }
       >
         {isFloating && <CloseButton onClick={handleToggleClose} />}
-        <div className="x-flex x-flex-col x-gap-2">
+        <div className="x:flex x:flex-col x:gap-2">
           {tocItems.map((item, idx) => (
             <TocItem
               key={idx}
@@ -117,20 +102,20 @@ const TocItem = memo(function TocItem({
 
   return (
     <div
-      className="x-flex x-cursor-pointer x-items-center x-gap-4"
+      className="x:flex x:cursor-pointer x:gap-4"
       title={title}
       onClick={onClick}
     >
       <div
-        className={cn("x-min-w-[2px] x-h-5 x-rounded-full", {
-          "x-bg-foreground": item.isActive,
-          "x-bg-muted-foreground": !item.isActive,
+        className={cn("x:min-h-5 x:min-w-[2px] x:rounded-full", {
+          "x:bg-foreground": item.isActive,
+          "x:bg-muted-foreground": !item.isActive,
         })}
       />
       <div
-        className={cn("x-text-sm x-block x-truncate x-transition-colors", {
-          "x-font-medium x-text-foreground": item.isActive,
-          "x-text-muted-foreground hover:x-text-foreground": !item.isActive,
+        className={cn("x:line-clamp-2 x:text-sm x:transition-colors", {
+          "x:font-medium x:text-foreground": item.isActive,
+          "x:text-muted-foreground x:hover:text-foreground": !item.isActive,
         })}
       >
         {title}
@@ -142,10 +127,10 @@ const TocItem = memo(function TocItem({
 function CloseButton({ onClick }: { onClick: () => void }) {
   return (
     <div
-      className="x-absolute x-right-2 x-top-2 x-cursor-pointer x-rounded-full x-p-1 x-text-muted-foreground x-transition-colors hover:x-text-foreground"
+      className="x:absolute x:top-2 x:right-2 x:cursor-pointer x:rounded-full x:p-1 x:text-muted-foreground x:transition-colors x:hover:text-foreground"
       onClick={onClick}
     >
-      <LuX className="x-size-4" />
+      <LuX className="x:size-4" />
     </div>
   );
 }

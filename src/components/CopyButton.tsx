@@ -21,16 +21,16 @@ export default function CopyButton({
 }: CopyButtonProps) {
   const [copyButtonText, setCopyButtonText] = useToggleButtonText({
     defaultText: (
-      <Copy {...iconProps} className={cn("x-size-4", iconProps?.className)} />
+      <Copy {...iconProps} className={cn("x:size-4", iconProps?.className)} />
     ),
   });
 
   return (
     <div
       className={cn(
-        "x-w-max x-cursor-pointer x-text-muted-foreground x-transition-all hover:x-text-foreground active:x-scale-95",
+        "x:w-max x:cursor-pointer x:text-muted-foreground x:transition-all x:hover:text-foreground x:active:scale-95",
         {
-          "x-pointer-events-none x-opacity-50": disabled,
+          "x:pointer-events-none x:opacity-50": disabled,
         },
         className,
       )}
@@ -44,7 +44,7 @@ export default function CopyButton({
         setCopyButtonText(
           <Check
             {...iconProps}
-            className={cn("x-size-4", iconProps?.className)}
+            className={cn("x:size-4", iconProps?.className)}
           />,
         );
 

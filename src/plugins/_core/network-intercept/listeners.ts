@@ -2,6 +2,7 @@ import { onMessage } from "webext-bridge/content-script";
 
 import { networkInterceptMiddlewareManager } from "@/plugins/_api/network-intercept-middleware-manager/middleware-manager";
 import {
+  BeaconEventData,
   FetchEventData,
   WebSocketEventData,
   XhrEventData,
@@ -20,6 +21,9 @@ export type InterceptorsEvents = {
   "network-intercept:fetchEvent": (
     event: FetchEventData,
   ) => FetchEventData["payload"];
+  "network-intercept:beaconEvent": (
+    event: BeaconEventData,
+  ) => BeaconEventData["payload"];
 };
 
 function setupInterceptorsListeners() {
@@ -59,6 +63,22 @@ function setupInterceptorsListeners() {
       const newPayload =
         await networkInterceptMiddlewareManager.executeMiddlewares({
           data: { type: "network-intercept:fetchEvent", event, payload },
+        });
+
+      return newPayload.payload;
+    },
+  );
+
+  onMessage(
+    "network-intercept:beaconEvent",
+    async ({ data: { event, payload } }) => {
+      // console.log("%cbeaconEvent", "color: purple", { event, payload });
+
+      if (event === "response") return payload;
+
+      const newPayload =
+        await networkInterceptMiddlewareManager.executeMiddlewares({
+          data: { type: "network-intercept:beaconEvent", event, payload },
         });
 
       return newPayload.payload;

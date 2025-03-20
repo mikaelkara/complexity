@@ -21,7 +21,7 @@ export const CommandInputHandler = memo(
       <CommandInput
         ref={commandInputRef}
         value={searchValue}
-        className="x-hidden"
+        className="x:hidden"
         onKeyDown={onKeyDown}
       />
     );

@@ -3,13 +3,14 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { ReactNode } from "react";
 
 const switchVariants = cva(
-  "x-inline-flex x-shrink-0 x-cursor-pointer x-items-center x-space-x-2 x-rounded-full x-bg-muted-foreground/35 x-transition-all focus-visible:x-outline-none focus-visible:x-ring-1 focus-visible:x-ring-ring focus-visible:x-ring-offset-2 focus-visible:x-ring-offset-background data-[disabled]:x-cursor-not-allowed data-[state=checked]:x-bg-primary/85 data-[disabled]:x-opacity-50 [&>span]:x-transition-all [&>span]:x-duration-150",
+  "x:inline-flex x:shrink-0 x:cursor-pointer x:items-center x:rounded-full x:bg-muted-foreground/35 x:transition-all x:focus-visible:ring-1 x:focus-visible:ring-ring x:focus-visible:ring-offset-2 x:focus-visible:ring-offset-background x:focus-visible:outline-none x:data-[disabled]:cursor-not-allowed x:data-[disabled]:opacity-50 x:data-[state=checked]:bg-primary/85 x:[&>span]:transition-all x:[&>span]:duration-150",
   {
     variants: {
       size: {
-        sm: "x-h-5 x-w-9",
-        base: "x-h-6 x-w-11",
-        lg: "x-h-7 x-w-[52px]",
+        xs: "x:h-4 x:w-7",
+        sm: "x:h-5 x:w-9",
+        base: "x:h-6 x:w-11",
+        lg: "x:h-7 x:w-[52px]",
       },
     },
     defaultVariants: {
@@ -19,13 +20,14 @@ const switchVariants = cva(
 );
 
 const thumbVariants = cva(
-  "x-pointer-events-none x-block x-rounded-full x-bg-background x-shadow-lg x-ring-0 dark:x-bg-foreground",
+  "x:pointer-events-none x:block x:rounded-full x:bg-background x:shadow-lg x:ring-0 x:dark:bg-foreground",
   {
     variants: {
       size: {
-        sm: "x-h-3.5 x-w-3.5 data-[state=checked]:x-translate-x-[17px] data-[state=unchecked]:x-translate-x-0.5",
-        base: "x-h-4 x-w-4 data-[state=checked]:x-translate-x-6 data-[state=unchecked]:x-translate-x-1",
-        lg: "x-h-5 x-w-5 data-[state=checked]:x-translate-x-[27px] data-[state=unchecked]:x-translate-x-0.5",
+        xs: "x:h-2.5 x:w-2.5 x:data-[state=checked]:translate-x-[15px] x:data-[state=unchecked]:translate-x-[3px]",
+        sm: "x:h-3.5 x:w-3.5 x:data-[state=checked]:translate-x-[18px] x:data-[state=unchecked]:translate-x-1",
+        base: "x:h-4 x:w-4 x:data-[state=checked]:translate-x-6 x:data-[state=unchecked]:translate-x-1",
+        lg: "x:h-5 x:w-5 x:data-[state=checked]:translate-x-[27px] x:data-[state=unchecked]:translate-x-0.5",
       },
     },
     defaultVariants: {
@@ -35,13 +37,14 @@ const thumbVariants = cva(
 );
 
 const labelVariants = cva(
-  "x-duration-15 x-cursor-pointer x-transition-colors data-[disabled]:x-cursor-not-allowed data-[state=unchecked]:x-text-muted-foreground data-[disabled]:x-opacity-50 hover:data-[state=unchecked]:x-text-foreground",
+  "x:cursor-pointer x:transition-colors x:duration-15 x:data-[disabled]:cursor-not-allowed x:data-[disabled]:opacity-50 x:data-[state=unchecked]:text-muted-foreground x:hover:data-[state=unchecked]:text-foreground",
   {
     variants: {
       size: {
-        sm: "x-text-xs",
-        base: "x-text-sm",
-        lg: "x-text-base",
+        xs: "x:text-[10px]",
+        sm: "x:text-xs",
+        base: "x:text-sm",
+        lg: "x:text-base",
       },
     },
     defaultVariants: {
@@ -65,7 +68,7 @@ function Switch({
 }: SwitchProps) {
   return (
     <ArkSwitch.Root
-      className={cn("x-flex x-items-center x-space-x-2", className)}
+      className={cn("x:flex x:items-center x:gap-2", className)}
       {...props}
     >
       <ArkSwitch.Context>
@@ -79,7 +82,7 @@ function Switch({
                 className={cn(
                   labelVariants({ size }),
                   {
-                    "x-text-primary": checked,
+                    "x:text-primary": checked,
                   },
                   labelClassName,
                 )}

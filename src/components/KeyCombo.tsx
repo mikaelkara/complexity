@@ -22,11 +22,11 @@ export default function KeyCombo({
   }, [keys, isMac]);
 
   return (
-    <span className={cn("x-inline-flex x-gap-1", className)} {...props}>
+    <span className={cn("x:inline-flex x:gap-1", className)} {...props}>
       {processedKeys.map((key, idx) => (
         <span
           key={idx}
-          className="x-rounded-sm x-border x-border-border/50 x-px-1 x-font-mono"
+          className="x:rounded-sm x:border x:border-border/50 x:px-1 x:font-mono"
         >
           {key}
         </span>

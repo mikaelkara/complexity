@@ -2,7 +2,7 @@ import { z } from "zod";
 
 import { ImageGenModel } from "@/data/plugins/image-gen-model-selector/image-gen-model-seletor.types";
 import { type LanguageModel } from "@/data/plugins/query-box/language-model-selector/language-models.types";
-import { InternalWebSocketManager } from "@/plugins/_api/web-socket/internal-web-socket-manager";
+import { internalWebSocketStore } from "@/plugins/_core/web-socket/store";
 import { ENDPOINTS } from "@/services/pplx-api/endpoints";
 import {
   PplxOrgSettingsApiResponseSchema,
@@ -52,7 +52,7 @@ export class PplxApiService {
       throw new Error("Cloudflare timeout");
     }
 
-    const parsedJson = PplxUserSettingsApiResponseSchema.parse(
+    const parsedJson = PplxUserSettingsApiResponseSchema.passthrough().parse(
       jsonUtils.safeParse(respText),
     );
 
@@ -154,20 +154,15 @@ export class PplxApiService {
 
     const fetchViaApi = async () =>
       ThreadsSearchApiResponseSchema.parse(
-        await InternalWebSocketManager.getInstance().sendMessageWithAck<ThreadsSearchApiResponse>(
-          {
-            data: [
-              "list_ask_threads",
-              {
-                version: "2.13",
-                source: "default",
-                limit,
-                offset,
-                search_term: searchValue,
-              },
-            ],
-          },
-        ),
+        await internalWebSocketStore
+          .getState()
+          .common?.emitWithAck("list_ask_threads", {
+            version: "2.13",
+            source: "default",
+            limit,
+            offset,
+            search_term: searchValue,
+          }),
       );
 
     if (searchValue.length > 0) {
@@ -261,21 +256,17 @@ export class PplxApiService {
       "title" | "instructions" | "emoji" | "model_selection" | "description"
     >,
   ): Promise<Space> {
-    const resp =
-      await InternalWebSocketManager.getInstance().sendMessageWithAck({
-        data: [
-          "create_collection",
-          {
-            version: "2.15",
-            source: "default",
-            title: space.title,
-            description: space.description,
-            emoji: space.emoji,
-            instructions: space.instructions,
-            access: 1,
-            model_selection: space.model_selection,
-          },
-        ],
+    const resp = await internalWebSocketStore
+      .getState()
+      .common?.emitWithAck("create_collection", {
+        version: "2.15",
+        source: "default",
+        title: space.title,
+        description: space.description,
+        emoji: space.emoji,
+        instructions: space.instructions,
+        access: 1,
+        model_selection: space.model_selection,
       });
 
     return SpaceSchema.parse(resp);

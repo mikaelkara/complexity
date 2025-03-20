@@ -8,11 +8,11 @@ export default function NoPluginsFound() {
       icon={BiExtension}
       title="No plugins found"
       description={
-        <div className="x-text-balance">
+        <div className="x:text-balance">
           Try adjusting your search term/filters or{" "}
           <a
             href="#"
-            className="x-underline x-transition-colors hover:x-text-foreground"
+            className="x:underline x:transition-colors x:hover:text-foreground"
             target="_blank"
             rel="noreferrer"
           >

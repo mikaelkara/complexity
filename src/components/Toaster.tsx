@@ -16,8 +16,8 @@ export function Toaster() {
     <ToastProvider>
       {toasts.map(function ({ id, title, description, action, ...props }) {
         return (
-          <Toast key={id} {...props} className="x-mt-2 x-w-max x-font-sans">
-            <div className="x-grid x-gap-1">
+          <Toast key={id} {...props} className="x:mt-2 x:w-max x:font-sans">
+            <div className="x:grid x:gap-1">
               {isReactNode(title) && <ToastTitle>{title}</ToastTitle>}
               {isReactNode(description) && (
                 <ToastDescription>{description}</ToastDescription>

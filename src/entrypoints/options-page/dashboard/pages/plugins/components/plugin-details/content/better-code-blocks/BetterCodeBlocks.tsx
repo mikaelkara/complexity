@@ -21,7 +21,7 @@ export default function BetterCodeBlocksPluginDetails() {
   const isFromPluginList = useLocation().state?.fromPluginList;
 
   return (
-    <div className="x-flex x-flex-col x-gap-4">
+    <div className="x:flex x:flex-col x:gap-4">
       <Header />
 
       {settings?.plugins["thread:betterCodeBlocks"].enabled && (
@@ -38,7 +38,7 @@ export default function BetterCodeBlocksPluginDetails() {
             );
           }}
         >
-          <TabsList className="x-mb-2 x-justify-start">
+          <TabsList className="x:mb-2 x:justify-start">
             <TabsTrigger value="global">Global</TabsTrigger>
             {fineGrainedOptions?.map((option) => (
               <TabsTrigger key={option.language} value={option.language}>
@@ -49,7 +49,7 @@ export default function BetterCodeBlocksPluginDetails() {
           </TabsList>
           <TabsContent
             value="global"
-            className="x-max-w-[500px] x-rounded-md x-bg-secondary x-p-4"
+            className="x:max-w-[500px] x:rounded-md x:bg-secondary x:p-4"
           >
             <BetterCodeBlockGlobalOptions />
           </TabsContent>
@@ -57,7 +57,7 @@ export default function BetterCodeBlocksPluginDetails() {
             <TabsContent
               key={option.language}
               value={option.language}
-              className="x-rounded-md x-bg-secondary x-p-4"
+              className="x:rounded-md x:bg-secondary x:p-4"
             >
               <BetterCodeBlockFineGrainedOptions language={option.language} />
             </TabsContent>
@@ -73,7 +73,7 @@ function Header() {
 
   return (
     <>
-      <div className="x-flex x-flex-col x-gap-2">
+      <div className="x:flex x:flex-col x:gap-2">
         Customize the appearance and usability of code blocks.
       </div>
       <Switch

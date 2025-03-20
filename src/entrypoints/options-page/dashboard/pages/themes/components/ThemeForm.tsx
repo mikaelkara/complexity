@@ -34,7 +34,7 @@ export function ThemeForm({
 }: ThemeFormProps) {
   return (
     <Form {...form}>
-      <form className="x-space-y-6" onSubmit={onSubmit}>
+      <form className="x:space-y-6" onSubmit={onSubmit}>
         <FormField
           control={form.control}
           disabled={isPending}
@@ -52,7 +52,7 @@ export function ThemeForm({
 
         <FormItem>
           <FormLabel>Font Families</FormLabel>
-          <div className="x-grid x-grid-cols-2 x-gap-4">
+          <div className="x:grid x:grid-cols-2 x:gap-4">
             <FormField
               control={form.control}
               disabled={isPending}
@@ -61,7 +61,7 @@ export function ThemeForm({
                 <FormItem>
                   <FormControl>
                     <Input
-                      className="x-font-mono"
+                      className="x:font-mono"
                       placeholder="ui (e.g., Inter)"
                       {...field}
                     />
@@ -79,7 +79,7 @@ export function ThemeForm({
                 <FormItem>
                   <FormControl>
                     <Input
-                      className="x-font-mono"
+                      className="x:font-mono"
                       placeholder="monospace (e.g., JetBrains Mono, Fira Code)"
                       {...field}
                     />
@@ -119,8 +119,8 @@ export function ThemeForm({
           name="enhanceThreadTypography"
           disabled={isPending}
           render={({ field }) => (
-            <FormItem className="x-flex x-flex-row x-items-center x-justify-between">
-              <div className="x-space-y-0.5">
+            <FormItem className="x:flex x:flex-row x:items-center x:justify-between">
+              <div className="x:space-y-0.5">
                 <FormLabel>Enhance Typography (in Threads)</FormLabel>
                 <FormDescription>
                   Emphasizes headings, bold text, make inline code more
@@ -148,7 +148,7 @@ export function ThemeForm({
               <FormControl>
                 <Textarea
                   placeholder="Enter custom CSS rules"
-                  className="x-min-h-[300px] x-font-mono"
+                  className="x:min-h-[300px] x:font-mono"
                   {...field}
                 />
               </FormControl>
@@ -160,11 +160,11 @@ export function ThemeForm({
           )}
         />
 
-        <div className="x-flex x-justify-end x-gap-2">
+        <div className="x:flex x:justify-end x:gap-2">
           {footer}
           <Button type="submit" disabled={isPending || !form.formState.isDirty}>
             {isPending ? (
-              <LuLoaderCircle className="x-size-4 x-animate-spin" />
+              <LuLoaderCircle className="x:size-4 x:animate-spin" />
             ) : (
               submitText
             )}

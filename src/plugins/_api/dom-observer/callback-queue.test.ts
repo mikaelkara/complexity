@@ -127,14 +127,12 @@ describe("CallbackQueue", () => {
     const mockCallback = vi.fn();
     const duplicateId = "duplicate-task" as CallbackQueueTaskId;
 
-    // Simultaneous duplicate enqueues
     queue.enqueue(mockCallback, duplicateId);
     queue.enqueue(mockCallback, duplicateId);
     queue.enqueue(mockCallback, duplicateId);
 
     await flushPendingOperations();
 
-    // Should only execute once despite multiple enqueues
     expect(mockCallback).toHaveBeenCalledTimes(1);
   });
 
@@ -142,7 +140,6 @@ describe("CallbackQueue", () => {
     const mockCallback = vi.fn();
     const mockCallback2 = vi.fn();
 
-    // Use fake timers to control queue processing
     vi.useFakeTimers();
 
     queue.enqueueArray([
@@ -150,17 +147,14 @@ describe("CallbackQueue", () => {
       { callback: mockCallback2, id: "task2" as CallbackQueueTaskId },
     ]);
 
-    // Immediately clear before any processing occurs
     queue.clear();
 
-    // Advance all timers and promises
     await vi.runAllTimersAsync();
     await Promise.resolve();
 
     expect(mockCallback).not.toHaveBeenCalled();
     expect(mockCallback2).not.toHaveBeenCalled();
 
-    // Verify queue remains functional
     const postClearCallback = vi.fn();
     queue.enqueue(postClearCallback, "post-clear" as CallbackQueueTaskId);
     await flushPendingOperations();

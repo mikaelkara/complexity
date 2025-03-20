@@ -16,7 +16,6 @@ class PromptHistoryService {
   async deduplicateAdd(prompt: string): Promise<string> {
     const mostRecentItem = await db.promptHistory.reverse().first();
     if (mostRecentItem?.prompt === prompt) {
-      // update "createdAt" to now
       await db.promptHistory.update(mostRecentItem.id, {
         createdAt: new Date().getTime(),
       });

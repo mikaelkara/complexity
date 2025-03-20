@@ -21,15 +21,15 @@ export function ExpandCollapseButton({
       }
     >
       <div
-        className="x-cursor-pointer x-text-muted-foreground x-transition-colors hover:x-text-foreground"
+        className="x:cursor-pointer x:text-muted-foreground x:transition-colors x:hover:text-foreground"
         onClick={() =>
           setMaxHeight(maxHeight === defaultMaxHeight ? 9999 : defaultMaxHeight)
         }
       >
         {maxHeight === defaultMaxHeight ? (
-          <LuChevronDown className="x-size-4" />
+          <LuChevronDown className="x:size-4" />
         ) : (
-          <LuChevronUp className="x-size-4" />
+          <LuChevronUp className="x:size-4" />
         )}
       </div>
     </Tooltip>

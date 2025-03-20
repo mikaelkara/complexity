@@ -1,28 +1,29 @@
 @import "./vars.css";
 @import "./scrollbar.css";
 @import "./typography.css";
-@config "./tailwind.extension.config.js";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss/preflight.css" layer(base);
+
+[data-color-scheme="dark"] {
+  color-scheme: dark;
+
+  --primary: oklch(74.37% 0.1304 255.6);
+  --ring: oklch(74.37% 0.1304 255.6);
+}
 
 @layer base {
-  [data-color-scheme="dark"] {
-    color-scheme: dark;
-
-    --primary: 74.37% 0.1304 255.6;
-    --ring: 74.37% 0.1304 255.6;
-  }
-
   * {
-    @apply x-border-border/50 x-text-base;
+    @apply x:border-border/50 x:font-sans x:text-base;
   }
 
   body {
-    @apply x-bg-background x-font-sans x-text-foreground;
+    @apply x:bg-background x:font-sans x:text-foreground;
     font-feature-settings:
       "rlig" 1,
       "calt" 1;
+  }
+
+  button {
+    cursor: pointer;
   }
 }

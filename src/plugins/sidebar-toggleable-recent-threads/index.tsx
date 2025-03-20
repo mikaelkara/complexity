@@ -38,7 +38,7 @@ export default function SidebarToggleableRecentThreadsWrapper() {
     }
 
     const $portalContainer = $("<div>")
-      .addClass("x-mr-1")
+      .addClass("x:mr-1")
       .internalComponentAttr(
         `${
           INTERNAL_ATTRIBUTES.SIDEBAR

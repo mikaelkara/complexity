@@ -19,8 +19,9 @@
     "characters": "characters",
     "expand": "Expand",
     "collapse": "Collapse",
-    "instantRewriteShort": "Rewrite",
-    "instantRewrite": "Rewrite with the same model"
+    "rewrite": "Rewrite",
+    "speakAloud": "Speak aloud",
+    "stop": "Stop"
   },
   "releaseNotes": {
     "title": "Updated to v{{version}}",

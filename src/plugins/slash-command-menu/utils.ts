@@ -7,20 +7,15 @@ type PopoverPositionConfig = {
 };
 
 export const getPopoverPositionConfig = (
-  storeType: QueryBoxType,
+  queryBoxType: QueryBoxType,
 ): PopoverPositionConfig => {
-  const isSpaceQueryBox = storeType === "space";
+  const isSpaceQueryBox = queryBoxType === "space";
   return {
     placement: isSpaceQueryBox ? "bottom-start" : "top-start",
-    gutter: storeType === "main" ? 1 : 5,
+    gutter: 1,
     flip: isSpaceQueryBox,
   };
 };
-
-export const getPopoverContentClasses = (storeType: QueryBoxType) =>
-  cn("x-overflow-y-auto x-border-border x-p-0 x-font-medium x-shadow-none", {
-    "x-rounded-b-none x-border-2 x-border-b-0": storeType === "main",
-  });
 
 export const handleCommandInputKeyDown =
   (commandRef: React.RefObject<HTMLDivElement | null>) =>

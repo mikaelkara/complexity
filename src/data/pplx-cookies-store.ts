@@ -50,7 +50,7 @@ function parseCookies() {
       if (!cookieName) return null;
       return {
         name: cookieName,
-        value: decodeURIComponent(cookieValue || ""),
+        value: cookieValue,
       };
     })
     .filter((cookie): cookie is Cookie => cookie !== null);

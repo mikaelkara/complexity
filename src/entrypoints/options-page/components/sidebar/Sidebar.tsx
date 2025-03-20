@@ -12,8 +12,8 @@ export default function Sidebar() {
   const { setIsOpen } = use(MobileSidebarContext);
 
   return (
-    <div className="x-sticky x-top-0 x-flex x-h-full x-flex-col x-justify-between md:x-h-screen">
-      <div className="x-overflow-y-auto x-p-4 x-px-2">
+    <div className="x:sticky x:top-0 x:flex x:h-full x:flex-col x:justify-between x:md:h-screen">
+      <div className="x:overflow-y-auto x:p-4 x:px-2">
         <Version />
         {navItems.map(({ icon: Icon, label, path }) => (
           <NavLink
@@ -21,26 +21,26 @@ export default function Sidebar() {
             to={path}
             className={({ isActive }) =>
               cn(
-                "x-mb-1 x-flex x-items-center x-rounded-md x-p-2 x-px-4 x-text-sm x-font-medium x-transition-all",
+                "x:mb-1 x:flex x:items-center x:rounded-md x:p-2 x:px-4 x:text-sm x:font-medium x:transition-all",
                 {
-                  "x-bg-primary-foreground x-text-primary": isActive,
-                  "x-text-muted-foreground hover:x-text-foreground": !isActive,
+                  "x:bg-primary-foreground x:text-primary": isActive,
+                  "x:text-muted-foreground x:hover:text-foreground": !isActive,
                 },
               )
             }
           >
-            <Icon className="x-mr-2 x-size-4" />
+            <Icon className="x:mr-2 x:size-4" />
             <span>{label}</span>
           </NavLink>
         ))}
       </div>
 
-      <div className="x-sticky x-bottom-0 x-z-10 x-flex x-shrink-0 x-flex-col x-gap-4 x-bg-background x-p-4">
+      <div className="x:sticky x:bottom-0 x:z-10 x:flex x:shrink-0 x:flex-col x:gap-4 x:bg-background x:p-4">
         <SidebarUpdateAnnouncer />
 
         <SponsorDialogWrapper>
           <div
-            className="x-group x-relative x-w-full x-cursor-pointer x-rounded-md x-border x-border-border/50 x-bg-secondary x-p-4 x-text-sm x-font-medium x-shadow-lg x-transition-all hover:x-scale-105 hover:x-border-primary hover:x-bg-primary/10"
+            className="x:group x:relative x:w-full x:cursor-pointer x:rounded-md x:border x:border-border/50 x:bg-secondary x:p-4 x:text-sm x:font-medium x:text-balance x:shadow-lg x:transition-all x:hover:scale-105 x:hover:border-primary x:hover:bg-primary/10"
             onClick={() => {
               setIsOpen(false);
             }}
@@ -51,12 +51,12 @@ export default function Sidebar() {
                 emphasis: (
                   <span
                     key="sidebar.supporterMessage"
-                    className="x-font-medium x-text-primary"
+                    className="x:font-medium x:text-primary"
                   />
                 ),
               }}
             />
-            <LuExternalLink className="x-absolute x-right-2 x-top-2 x-size-3.5 x-text-muted group-hover:x-text-primary" />
+            <LuExternalLink className="x:absolute x:top-2 x:right-2 x:size-3.5 x:text-muted x:group-hover:text-primary" />
           </div>
         </SponsorDialogWrapper>
       </div>

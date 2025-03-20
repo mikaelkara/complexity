@@ -84,7 +84,7 @@ function CanvasPrePromptInstallationDialog() {
         navigate("/");
       }}
     >
-      <DialogContent className="x-max-w-max">
+      <DialogContent className="x:max-w-max">
         <DialogHeader>
           <DialogTitle>Install Canvas Pre-Prompt as Space</DialogTitle>
         </DialogHeader>
@@ -92,21 +92,21 @@ function CanvasPrePromptInstallationDialog() {
           You are about to install the Canvas Pre-Prompt as a Perplexity&apos;s
           Space. This will enable advanced features for the Canvas plugin.
         </DialogDescription>
-        <div className="x-flex x-w-full x-flex-col x-gap-2">
-          <div className="x-text-sm x-text-muted-foreground">
+        <div className="x:flex x:w-full x:flex-col x:gap-2">
+          <div className="x:text-sm x:text-muted-foreground">
             For reference, here is the prompt:
           </div>
-          <ScrollArea className="x-h-[500px] x-w-full x-rounded-md x-border x-border-border/50 x-bg-secondary x-text-sm x-text-secondary-foreground">
+          <ScrollArea className="x:h-[500px] x:w-full x:rounded-md x:border x:border-border/50 x:bg-secondary x:text-sm x:text-secondary-foreground">
             {isFetching && !canvasInstruction && (
-              <div className="x-flex x-flex-col x-gap-2">
-                <p className="x-p-4 x-text-sm x-text-muted-foreground">
+              <div className="x:flex x:flex-col x:gap-2">
+                <p className="x:p-4 x:text-sm x:text-muted-foreground">
                   Fetching the Canvas Pre-Prompt, please wait...
                 </p>
               </div>
             )}
             {isError && (
-              <div className="x-flex x-flex-col x-gap-2">
-                <p className="x-p-4 x-text-sm x-text-muted-foreground">
+              <div className="x:flex x:flex-col x:gap-2">
+                <p className="x:p-4 x:text-sm x:text-muted-foreground">
                   Failed to fetch the Canvas Pre-Prompt.
                 </p>
               </div>
@@ -114,10 +114,10 @@ function CanvasPrePromptInstallationDialog() {
             {canvasInstruction && (
               <>
                 <CopyButton
-                  className="x-float-right x-mr-4 x-mt-4"
+                  className="x:float-right x:mt-4 x:mr-4"
                   content={canvasInstruction}
                 />
-                <div className="x-max-w-full x-whitespace-pre-line x-break-words x-p-4">
+                <div className="x:max-w-full x:p-4 x:break-words x:whitespace-pre-line">
                   {canvasInstruction}
                 </div>
               </>
@@ -125,7 +125,7 @@ function CanvasPrePromptInstallationDialog() {
           </ScrollArea>
         </div>
         {versions?.canvasInstructionLastUpdated != null && (
-          <div className="x-text-sm x-text-muted-foreground">
+          <div className="x:text-sm x:text-muted-foreground">
             Last updated:{" "}
             {unixTimestampToDate({
               unixTimestamp: versions.canvasInstructionLastUpdated,
@@ -139,8 +139,8 @@ function CanvasPrePromptInstallationDialog() {
           <AsyncButton
             disabled={isFetching || !canvasInstruction}
             loadingText={
-              <div className="x-flex x-items-center x-gap-2">
-                <LuLoaderCircle className="x-animate-spin" />
+              <div className="x:flex x:items-center x:gap-2">
+                <LuLoaderCircle className="x:animate-spin" />
                 <span>Installing...</span>
               </div>
             }

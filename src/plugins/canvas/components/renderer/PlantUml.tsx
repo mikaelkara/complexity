@@ -31,7 +31,7 @@ const SVGContent = memo(function SVGContent({ svg }: { svg: string }) {
   return (
     <div
       id="canvas-plantuml-container"
-      className="x-flex x-size-full x-items-center x-justify-center x-animate-in x-fade-in [&>svg]:!x-size-full"
+      className="x:flex x:size-full x:items-center x:justify-center x:animate-in x:fade-in x:[&>svg]:!size-full"
       dangerouslySetInnerHTML={{
         __html: svg,
       }}
@@ -104,22 +104,22 @@ export default function PlantUmlRenderer() {
   }, [code, mutate, isInFlight, colorScheme]);
 
   return (
-    <div className="x-relative x-size-full">
+    <div className="x:relative x:size-full">
       {isPending && (
-        <div className="x-absolute x-inset-1/2 -x-translate-x-1/2 -x-translate-y-1/2 x-animate-in x-fade-in">
-          <LuLoaderCircle className="x-size-10 x-animate-spin x-text-muted-foreground" />
+        <div className="x:absolute x:inset-1/2 x:-translate-x-1/2 x:-translate-y-1/2 x:animate-in x:fade-in">
+          <LuLoaderCircle className="x:size-10 x:animate-spin x:text-muted-foreground" />
         </div>
       )}
       {!isPending && error && (
-        <div className="x-flex x-flex-col x-gap-4 x-p-4">
-          <div className="x-whitespace-pre x-font-mono x-text-red-500 x-animate-in x-fade-in">
-            <div className="x-text-lg x-font-bold">
+        <div className="x:flex x:flex-col x:gap-4 x:p-4">
+          <div className="x:font-mono x:whitespace-pre x:text-red-500 x:animate-in x:fade-in">
+            <div className="x:text-lg x:font-bold">
               An error occurred while rendering the PlantUML code:
             </div>
             <div>{error.message}</div>
           </div>
           <Button
-            className="x-w-max"
+            className="x:w-max"
             variant="destructive"
             onClick={() => {
               if (!error.message) return;

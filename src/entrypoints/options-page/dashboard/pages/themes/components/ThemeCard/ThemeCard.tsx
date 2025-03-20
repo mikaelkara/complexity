@@ -31,21 +31,21 @@ export default function ThemeCard({ theme, type }: ThemeCardProps) {
   return (
     <Card
       className={cn(
-        "x-group x-relative x-flex x-flex-col x-overflow-hidden x-border-border/50 x-bg-secondary x-transition-all",
-        { "x-border-primary x-bg-primary/10": isChosenTheme },
+        "x:group x:relative x:flex x:flex-col x:overflow-hidden x:border-border/50 x:bg-secondary x:transition-all",
+        { "x:border-primary x:bg-primary/10": isChosenTheme },
       )}
     >
-      <div className="x-relative x-aspect-[16/9] x-overflow-hidden">
+      <div className="x:relative x:aspect-[16/9] x:overflow-hidden">
         <ThemeCardBanner theme={theme} />
       </div>
 
-      <CardHeader className="x-space-y-0">
-        <CardTitle className="x-text-lg">{theme.title}</CardTitle>
+      <CardHeader className="x:space-y-0">
+        <CardTitle className="x:text-lg">{theme.title}</CardTitle>
         <CardDescription>{theme.description}</CardDescription>
       </CardHeader>
 
-      <CardContent className="x-grow">
-        <div className="x-flex x-flex-wrap x-gap-2">
+      <CardContent className="x:grow">
+        <div className="x:flex x:flex-wrap x:gap-2">
           {theme.colorScheme?.includes("light") && (
             <ColorSchemeBadge type="light" />
           )}
@@ -61,7 +61,7 @@ export default function ThemeCard({ theme, type }: ThemeCardProps) {
         </div>
       </CardContent>
 
-      <CardFooter className="x-flex x-flex-row x-justify-end x-gap-2">
+      <CardFooter className="x:flex x:flex-row x:justify-end x:gap-2">
         {type === "local" && <ThemeCardEditButton theme={theme} />}
         <ThemeActionButton theme={theme} />
       </CardFooter>

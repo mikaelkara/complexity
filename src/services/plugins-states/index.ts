@@ -8,7 +8,7 @@ import { ExtensionLocalStorageService } from "@/services/extension-local-storage
 import { PluginId } from "@/services/extension-local-storage/plugins.types";
 import {
   initializePluginStates,
-  updatePluginStatesWithEnableStates,
+  getEnableStates,
   updatePluginStatesWithFeatureCompat,
 } from "@/services/plugins-states/utils";
 import { csLoaderRegistry } from "@/utils/cs-loader-registry";
@@ -37,7 +37,7 @@ export class PluginsStatesService {
       cplxVersions?.latest,
     );
 
-    const withEnableStates = updatePluginStatesWithEnableStates(
+    const enableStates = getEnableStates(
       withFeatureCompat,
       ExtensionLocalStorageService.getCachedSync().plugins,
     );
@@ -47,10 +47,10 @@ export class PluginsStatesService {
         "[CPLX] Something tried to access plugins states before the required data was fetched",
       );
     } else {
-      this.cachedEnableStates = withEnableStates;
+      this.cachedEnableStates = enableStates;
     }
 
-    return withEnableStates;
+    return enableStates;
   }
 }
 

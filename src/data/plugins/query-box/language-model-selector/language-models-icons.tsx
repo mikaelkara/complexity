@@ -7,7 +7,6 @@ import {
 
 import DeepSeek from "@/components/icons/DeepSeek";
 import FaAtom from "@/components/icons/FaAtom";
-import MistralAiIcon from "@/components/icons/MistralAiIcon";
 import XAiIcon from "@/components/icons/XAiIcon";
 import { LanguageModelProvider } from "@/data/plugins/query-box/language-model-selector/language-models.types";
 
@@ -21,6 +20,5 @@ export const languageModelProviderIcons: Record<
   Perplexity: SiPerplexity,
   PerplexityDeepResearch: FaAtom,
   Google: SiGooglegemini,
-  Mistral: MistralAiIcon,
   DeepSeek: DeepSeek,
 };

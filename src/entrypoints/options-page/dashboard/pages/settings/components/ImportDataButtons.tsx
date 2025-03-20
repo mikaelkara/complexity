@@ -1,5 +1,3 @@
-import { useRef } from "react";
-
 import { Button } from "@/components/ui/button";
 import { toast } from "@/components/ui/use-toast";
 import { ExtensionData } from "@/data/dashboard/extension-data.types";
@@ -53,12 +51,12 @@ export default function ImportDataButtons() {
   };
 
   return (
-    <div className="x-flex x-gap-4">
+    <div className="x:flex x:gap-4">
       <input
         ref={fileInputRef}
         type="file"
         accept=".json"
-        className="x-hidden"
+        className="x:hidden"
         onChange={handleFileChange}
       />
       <ImportDataPasteDialogWrapper onSubmit={handleImportData}>

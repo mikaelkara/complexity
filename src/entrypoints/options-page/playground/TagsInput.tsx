@@ -1,5 +1,4 @@
 import { PopoverOpenChangeDetails } from "@ark-ui/react";
-import { useState } from "react";
 import { LuX } from "react-icons/lu";
 
 import { Button } from "@/components/ui/button";
@@ -68,7 +67,7 @@ export default function TagsInput() {
   };
 
   return (
-    <div className="x-flex x-flex-col x-gap-2">
+    <div className="x:flex x:flex-col x:gap-2">
       <Popover open={open} onOpenChange={handleOpenChange}>
         <PopoverTrigger asChild>
           <Button>
@@ -79,30 +78,30 @@ export default function TagsInput() {
             )}
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="x-w-[300px] x-p-0">
+        <PopoverContent className="x:w-[300px] x:p-0">
           <Command>
             <CommandInput placeholder="Search tags..." />
             <CommandEmpty>No results found.</CommandEmpty>
-            <CommandList className="x-p-1 [&_[cmdk-list-sizer]]:x-flex [&_[cmdk-list-sizer]]:x-flex-row [&_[cmdk-list-sizer]]:x-flex-wrap">
+            <CommandList className="x:p-1 x:[&_[cmdk-list-sizer]]:flex x:[&_[cmdk-list-sizer]]:flex-row x:[&_[cmdk-list-sizer]]:flex-wrap">
               {tags.map((tag) => {
                 const isSelected = selectedTags.some((t) => t.id === tag.id);
                 return (
                   <CommandItem
                     key={tag.id}
                     className={cn({
-                      "x-m-1 x-w-max x-cursor-pointer x-rounded-md x-px-2 x-py-0.5 x-text-sm x-transition-colors":
+                      "x:m-1 x:w-max x:cursor-pointer x:rounded-md x:px-2 x:py-0.5 x:text-sm x:transition-colors":
                         true,
-                      "x-bg-primary x-text-primary-foreground": isSelected,
-                      "x-bg-secondary": !isSelected,
+                      "x:bg-primary x:text-primary-foreground": isSelected,
+                      "x:bg-secondary": !isSelected,
                     })}
                     onSelect={() =>
                       isSelected ? removeTag(tag.id) : handleSelect(tag)
                     }
                   >
                     {isSelected ? (
-                      <span className="x-flex x-items-center x-gap-1">
+                      <span className="x:flex x:items-center x:gap-1">
                         {tag.name}
-                        <LuX className="x-h-3 x-w-3" />
+                        <LuX className="x:h-3 x:w-3" />
                       </span>
                     ) : (
                       tag.name

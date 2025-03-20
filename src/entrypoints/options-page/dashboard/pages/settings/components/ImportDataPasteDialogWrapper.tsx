@@ -1,5 +1,3 @@
-import { useRef } from "react";
-
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -32,11 +30,11 @@ export default function ImportDataPasteDialogWrapper({
             version of which the data is exported from
           </DialogDescription>
         </DialogHeader>
-        <div className="x-flex x-flex-col x-gap-4">
+        <div className="x:flex x:flex-col x:gap-4">
           <Textarea
             ref={ref}
             placeholder="Paste your data here..."
-            className="x-min-h-[200px] x-font-mono"
+            className="x:min-h-[200px] x:font-mono"
           />
           <DialogClose asChild>
             <Button onClick={() => onSubmit(ref.current?.value ?? "")}>

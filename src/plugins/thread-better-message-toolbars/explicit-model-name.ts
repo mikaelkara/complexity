@@ -2,6 +2,7 @@ import { sendMessage } from "webext-bridge/content-script";
 
 import { languageModels } from "@/data/plugins/query-box/language-model-selector/language-models";
 import { isLanguageModelCode } from "@/data/plugins/query-box/language-model-selector/language-models.types";
+import { pplxCookiesStore } from "@/data/pplx-cookies-store";
 import { threadMessageBlocksDomObserverStore } from "@/plugins/_core/dom-observers/thread/message-blocks/store";
 import { MessageBlock } from "@/plugins/_core/dom-observers/thread/message-blocks/types";
 import { ExtensionLocalStorageService } from "@/services/extension-local-storage";
@@ -12,8 +13,8 @@ import { INTERNAL_ATTRIBUTES } from "@/utils/dom-selectors";
 const MODEL_BADGE_COMPONENT_SELECTOR = `[data-cplx-component="${INTERNAL_ATTRIBUTES.THREAD.MESSAGE.TEXT_COL_CHILD.ANSWER_HEADING_MODEL_NAME}"]`;
 
 function createModelBadge(modelName: string) {
-  return $(`<div>${modelName.toLocaleUpperCase()}</div>`)
-    .addClass("x-font-medium")
+  return $(`<div>${modelName}</div>`)
+    .addClass("x:font-medium x:text-sm x:md:text-base")
     .internalComponentAttr(
       INTERNAL_ATTRIBUTES.THREAD.MESSAGE.TEXT_COL_CHILD
         .ANSWER_HEADING_MODEL_NAME,
@@ -33,36 +34,40 @@ async function displayModelBadge({
 }) {
   if (isInFlight) {
     $answerHeading.find(MODEL_BADGE_COMPONENT_SELECTOR).remove();
-    $answerHeading.find(":nth-child(2)").removeClass("x-hidden");
+    $answerHeading.find(":nth-child(2)").removeClass("x:hidden");
     return;
   }
 
-  const $exisitingBadge = $answerHeading.find(MODEL_BADGE_COMPONENT_SELECTOR);
+  if (!$bottomBar.length) return;
 
-  if (!$bottomBar.length || $exisitingBadge.length) return;
-
-  const modelCode = await sendMessage(
+  let modelCode = await sendMessage(
     "reactVdom:getMessageDisplayModelCode",
     { index },
     "window",
   );
+
+  if (modelCode === "pplx_pro" || modelCode === "pplx_pro_upgraded") {
+    modelCode = "turbo";
+  }
 
   if (!modelCode || !isLanguageModelCode(modelCode)) return;
 
   const model = languageModels.find((model) => model.code === modelCode);
   if (!model) return;
 
+  // Hide the native badge and the "Answer" text
   const $target = $answerHeading.find('[color="super"]');
-  if (!$target.length) {
-    return;
-  }
+  if (!$target.length) return;
 
-  // Hide original model tooltip and the "Answer" text
+  $target.find(":nth-child(2)").addClass("x:hidden");
   $bottomBar
     .find("button:has(svg.tabler-icon-cpu)")
     .parent()
-    .addClass("x-hidden");
-  $target.find(":nth-child(2)").addClass("x-hidden");
+    .addClass("x:hidden");
+
+  const $existingBadge = $answerHeading.find(MODEL_BADGE_COMPONENT_SELECTOR);
+
+  if ($existingBadge.length) return;
 
   const modelNameElement = createModelBadge(model.label);
   $target.append(modelNameElement);
@@ -113,6 +118,32 @@ csLoaderRegistry.register({
       },
       {
         equalityFn: deepEqual,
+      },
+    );
+
+    pplxCookiesStore.subscribe(
+      (store) => store.cookies,
+      (cookies) => {
+        const isIncognito =
+          cookies.find((cookie) => cookie.name === "pplx.is-incognito")
+            ?.value === "true";
+
+        if (isIncognito) return;
+
+        threadMessageBlocksDomObserverStore
+          .getState()
+          .messageBlocks?.forEach((messageBlock) => {
+            const $existingBadge = messageBlock.nodes.$answerHeading.find(
+              MODEL_BADGE_COMPONENT_SELECTOR,
+            );
+
+            if (!$existingBadge.length) return;
+
+            messageBlock.nodes.$bottomBar
+              .find("button:has(svg.tabler-icon-cpu)")
+              .parent()
+              .addClass("x:hidden");
+          });
       },
     );
   },

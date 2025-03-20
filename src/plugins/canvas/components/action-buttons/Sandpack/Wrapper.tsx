@@ -22,7 +22,7 @@ export default function SandpackCanvasActionButtonsWrapper() {
   });
 
   return (
-    <div className="x-flex x-items-center x-gap-1">
+    <div className="x:flex x:items-center x:gap-1">
       <Tooltip content={t("plugin-canvas:canvas.tooltip.openInCodeSandbox")}>
         <Button
           variant="ghost"
@@ -33,9 +33,9 @@ export default function SandpackCanvasActionButtonsWrapper() {
           }}
         >
           {isPending ? (
-            <LuLoaderCircle className="x-size-4 x-animate-spin" />
+            <LuLoaderCircle className="x:size-4 x:animate-spin" />
           ) : (
-            <LuCodesandbox className="x-size-4" />
+            <LuCodesandbox className="x:size-4" />
           )}
         </Button>
       </Tooltip>

@@ -11,7 +11,7 @@ const BADGE_COMPONENT_SELECTOR = `[data-cplx-component="${INTERNAL_ATTRIBUTES.TH
 function createAnswerHeadingContainer(content: string) {
   return $(`<div>${content}</div>`)
     .addClass(
-      "x-text-muted-foreground x-italic x-text-xs x-ml-2 x-text-right x-font-medium x-max-w-[200px] md:x-max-w-max",
+      "x:text-muted-foreground x:text-xs x:ml-2 x:text-right x:font-medium x:max-w-[200px] x:md:max-w-max",
     )
     .internalComponentAttr(
       INTERNAL_ATTRIBUTES.THREAD.MESSAGE.TEXT_COL_CHILD
@@ -78,7 +78,7 @@ csLoaderRegistry.register({
 
             const answerWordsAndCharactersCountContainer =
               createAnswerHeadingContainer(
-                `${t("common:misc.words")}: ${answerWordsCount}, ${t("common:misc.characters")}: ${answerCharactersCount}${shouldDisplayTokensCount ? `, tokens: ~${answerTokensCount}` : ""}`,
+                `${answerWordsCount} ${t("common:misc.words")} | ${answerCharactersCount} ${t("common:misc.characters")}${shouldDisplayTokensCount ? ` | ~${answerTokensCount} tokens` : ""}`,
               );
             $answerHeading.append(answerWordsAndCharactersCountContainer);
           },

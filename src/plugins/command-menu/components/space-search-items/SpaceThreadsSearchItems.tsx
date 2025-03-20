@@ -23,8 +23,8 @@ export default function SpaceThreadsSearchItems() {
 
   if (isLoading) {
     return (
-      <div className="x-flex x-animate-pulse x-items-center x-justify-center x-gap-2 x-p-4 x-text-sm x-text-muted-foreground">
-        <LuLoaderCircle className="x-animate-spin" />
+      <div className="x:flex x:animate-pulse x:items-center x:justify-center x:gap-2 x:p-4 x:text-sm x:text-muted-foreground">
+        <LuLoaderCircle className="x:animate-spin" />
         <span>
           {t(
             "plugin-command-menu:commandMenu.spaceSearch.spaceThreads.loading",

@@ -11,6 +11,7 @@ import chromeManifest from "./src/manifest.chrome";
 import firefoxManifest from "./src/manifest.firefox";
 import { APP_CONFIG } from "./src/app.config";
 import unimportConfig from "./src/types/unimport.config";
+import tailwindcss from "@tailwindcss/vite";
 
 import vitePluginForceRestartOnChanges from "./vite-plugins/vite-plugin-force-restart-on-changes";
 import vitePluginReloadOnDynamicallyInjectedStyleChanges from "./vite-plugins/vite-plugin-reload-on-dynamically-injected-style-changes";
@@ -43,12 +44,13 @@ export default defineConfig(() => ({
     },
   },
   plugins: [
+    react(),
+    tailwindcss(),
     crx({
       manifest:
         APP_CONFIG.BROWSER === "chrome" ? chromeManifest : firefoxManifest,
       browser: APP_CONFIG.BROWSER,
     }),
-    react(),
     Unimport.vite(unimportConfig),
     vitePluginReloadOnDynamicallyInjectedStyleChanges({
       excludeString: ["@/assets/cs.css"],
@@ -57,7 +59,7 @@ export default defineConfig(() => ({
       folders: ["public"],
     }),
     viteTouchGlobalCss({
-      cssFilePath: path.resolve(__dirname, "src/assets/cs.css"),
+      cssFilePath: path.resolve(__dirname, "src/assets/index.css"),
       watchFiles: [
         path.resolve(__dirname, "src/"),
         path.resolve(__dirname, "public/"),
@@ -80,10 +82,5 @@ export default defineConfig(() => ({
   test: {
     exclude: ["node_modules", "e2e/**"],
     setupFiles: ["./tests/vitest.setup.ts"],
-    server: {
-      deps: {
-        inline: ["@webext-core/messaging"],
-      },
-    },
   },
 }));

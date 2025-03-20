@@ -1,3 +1,5 @@
+@reference "../../assets/index.css";
+
 .mb-lg.md\:text-center.pb-xs.md\:text-center {
   text-align: center;
   text-wrap: balance;
@@ -7,6 +9,6 @@
   }
 
   span {
-    @apply x-animate-in x-fade-in-0;
+    @apply x:animate-in x:fade-in-0;
   }
 }

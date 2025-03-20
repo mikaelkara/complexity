@@ -35,25 +35,30 @@ const HighlightedCodeWrapper = memo(() => {
 
   if (!codeBlock) return null;
 
+  const showLineNumbers =
+    fineGrainedSettings?.showLineNumbers ?? globalSettings?.showLineNumbers;
+
   return (
     <div
       ref={wrapperRef}
       style={{
         maxHeight,
       }}
-      className="x-overflow-auto x-rounded-b-md"
+      className="x:overflow-auto x:rounded-b-md"
     >
       <div
         className={cn(
-          "[&>pre]:x-m-0 [&>pre]:x-rounded-t-none [&>pre]:!x-p-2 [&>pre]:!x-px-4",
+          "x:[&>pre]:m-0 x:[&>pre]:rounded-t-none x:[&>pre]:!p-2 x:[&>pre]:!px-4",
           {
-            "x-text-pretty [&_code]:!x-whitespace-pre-wrap": isWrapped,
-            "[&_span]:x-duration-300 [&_span]:x-animate-in [&_span]:x-fade-in":
+            "x:text-pretty x:[&_code]:!whitespace-pre-wrap": isWrapped,
+            "x:[&_span]:duration-300 x:[&_span]:animate-in x:[&_span]:fade-in":
               isInFlight,
           },
+          showLineNumbers && "x:[&_span.linenumber]:!text-muted-foreground",
         )}
       >
         <CodeHighlighter
+          showLineNumbers={showLineNumbers}
           language={interpretedLanguage}
           codeRef={codeRef}
           PreTag={PreTag}
@@ -66,7 +71,7 @@ const HighlightedCodeWrapper = memo(() => {
 });
 
 function PreTag({ children }: { children: ReactNode }) {
-  return <pre className="x-px-4 x-py-2">{children}</pre>;
+  return <pre className="x:px-4 x:py-2">{children}</pre>;
 }
 
 export default HighlightedCodeWrapper;

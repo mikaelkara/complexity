@@ -39,11 +39,7 @@ const sharedQueryBoxStore = useSharedQueryBoxStore;
 
 csLoaderRegistry.register({
   id: "plugin:queryBox:initSharedStore",
-  dependencies: [
-    "cache:extensionLocalStorage",
-    "messaging:namespaceSetup",
-    "cache:pluginsStates",
-  ],
+  dependencies: ["messaging:namespaceSetup", "cache:pluginsStates"],
   loader: async () => {
     populateDefaults();
     handleSearchModeChange();

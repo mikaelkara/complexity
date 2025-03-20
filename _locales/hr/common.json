@@ -19,8 +19,9 @@
     "characters": "znakova",
     "expand": "Proširi",
     "collapse": "Sažmi",
-    "instantRewriteShort": "Prepiši",
-    "instantRewrite": "Prepiši istim modelom"
+    "rewrite": "Prepiši",
+    "speakAloud": "Pročitaj naglas",
+    "stop": "Zaustavi"
   },
   "releaseNotes": {
     "title": "Ažurirano na v{{version}}",

@@ -25,7 +25,7 @@ export default function SettingsPage() {
   const { settings, mutation } = useExtensionLocalStorage();
 
   return (
-    <div className="x-mx-auto x-max-w-3xl x-space-y-8">
+    <div className="x:mx-auto x:max-w-3xl x:space-y-8">
       <SettingsSection title="General">
         <SettingsItem title="Extension Permissions">
           <ManagePermissionsDialogWrapper>
@@ -47,18 +47,18 @@ export default function SettingsPage() {
         </SettingsItem>
         <SettingsItem
           title={
-            <div className="x-flex x-items-center x-gap-2">
-              <LuLeafyGreen className="x-text-success" />
+            <div className="x:flex x:items-center x:gap-2">
+              <LuLeafyGreen className="x:text-success" />
               <span>Low Performance Mode</span>
             </div>
           }
           description={
             <div>
-              <div className="x-text-sm x-text-muted-foreground">
+              <div className="x:text-sm x:text-muted-foreground">
                 Enable this mode if you notice significant performance issues,
                 even in smaller threads.
               </div>
-              <div className="x-text-sm x-italic x-text-muted-foreground">
+              <div className="x:text-sm x:text-muted-foreground x:italic">
                 (Existing tabs require a refresh to apply)
               </div>
             </div>
@@ -96,14 +96,14 @@ export default function SettingsPage() {
           title="Need assistance?"
           description="Get help from the community or email support"
         >
-          <div className="x-flex x-items-center x-gap-4">
-            <Button asChild className="x-w-max">
+          <div className="x:flex x:items-center x:gap-4">
+            <Button asChild className="x:w-max">
               <a
                 href="https://discord.cplx.app"
                 target="_blank"
                 rel="noreferrer"
               >
-                <SiDiscord className="x-mr-2 x-size-4" />
+                <SiDiscord className="x:mr-2 x:size-4" />
                 <span>Discord</span>
               </a>
             </Button>
@@ -121,7 +121,7 @@ export default function SettingsPage() {
                     target="_blank"
                     rel="noreferrer"
                   >
-                    <LuGithub className="x-mr-2 x-size-4" />
+                    <LuGithub className="x:mr-2 x:size-4" />
                     <span>GitHub Issues</span>
                   </a>
                 </DropdownMenuItem>
@@ -131,7 +131,7 @@ export default function SettingsPage() {
                     target="_blank"
                     rel="noreferrer"
                   >
-                    <LuMail className="x-mr-2 x-size-4" />
+                    <LuMail className="x:mr-2 x:size-4" />
                     <span>pnd280@gmail.com</span>
                   </a>
                 </DropdownMenuItem>

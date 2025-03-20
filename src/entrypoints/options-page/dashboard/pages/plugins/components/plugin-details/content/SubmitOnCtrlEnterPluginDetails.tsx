@@ -8,7 +8,7 @@ export default function SubmitOnCtrlEnterPluginDetails() {
   if (!settings) return null;
 
   return (
-    <div className="x-flex x-max-w-lg x-flex-col x-gap-4">
+    <div className="x:flex x:max-w-lg x:flex-col x:gap-4">
       <Switch
         textLabel="Enable"
         checked={pluginSettings?.enabled ?? false}
@@ -19,7 +19,7 @@ export default function SubmitOnCtrlEnterPluginDetails() {
         }}
       />
 
-      <div className="x-mx-auto x-w-full x-max-w-[700px]">
+      <div className="x:mx-auto x:w-full x:max-w-[700px]">
         <video
           autoPlay
           loop
@@ -27,7 +27,7 @@ export default function SubmitOnCtrlEnterPluginDetails() {
           playsInline
           controls
           src="https://cdn.cplx.app/assets/submit-on-ctrl-enter.mp4"
-          className="x-w-full"
+          className="x:w-full"
         />
       </div>
     </div>

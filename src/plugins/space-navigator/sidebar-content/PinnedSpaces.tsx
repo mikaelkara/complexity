@@ -13,6 +13,7 @@ import { getPinnedSpacesService } from "@/services/indexed-db/pinned-spaces";
 import { pinnedSpacesQueries } from "@/services/indexed-db/pinned-spaces/query-keys";
 import { Space } from "@/services/pplx-api/pplx-api.types";
 import { pplxApiQueries } from "@/services/pplx-api/query-keys";
+import { PPLX_SCROLLBAR_CLASSES } from "@/utils/pplx-scrollbar-classes";
 import { queryClient } from "@/utils/ts-query-client";
 import { emojiCodeToString } from "@/utils/utils";
 
@@ -39,11 +40,11 @@ function PinnedSpaceContent({
     <a
       href={`/collections/${space.slug}`}
       className={cn(
-        "x-group x-flex x-cursor-pointer x-select-none x-items-center x-justify-between x-rounded-sm x-px-1 x-py-1 x-transition-colors x-duration-300",
-        isDragging && "x-opacity-75",
+        "x:group x:flex x:cursor-pointer x:items-center x:justify-between x:rounded-sm x:px-1 x:py-1 x:transition-colors x:duration-300 x:select-none",
+        isDragging && "x:opacity-75",
         !isDragging &&
           !isAnyDragging &&
-          "hover:x-bg-black/5 dark:hover:x-bg-white/5",
+          "x:hover:bg-black/5 x:dark:hover:bg-white/5",
       )}
       onClick={(e) => {
         if (e.metaKey || e.ctrlKey) return;
@@ -60,9 +61,9 @@ function PinnedSpaceContent({
         );
       }}
     >
-      <div className="x-line-clamp-1">
+      <div className="x:line-clamp-1">
         {space.emoji && (
-          <span className="x-mr-1">{emojiCodeToString(space.emoji)}</span>
+          <span className="x:mr-1">{emojiCodeToString(space.emoji)}</span>
         )}
         <span>{space.title}</span>
       </div>
@@ -70,8 +71,8 @@ function PinnedSpaceContent({
         content={t("plugin-space-navigator:spaceNavigator.pinnedSpaces.unpin")}
       >
         <div
-          className={cn("x-hidden active:x-scale-95", {
-            "hover:x-text-foreground group-hover:x-block":
+          className={cn("x:hidden x:active:scale-95", {
+            "x:group-hover:block x:hover:text-foreground":
               !isDragging && !isAnyDragging,
           })}
           onClick={(e) => {
@@ -153,7 +154,7 @@ export default function SidebarPinnedSpaces() {
     },
   });
 
-  if (isCollapsed || localPinnedSpaces.length === 0) return null;
+  if (localPinnedSpaces.length === 0) return null;
 
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event;
@@ -178,12 +179,18 @@ export default function SidebarPinnedSpaces() {
   if (isSpacesLoading) return null;
 
   return (
-    <div className="custom-scrollbar x-max-h-[200px] x-overflow-y-auto">
+    <div
+      className={cn(
+        PPLX_SCROLLBAR_CLASSES,
+        "x:max-h-[200px] x:overflow-y-auto",
+        isCollapsed && "x:hidden",
+      )}
+    >
       <div
         className={cn(
-          "x-mt-1 x-flex x-flex-col x-gap-1 x-pl-3.5 x-pr-2 x-text-xs x-font-medium x-text-muted-foreground",
+          "x:mt-1 x:flex x:flex-col x:gap-1 x:pr-2 x:pl-3.5 x:text-xs x:font-medium x:text-muted-foreground",
           {
-            "x-ml-[26px] x-border-l x-border-border/50 dark:x-border-border":
+            "x:ml-[26px] x:border-l x:border-border/50 x:dark:border-border":
               localPinnedSpaces.length > 0,
           },
         )}

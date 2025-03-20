@@ -33,7 +33,7 @@ export default function MermaidDownloadSvg() {
           setTimeout(() => URL.revokeObjectURL(url), 100);
         }}
       >
-        <LuDownload className="x-size-4" />
+        <LuDownload className="x:size-4" />
       </Button>
     </Tooltip>
   );

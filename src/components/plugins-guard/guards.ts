@@ -1,3 +1,4 @@
+import { APP_CONFIG } from "@/app.config";
 import { ExtensionLocalStorage } from "@/services/extension-local-storage/extension-local-storage.types";
 import { PluginId } from "@/services/extension-local-storage/plugins.types";
 import { whereAmI } from "@/utils/utils";
@@ -10,6 +11,7 @@ export type GuardConditions = {
   requiresLoggedIn?: boolean;
   allowIncognito?: boolean;
   allowedAccountTypes?: ("free" | "pro" | "enterprise")[][];
+  browser?: ("chrome" | "firefox")[];
 };
 
 export type GuardCheckParams = {
@@ -86,6 +88,11 @@ export function checkIncognito(
 ): boolean {
   if (allowIncognito === false && isIncognito) return false;
   return true;
+}
+
+export function checkBrowser({ browser }: GuardConditions): boolean {
+  if (!browser || !browser?.length) return true;
+  return browser.includes(APP_CONFIG.BROWSER);
 }
 
 export type AdditionalCheckParams = GuardConditions & {

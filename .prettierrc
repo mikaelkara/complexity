@@ -1,12 +1,5 @@
 {
   "plugins": ["prettier-plugin-tailwindcss"],
-  "tailwindFunctions": ["cn", "tw", "cva"],
-  "overrides": [
-    {
-      "files": "docs/changelog.md",
-      "options": {
-        "tabWidth": 4
-      }
-    }
-  ]
+  "tailwindStylesheet": "src/assets/index.css",
+  "tailwindFunctions": ["cn", "tw", "cva"]
 }

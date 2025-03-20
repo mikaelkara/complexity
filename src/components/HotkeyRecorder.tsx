@@ -98,22 +98,22 @@ export function useHotkeyRecorder({
     recordedKeys != null ? isValidKeyCombination(recordedKeys) : true;
 
   const HotkeyRecorderUI = () => (
-    <div className="x-flex x-flex-col x-gap-3">
-      <div className="x-flex x-items-center x-gap-3">
+    <div className="x:flex x:flex-col x:gap-3">
+      <div className="x:flex x:items-center x:gap-3">
         <div
           className={cn(
-            "x-flex x-items-center x-rounded-md",
+            "x:flex x:items-center x:rounded-md",
             isRecording &&
-              "x-border x-border-border/50 x-bg-secondary x-px-3 x-py-1.5",
+              "x:border x:border-border/50 x:bg-secondary x:px-3 x:py-1.5",
           )}
         >
           {isRecording && !recordedKeys?.size ? (
-            <div className="x-flex x-items-center x-gap-2 x-text-sm x-text-muted-foreground">
-              <div className="x-h-1.5 x-w-1.5 x-animate-pulse x-rounded-full x-bg-primary" />
+            <div className="x:flex x:items-center x:gap-2 x:text-sm x:text-muted-foreground">
+              <div className="x:h-1.5 x:w-1.5 x:animate-pulse x:rounded-full x:bg-primary" />
               Recording...
             </div>
           ) : (
-            <KeyCombo keys={displayKeys} />
+            <KeyCombo keys={formatKeys(displayKeys)} />
           )}
         </div>
         {isRecording ? (
@@ -121,7 +121,7 @@ export function useHotkeyRecorder({
             <Button
               variant="outline"
               size="sm"
-              className="x-min-w-[80px]"
+              className="x:min-w-[80px]"
               onClick={handleStopRecording}
             >
               Save
@@ -131,7 +131,7 @@ export function useHotkeyRecorder({
           <Button
             variant="outline"
             size="sm"
-            className="x-min-w-[80px]"
+            className="x:min-w-[80px]"
             onClick={handleStartRecording}
           >
             Record
@@ -139,12 +139,12 @@ export function useHotkeyRecorder({
         )}
       </div>
       {isRecording && !isValidCombination && recordedKeys?.size > 0 && (
-        <div className="x-flex x-items-center x-gap-2 x-text-sm x-text-destructive">
-          <div className="x-i-lucide-alert-circle x-h-4 x-w-4" />
+        <div className="x:flex x:items-center x:gap-2 x:text-sm x:text-destructive">
+          <div className="x:i-lucide-alert-circle x:h-4 x:w-4" />
           Invalid combination. Use one modifier key ({isMac
             ? "⌘"
-            : "Ctrl"}, {isMac ? "Option" : "Alt"}, {isMac ? "Shift" : "Shift"})
-          + one regular key
+            : "Ctrl"}, {isMac ? "⌥" : "Alt"}, {isMac ? "⇧" : "Shift"}) + one
+          regular key
         </div>
       )}
     </div>
@@ -158,4 +158,8 @@ export function useHotkeyRecorder({
     stopRecording: handleStopRecording,
     isValidCombination,
   };
+}
+
+export function formatKeys(keys: string[]): string[] {
+  return keys.map((key) => key.charAt(0).toUpperCase() + key.slice(1));
 }

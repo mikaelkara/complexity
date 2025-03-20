@@ -3,15 +3,15 @@ body[data-cplx-zen-mode-always-hide-visual-cols="true"][location="thread"]
   [data-cplx-component="message-block"] {
   &:not(
       :has(
-        .col-span-4[data-cplx-component="message-block-visual-col"]
+        .isolate.col-span-4[data-cplx-component="message-block-visual-col"]
           svg[data-icon="sources"]
       )
     ) {
-    .col-span-8[data-cplx-component="message-block-text-col"] {
+    .isolate.col-span-8[data-cplx-component="message-block-text-col"] {
       grid-column: span 12 / span 12;
     }
 
-    .col-span-4[data-cplx-component="message-block-visual-col"] {
+    .isolate.col-span-4[data-cplx-component="message-block-visual-col"] {
       display: none;
     }
   }

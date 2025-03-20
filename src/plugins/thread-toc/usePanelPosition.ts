@@ -38,27 +38,31 @@ export function usePanelPosition(): UsePanelPosition | null {
     if (stickyHeaderHeight == null) return null;
 
     let threadWrapperWidth = 0;
+    let anchorLeft = threadWrapperOffset.left;
+
     $children.each((_, child) => {
+      if (child.classList.contains("fixed")) return;
+      const offset = $(child).offset();
+      if (offset == null) return;
+      anchorLeft = offset.left;
       const width = $(child).width();
       if (width != null) threadWrapperWidth += width;
     });
     if (threadWrapperWidth === 0) return null;
 
-    const { left } = threadWrapperOffset;
-
-    if (left <= 0) {
+    if (anchorLeft <= 0) {
       setTimeout(() => {
         window.dispatchEvent(new Event("resize"));
       }, 0);
       return;
     }
 
-    const panelRightEdge = left + threadWrapperWidth + PANEL_WIDTH + 75;
+    const panelRightEdge = anchorLeft + threadWrapperWidth + PANEL_WIDTH + 32;
 
     return {
       position: {
         top: stickyHeaderHeight + 40,
-        left: threadWrapperWidth + left + 55,
+        left: threadWrapperWidth + anchorLeft,
       },
       isFloating: panelRightEdge > window.innerWidth,
     };

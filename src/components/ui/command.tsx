@@ -10,7 +10,7 @@ const Command = ({
 }: React.ComponentProps<typeof CommandPrimitive>) => (
   <CommandPrimitive
     className={cn(
-      "x-flex x-h-full x-w-full x-flex-col x-overflow-hidden x-rounded-md x-bg-popover x-text-popover-foreground",
+      "x:flex x:h-full x:w-full x:flex-col x:overflow-hidden x:rounded-md x:bg-popover x:text-popover-foreground",
       className,
     )}
     {...props}
@@ -29,9 +29,9 @@ const CommandDialog = ({
 }: CommandDialogProps) => {
   return (
     <Dialog lazyMount unmountOnExit closeOnInteractOutside {...props}>
-      <DialogContent className="x-overflow-hidden x-p-0 x-shadow-lg">
+      <DialogContent className="x:overflow-hidden x:p-0 x:shadow-lg">
         <Command
-          className="[&_[cmdk-group-heading]]:x-px-2 [&_[cmdk-group-heading]]:x-font-medium [&_[cmdk-group-heading]]:x-text-muted-foreground [&_[cmdk-group]:not([hidden])_~[cmdk-group]]:x-pt-0 [&_[cmdk-group]]:x-px-2 [&_[cmdk-input-wrapper]_svg]:x-h-4 [&_[cmdk-input-wrapper]_svg]:x-w-4 [&_[cmdk-input]]:x-h-12 [&_[cmdk-item]]:x-px-2 [&_[cmdk-item]]:x-py-2 [&_[cmdk-item]_svg]:x-h-4 [&_[cmdk-item]_svg]:x-w-4"
+          className="x:[&_[cmdk-group-heading]]:px-2 x:[&_[cmdk-group-heading]]:font-medium x:[&_[cmdk-group-heading]]:text-muted-foreground x:[&_[cmdk-group]]:px-2 x:[&_[cmdk-group]:not([hidden])_~[cmdk-group]]:pt-0 x:[&_[cmdk-input-wrapper]_svg]:h-4 x:[&_[cmdk-input-wrapper]_svg]:w-4 x:[&_[cmdk-input]]:h-12 x:[&_[cmdk-item]]:px-2 x:[&_[cmdk-item]]:py-2 x:[&_[cmdk-item]_svg]:h-4 x:[&_[cmdk-item]_svg]:w-4"
           filter={(value, search, keywords) => {
             const extendValue = value + " " + (keywords?.join(" ") || "");
             if (extendValue.includes(search)) return 1;
@@ -59,18 +59,17 @@ const CommandInput = ({
 }) => (
   <div
     className={cn(
-      "x-flex x-items-center x-border-b x-border-border/50 x-px-3",
+      "x:flex x:items-center x:border-b x:border-border/50 x:px-3",
       className,
     )}
-    // eslint-disable-next-line react/no-unknown-property
     cmdk-input-wrapper=""
   >
     {searchIcon && (
-      <Search className="x-mr-2 x-h-4 x-w-4 x-shrink-0 x-opacity-50" />
+      <Search className="x:mr-2 x:h-4 x:w-4 x:shrink-0 x:opacity-50" />
     )}
     <CommandPrimitive.Input
       className={cn(
-        "x-flex x-h-11 x-w-full x-rounded-md x-bg-transparent x-py-3 x-text-sm x-outline-none placeholder:x-text-muted-foreground disabled:x-cursor-not-allowed disabled:x-opacity-50",
+        "x:flex x:h-11 x:w-full x:rounded-md x:bg-transparent x:py-3 x:text-sm x:outline-none x:placeholder:text-muted-foreground x:disabled:cursor-not-allowed x:disabled:opacity-50",
         inputClassName,
       )}
       {...props}
@@ -86,7 +85,7 @@ const CommandList = ({
 }: React.ComponentProps<typeof CommandPrimitive.List>) => (
   <CommandPrimitive.List
     className={cn(
-      "custom-scrollbar x-max-h-[300px] x-overflow-y-auto x-overflow-x-hidden",
+      "custom-scrollbar x:max-h-[300px] x:overflow-x-hidden x:overflow-y-auto",
       className,
     )}
     {...props}
@@ -96,10 +95,11 @@ const CommandList = ({
 CommandList.displayName = CommandPrimitive.List.displayName;
 
 const CommandEmpty = ({
+  className,
   ...props
 }: React.ComponentProps<typeof CommandPrimitive.Empty>) => (
   <CommandPrimitive.Empty
-    className="x-py-6 x-text-center x-text-sm"
+    className={cn("x:py-6 x:text-center x:text-sm", className)}
     {...props}
   />
 );
@@ -112,7 +112,7 @@ const CommandGroup = ({
 }: React.ComponentProps<typeof CommandPrimitive.Group>) => (
   <CommandPrimitive.Group
     className={cn(
-      "x-overflow-hidden x-p-1 x-text-foreground [&_[cmdk-group-heading]]:x-px-2 [&_[cmdk-group-heading]]:x-py-1.5 [&_[cmdk-group-heading]]:x-text-xs [&_[cmdk-group-heading]]:x-font-medium [&_[cmdk-group-heading]]:x-text-muted-foreground",
+      "x:overflow-hidden x:p-1 x:text-foreground x:[&_[cmdk-group-heading]]:px-2 x:[&_[cmdk-group-heading]]:py-1.5 x:[&_[cmdk-group-heading]]:text-xs x:[&_[cmdk-group-heading]]:font-medium x:[&_[cmdk-group-heading]]:text-muted-foreground",
       className,
     )}
     {...props}
@@ -126,7 +126,7 @@ const CommandSeparator = ({
   ...props
 }: React.ComponentProps<typeof CommandPrimitive.Separator>) => (
   <CommandPrimitive.Separator
-    className={cn("-x-mx-1 x-h-px x-bg-border", className)}
+    className={cn("x:-mx-1 x:h-px x:bg-border", className)}
     {...props}
   />
 );
@@ -138,7 +138,7 @@ const CommandItem = ({
 }: React.ComponentProps<typeof CommandPrimitive.Item>) => (
   <CommandPrimitive.Item
     className={cn(
-      "x-relative x-flex x-cursor-pointer x-select-none x-items-center x-rounded-md x-px-2 x-py-1.5 x-text-xs x-text-muted-foreground x-outline-none aria-selected:x-bg-primary-foreground aria-selected:x-text-primary data-[disabled=true]:x-pointer-events-none data-[disabled=true]:x-opacity-50",
+      "x:relative x:flex x:cursor-pointer x:items-center x:rounded-md x:px-2 x:py-1.5 x:text-xs x:text-muted-foreground x:outline-none x:select-none x:aria-selected:bg-primary-foreground x:aria-selected:text-primary x:data-[disabled=true]:pointer-events-none x:data-[disabled=true]:opacity-50",
       className,
     )}
     {...props}
@@ -154,7 +154,7 @@ const CommandShortcut = ({
   return (
     <span
       className={cn(
-        "x-ml-auto x-text-xs x-tracking-widest x-text-muted-foreground",
+        "x:ml-auto x:text-xs x:tracking-widest x:text-muted-foreground",
         className,
       )}
       {...props}

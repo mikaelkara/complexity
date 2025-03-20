@@ -7,7 +7,7 @@ const Input = ({ className, type, ...props }: InputProps) => {
     <input
       type={type}
       className={cn(
-        "x-flex x-h-10 x-w-full x-rounded-md x-border x-border-input/50 x-bg-background x-px-3 x-py-2 x-font-sans x-text-sm x-ring-offset-background file:x-border-0 file:x-bg-transparent file:x-text-sm file:x-font-medium placeholder:x-text-muted-foreground focus-visible:x-outline-none focus-visible:x-ring-2 focus-visible:x-ring-ring focus-visible:x-ring-offset-2 disabled:x-cursor-not-allowed disabled:x-opacity-50",
+        "x:flex x:h-10 x:w-full x:rounded-md x:border x:border-input/50 x:bg-background x:px-3 x:py-2 x:font-sans x:text-sm x:ring-offset-background x:file:border-0 x:file:bg-transparent x:file:text-sm x:file:font-medium x:placeholder:text-muted-foreground x:focus-visible:ring-2 x:focus-visible:ring-ring x:focus-visible:ring-offset-2 x:focus-visible:outline-none x:disabled:cursor-not-allowed x:disabled:opacity-50",
         className,
       )}
       {...props}

@@ -42,6 +42,15 @@ export class IndexedDbService extends Dexie {
           });
         }
       });
+
+    this.version(5).upgrade(async (tx) => {
+      const betterCodeBlocks = await tx.table("betterCodeBlocks").toArray();
+      for (const betterCodeBlock of betterCodeBlocks) {
+        await tx.table("betterCodeBlocks").update(betterCodeBlock.language, {
+          showLineNumbers: false,
+        });
+      }
+    });
   }
 
   async exportAll(): Promise<ExtensionData["db"]> {

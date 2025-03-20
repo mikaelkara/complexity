@@ -36,16 +36,16 @@ export default function PluginDetailsModal({
   return (
     <DialogComp open onOpenChange={handleClose}>
       <DialogContentComp
-        className="md:x-max-w-max"
+        className="x:md:max-w-max"
         side={isMobile ? "bottom" : undefined}
       >
         <DialogHeader>
           <DialogTitle>{PLUGINS_METADATA[pluginId].title}</DialogTitle>
-          <DialogDescription className="x-whitespace-pre-line">
+          <DialogDescription className="x:whitespace-pre-line">
             {PLUGINS_METADATA[pluginId].description}
           </DialogDescription>
         </DialogHeader>
-        <div className="x-mt-4">{PLUGIN_DETAILS[pluginId]}</div>
+        <div className="x:mt-4">{PLUGIN_DETAILS[pluginId]}</div>
       </DialogContentComp>
     </DialogComp>
   );

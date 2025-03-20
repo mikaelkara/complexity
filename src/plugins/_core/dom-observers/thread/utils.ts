@@ -26,35 +26,35 @@ export function findNavbar() {
   });
 }
 
-export function findBookmarkButton() {
+export function findOverflowMenuButtonWrapper() {
   const $navbar = threadDomObserverStore.getState().$navbar;
 
   if (!$navbar || !$navbar.length) return;
 
-  const $bookmarkButton = $navbar.find(
-    DOM_SELECTORS.SICKY_NAVBAR_CHILD.BOOKMARK_BUTTON,
+  const $overflowMenuButtonWrapper = $navbar.find(
+    DOM_SELECTORS.SICKY_NAVBAR_CHILD.OVERFLOW_MENU_BUTTON_WRAPPER,
   );
 
-  if (!$bookmarkButton.length) {
+  if (!$overflowMenuButtonWrapper.length) {
     threadDomObserverStore.setState({
-      $bookmarkButton: null,
+      $overflowMenuButtonWrapper: null,
     });
 
     return;
   }
 
   if (
-    $bookmarkButton.internalComponentAttr() ===
-    INTERNAL_ATTRIBUTES.THREAD.NAVBAR_CHILD.BOOKMARK_BUTTON
+    $overflowMenuButtonWrapper.internalComponentAttr() ===
+    INTERNAL_ATTRIBUTES.THREAD.NAVBAR_CHILD.OVERFLOW_MENU_BUTTON_WRAPPER
   )
     return;
 
-  $bookmarkButton.internalComponentAttr(
-    INTERNAL_ATTRIBUTES.THREAD.NAVBAR_CHILD.BOOKMARK_BUTTON,
+  $overflowMenuButtonWrapper.internalComponentAttr(
+    INTERNAL_ATTRIBUTES.THREAD.NAVBAR_CHILD.OVERFLOW_MENU_BUTTON_WRAPPER,
   );
 
   threadDomObserverStore.setState({
-    $bookmarkButton,
+    $overflowMenuButtonWrapper,
   });
 }
 

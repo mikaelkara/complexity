@@ -49,7 +49,7 @@ export default function MyBreadcrumb({ navItems }: BreadcrumbProps) {
     <Breadcrumb>
       <BreadcrumbList>
         <BreadcrumbItem>
-          <BreadcrumbLink href="#/" className="x-flex x-items-center">
+          <BreadcrumbLink href="#/" className="x:flex x:items-center">
             Home
           </BreadcrumbLink>
         </BreadcrumbItem>

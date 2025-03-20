@@ -1,12 +1,26 @@
 @import "./vars.css";
 @import "./scrollbar.css";
 @import "./typography.css";
-@config "./tailwind.cs.config.js";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@reference "./index.css";
 
-body#__next {
-  @apply x-font-sans;
+main {
+  --font-sans: var(--font-fk-grotesk);
+  --font-mono: var(--font-berkeley-mono);
+  --offset-plus: var(--pale-cyan-200);
+
+  @apply x:font-sans;
+}
+
+[data-cplx-component="thread-wrapper"] {
+  & > *:not(.fixed) {
+    max-width: calc(var(--thread-width) + 4rem);
+    margin: 0 auto;
+  }
+
+  padding-bottom: 0;
+}
+
+* {
+  @apply x:border-border/50;
 }

@@ -37,9 +37,9 @@ const ExportButton = memo(function ExportButton() {
   const defaultIdleText = useMemo(
     () =>
       isFetching ? (
-        <LuLoaderCircle className="x-size-4 x-animate-spin" />
+        <LuLoaderCircle className="x:size-4 x:animate-spin" />
       ) : (
-        <FaFileExport className="x-size-4" />
+        <FaFileExport className="x:size-4" />
       ),
     [isFetching],
   );
@@ -95,7 +95,7 @@ const ExportButton = memo(function ExportButton() {
             disabled={isAnyMessageBlockInFlight}
             variant="ghost"
             size="sm"
-            className="x-box-content x-h-8 x-px-2.5"
+            className="x:box-content x:h-8 x:px-2.5"
           >
             {isFetching
               ? defaultIdleText
@@ -103,32 +103,34 @@ const ExportButton = memo(function ExportButton() {
           </Button>
         </PopoverTrigger>
       </Tooltip>
-      <PopoverContent className="x-flex x-flex-col x-gap-4">
-        <ExportFormatSelect onValueChange={setFormat} />
+      <PopoverContent>
+        <div className="x:text-sm x:font-medium">Export all messages</div>
 
-        <Checkbox
-          label={t("plugin-export-thread:exportButton.includeCitations")}
-          defaultChecked={includeCitations}
-          onCheckedChange={({ checked }) => {
-            setIncludeCitations(checked as boolean);
-          }}
-        />
-
-        <ExportActions
-          onDownload={() => {
-            setOpen(false);
-            handleDownload(includeCitations);
-          }}
-          onCopy={() => {
-            setOpen(false);
-            copyThread({
-              withCitations: includeCitations,
-              onComplete: () => {
-                setCopyConfirmText(<LuCheck className="x-size-4" />);
-              },
-            });
-          }}
-        />
+        <div className="x:flex x:flex-col x:gap-4">
+          <ExportFormatSelect onValueChange={setFormat} />
+          <Checkbox
+            label={t("plugin-export-thread:exportButton.includeCitations")}
+            defaultChecked={includeCitations}
+            onCheckedChange={({ checked }) => {
+              setIncludeCitations(checked as boolean);
+            }}
+          />
+          <ExportActions
+            onDownload={() => {
+              setOpen(false);
+              handleDownload(includeCitations);
+            }}
+            onCopy={() => {
+              setOpen(false);
+              copyThread({
+                withCitations: includeCitations,
+                onComplete: () => {
+                  setCopyConfirmText(<LuCheck className="x:size-4" />);
+                },
+              });
+            }}
+          />
+        </div>
       </PopoverContent>
     </Popover>
   );

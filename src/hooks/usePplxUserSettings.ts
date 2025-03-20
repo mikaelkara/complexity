@@ -16,9 +16,9 @@ export default function usePplxUserSettings({
 
   const query = useQuery({
     ...pplxApiQueries.userSettings,
-    refetchInterval: 30000,
-    refetchIntervalInBackground: true,
     enabled: isLoggedIn,
+    staleTime: 5000,
+    gcTime: Infinity,
     ...props,
   });
 

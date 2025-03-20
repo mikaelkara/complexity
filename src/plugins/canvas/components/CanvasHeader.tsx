@@ -44,9 +44,9 @@ export default function CanvasHeader() {
   if (!isCanvasLanguage && !isAutonomousCanvasLanguage) return null;
 
   return (
-    <div className="x-flex x-w-full x-items-center x-justify-between x-border-b x-border-border/50 x-bg-background x-p-2 x-px-4">
+    <div className="x:flex x:w-full x:items-center x:justify-between x:border-b x:border-border/50 x:bg-background x:p-2 x:px-4">
       <div
-        className="x-line-clamp-1 x-cursor-pointer x-text-muted-foreground"
+        className="x:line-clamp-1 x:cursor-pointer x:text-muted-foreground"
         onClick={() => {
           const selectedCodeBlockLocation =
             canvasStore.getState().selectedCodeBlockLocation;
@@ -59,10 +59,10 @@ export default function CanvasHeader() {
       >
         {title}
       </div>
-      <div className="x-flex x-items-center x-gap-1">
+      <div className="x:flex x:items-center x:gap-1">
         <div
-          className={cn("x-flex x-items-center x-gap-1", {
-            "x-invisible": isInFlight,
+          className={cn("x:flex x:items-center x:gap-1", {
+            "x:invisible": isInFlight,
           })}
         >
           {canvasViewMode === "preview" && (
@@ -70,10 +70,10 @@ export default function CanvasHeader() {
               <Button
                 variant="ghost"
                 size="iconSm"
-                className="x-animate-in x-fade-in"
+                className="x:animate-in x:fade-in"
                 onClick={() => canvasStore.getState().refreshPreview()}
               >
-                <LuRefreshCcw className="x-size-4" />
+                <LuRefreshCcw className="x:size-4" />
               </Button>
             </Tooltip>
           )}
@@ -87,7 +87,7 @@ export default function CanvasHeader() {
                     size="iconSm"
                     onClick={() => canvasStore.getState().openCanvasList()}
                   >
-                    <LuList className="x-size-4" />
+                    <LuList className="x:size-4" />
                   </Button>
                 </Tooltip>
               )}
@@ -99,7 +99,7 @@ export default function CanvasHeader() {
           size="iconSm"
           onClick={() => canvasStore.getState().close()}
         >
-          <LuX className="x-size-4" />
+          <LuX className="x:size-4" />
         </Button>
       </div>
     </div>

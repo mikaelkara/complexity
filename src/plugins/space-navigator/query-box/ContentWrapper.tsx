@@ -18,7 +18,7 @@ export default function SpaceNavigatorMobileContentWrapper({
       >
         <SheetTrigger asChild>{children}</SheetTrigger>
       </Tooltip>
-      <SheetContent side="bottom" className="x-p-0">
+      <SheetContent side="bottom" className="x:p-0">
         <SpaceNavigatorContent setOpen={setOpen} />
       </SheetContent>
     </Sheet>

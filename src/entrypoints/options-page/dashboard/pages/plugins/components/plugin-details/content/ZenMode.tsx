@@ -1,11 +1,22 @@
+import { useHotkeyRecorder } from "@/components/HotkeyRecorder";
 import { Switch } from "@/components/ui/switch";
 import useExtensionLocalStorage from "@/services/extension-local-storage/useExtensionLocalStorage";
 
 export default function ZenModePluginDetails() {
   const { settings, mutation } = useExtensionLocalStorage();
+  const defaultKeys = settings?.plugins["zenMode"].hotkey ?? [];
+
+  const { HotkeyRecorderUI } = useHotkeyRecorder({
+    defaultKeys,
+    onSave: (keys) => {
+      mutation.mutate((draft) => {
+        draft.plugins["zenMode"].hotkey = keys;
+      });
+    },
+  });
 
   return (
-    <div className="x-flex x-flex-col x-gap-4">
+    <div className="x:flex x:flex-col x:gap-4">
       <Switch
         textLabel="Enable"
         checked={settings?.plugins["zenMode"].enabled ?? false}
@@ -17,6 +28,10 @@ export default function ZenModePluginDetails() {
       />
       {settings?.plugins["zenMode"].enabled && (
         <>
+          <div className="x:flex x:flex-col x:gap-2">
+            <div>Activation hotkey:</div>
+            <HotkeyRecorderUI />
+          </div>
           <Switch
             textLabel="Persistent across reloads"
             checked={settings?.plugins["zenMode"].persistent ?? false}

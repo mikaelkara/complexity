@@ -31,6 +31,10 @@ export function initXhrInterceptor() {
         );
 
         if (resp != null && typeof resp === "object" && "data" in resp) {
+          if (resp.data === "") {
+            return;
+          }
+
           data = resp.data;
         }
       }

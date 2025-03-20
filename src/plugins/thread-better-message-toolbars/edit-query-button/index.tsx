@@ -1,6 +1,9 @@
 import FaPencilSquare from "@/components/icons/FaPencilSquare";
-import { useThreadMessageBlocksDomObserverStore } from "@/plugins/_core/dom-observers/thread/message-blocks/store";
-import { INTERNAL_ATTRIBUTES, DOM_SELECTORS } from "@/utils/dom-selectors";
+import {
+  threadMessageBlocksDomObserverStore,
+  useThreadMessageBlocksDomObserverStore,
+} from "@/plugins/_core/dom-observers/thread/message-blocks/store";
+import { DOM_SELECTORS } from "@/utils/dom-selectors";
 
 export default function EditQueryButton({
   messageBlockIndex,
@@ -27,25 +30,20 @@ export default function EditQueryButton({
   return (
     <div
       role="button"
-      className="x-cursor-pointer x-rounded-md x-p-2 x-text-base x-text-muted-foreground x-transition-all x-animate-in x-fade-in hover:x-bg-secondary hover:x-text-foreground active:x-scale-95"
+      className="x:cursor-pointer x:rounded-md x:p-2 x:text-base x:text-muted-foreground x:transition-all x:animate-in x:fade-in x:hover:bg-muted/50 x:hover:text-foreground x:active:scale-95"
       onClick={() => {
-        const $editQueryButton = $(
-          `[data-cplx-component="${INTERNAL_ATTRIBUTES.THREAD.MESSAGE.BLOCK}"][data-index="${messageBlockIndex}"]`,
-        )
-          .find(
-            DOM_SELECTORS.THREAD.MESSAGE.TEXT_COL_CHILD.QUERY_HOVER_CONTAINER,
-          )
-          .find(
-            DOM_SELECTORS.THREAD.MESSAGE.TEXT_COL_CHILD
-              .QUERY_HOVER_CONTAINER_CHILD.EDIT_QUERY_BUTTON,
-          );
+        const $editQueryButton = threadMessageBlocksDomObserverStore
+          .getState()
+          .messageBlocks?.[
+            messageBlockIndex
+          ]?.nodes.$queryHoverContainer.find(DOM_SELECTORS.THREAD.MESSAGE.TEXT_COL_CHILD.QUERY_HOVER_CONTAINER_CHILD.EDIT_QUERY_BUTTON);
 
-        if (!$editQueryButton.length) return;
+        if (!$editQueryButton || !$editQueryButton.length) return;
 
         $editQueryButton.trigger("click");
       }}
     >
-      <FaPencilSquare />
+      <FaPencilSquare className="x:size-3.5" />
     </div>
   );
 }

@@ -1,9 +1,9 @@
+import { APP_CONFIG } from "@/app.config";
 import { getPlatform } from "@/hooks/usePlatformDetection";
 import { ExtensionLocalStorage } from "@/services/extension-local-storage/extension-local-storage.types";
-import packageJson from "~/package.json";
 
 export const DEFAULT_STORAGE: ExtensionLocalStorage = {
-  schemaVersion: packageJson.version,
+  schemaVersion: APP_CONFIG.VERSION,
   showPostUpdateReleaseNotesPopup: false,
   isPostUpdateReleaseNotesPopupDismissed: false,
   plugins: {
@@ -56,16 +56,21 @@ export const DEFAULT_STORAGE: ExtensionLocalStorage = {
       sticky: true,
       editQueryButton: false,
       explicitModelName: true,
+      hideUnnecessaryButtons: false,
       wordsAndCharactersCount: true,
       tokensCount: false,
-      collapsibleQuery: false,
     },
-    "thread:instantRewriteButton": {
+    "thread:messageTts": {
+      enabled: false,
+      voice: "Mike",
+    },
+    "thread:betterRewriteDropdowns": {
       enabled: false,
     },
     "thread:betterCodeBlocks": {
       enabled: false,
       stickyHeader: true,
+      showLineNumbers: false,
       unwrap: {
         enabled: true,
         showToggleButton: true,
@@ -119,16 +124,16 @@ export const DEFAULT_STORAGE: ExtensionLocalStorage = {
       lastState: false,
       alwaysHideRelatedQuestions: false,
       alwaysHideVisualCols: false,
+      hotkey: [getPlatform() === "mac" ? Key.Meta : Key.Control, Key.Alt, "z"],
     },
     "home:hideHomepageWidgets": {
       enabled: false,
     },
   },
-  favoritePluginIds: [],
   preloadTheme: false,
   theme: "complexity",
   energySavingMode: false,
-  extensionIconAction: "perplexity",
+  extensionIconAction: "dashboard",
   cdnLastUpdated: 0,
   devMode: false,
 } as const;

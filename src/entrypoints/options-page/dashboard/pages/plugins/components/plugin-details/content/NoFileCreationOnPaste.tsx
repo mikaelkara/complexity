@@ -9,7 +9,7 @@ export default function NoFileCreationOnPastePluginDetails() {
   if (!settings) return null;
 
   return (
-    <div className="x-flex x-flex-col x-gap-4">
+    <div className="x:flex x:flex-col x:gap-4">
       <P>
         Activation hotkey: <KeyCombo keys={["Ctrl", "Shift", "V"]} />.
       </P>

@@ -36,7 +36,7 @@ export default function SpaceCardPinButton({
 
   return (
     <div
-      className="x-absolute x-bottom-2 x-right-2 x-animate-in x-fade-in"
+      className="x:absolute x:top-2 x:right-2 x:animate-in x:fade-in"
       onClick={(e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -59,7 +59,7 @@ export default function SpaceCardPinButton({
               )
         }
       >
-        <div className="x-m-1 x-rounded-md x-p-1 x-text-muted-foreground x-transition-all hover:x-bg-muted hover:x-text-foreground active:x-scale-95">
+        <div className="x:m-1 x:rounded-md x:p-1 x:text-muted-foreground x:transition-all x:hover:bg-muted x:hover:text-foreground x:active:scale-95">
           {isPinned ? <LuPinOff /> : <LuPin />}
         </div>
       </Tooltip>

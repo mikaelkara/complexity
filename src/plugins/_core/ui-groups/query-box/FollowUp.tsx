@@ -2,7 +2,7 @@ import CsUiPluginsGuard from "@/components/plugins-guard/CsUiPluginsGuard";
 import { Portal } from "@/components/ui/portal";
 import { queryBoxesDomObserverStore } from "@/plugins/_core/dom-observers/query-boxes/store";
 import { ScopedQueryBoxContextProvider } from "@/plugins/_core/ui-groups/query-box/context/context";
-import { findToolbarPortalContainer } from "@/plugins/_core/ui-groups/query-box/utils";
+import { createToolbarPortalContainers } from "@/plugins/_core/ui-groups/query-box/utils";
 import BetterLanguageModelSelectorWrapper from "@/plugins/language-model-selector";
 import SlashCommandMenuWrapper from "@/plugins/slash-command-menu";
 import SlashCommandMenuTriggerButton from "@/plugins/slash-command-menu/TriggerButton";
@@ -16,7 +16,7 @@ export default function FollowUpQueryBoxWrapper() {
   if (!followUpQueryBox) return null;
 
   const { leftContainer, rightContainer } =
-    findToolbarPortalContainer(followUpQueryBox);
+    createToolbarPortalContainers(followUpQueryBox);
 
   return (
     <ScopedQueryBoxContextProvider storeValue={{ type: "follow-up" }}>
@@ -29,7 +29,7 @@ export default function FollowUpQueryBoxWrapper() {
         </CsUiPluginsGuard>
       </Portal>
       <Portal container={rightContainer}>
-        <div className="x-flex x-flex-wrap x-items-center x-gap-2">
+        <div className="x:flex x:flex-wrap x:items-center x:gap-2">
           <CsUiPluginsGuard
             desktopOnly
             dependentPluginIds={["queryBox:slashCommandMenu"]}

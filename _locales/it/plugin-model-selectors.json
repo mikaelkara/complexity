@@ -2,18 +2,22 @@
   "languageModelSelector": {
     "tooltip": "Scegli modello linguistico",
     "proSearch": {
-      "tooltip": "Ottieni fino a 3 fonti web"
+      "tooltip": "Più fonti, interprete di codice Python"
     },
     "reasoningModels": {
       "label": "Modelli di ragionamento",
       "tooltip": {
         "description": "Le risposte impiegheranno più tempo per essere generate, ma tendono ad essere più dettagliate e accurate.",
-        "proSearchNote": "<emphasis>Pro Search</emphasis> è sempre attivo quando si sceglie un modello di ragionamento."
+        "proSearchNote": "<emphasis>Pro</emphasis> è sempre attivo quando si sceglie un modello di ragionamento."
       },
       "usesLeft": {
         "unlimited": "Illimitato",
         "limited": "{{count}} utilizzi rimanenti"
       }
+    },
+    "autoMode": {
+      "title": "Auto",
+      "description": "Si adatta alla tua richiesta"
     }
   },
   "imageGenModelSelector": {

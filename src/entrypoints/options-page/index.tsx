@@ -1,4 +1,6 @@
+import "@/assets/index.css";
 import "@/assets/extension.css";
+
 import { QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import ReactDOM from "react-dom/client";
@@ -7,6 +9,7 @@ import { RouterProvider } from "react-router-dom";
 
 import { Toaster } from "@/components/Toaster";
 import { setupOptionPageListeners } from "@/entrypoints/options-page/listeners";
+import { ExtensionLocalStorageService } from "@/services/extension-local-storage";
 import { extensionLocalStorageQueries } from "@/services/extension-local-storage/query-keys";
 import { initializeDayjsLocale } from "@/utils/dayjs";
 import { initializeI18next } from "@/utils/i18next";
@@ -20,6 +23,10 @@ await Promise.all([
 ]);
 
 (async () => {
+  ExtensionLocalStorageService.set((draft) => {
+    draft.cdnLastUpdated = Date.now();
+  });
+
   const [{ router }] = await Promise.all([
     import("@/entrypoints/options-page/router"),
   ]);

@@ -60,21 +60,21 @@ const CopyButton = memo(function CopyButton({
         </DropdownMenuTrigger>
       </Tooltip>
       {hasSources && (
-        <DropdownMenuContent className="x-font-medium">
+        <DropdownMenuContent className="x:font-medium">
           <DropdownMenuItem
             value={"default" satisfies CopyOptions}
-            className="x-flex x-items-center x-gap-2"
+            className="x:flex x:items-center x:gap-2"
           >
-            <FaMarkdown className="x-size-4" />
+            <FaMarkdown className="x:size-4" />
             <span>
               {t("plugin-better-copy-buttons:copyButton.options.default")}
             </span>
           </DropdownMenuItem>
           <DropdownMenuItem
             value={"without-citations" satisfies CopyOptions}
-            className="x-flex x-items-center x-gap-2"
+            className="x:flex x:items-center x:gap-2"
           >
-            <LuLink2Off className="x-size-4" />
+            <LuLink2Off className="x:size-4" />
             <span>
               {t(
                 "plugin-better-copy-buttons:copyButton.options.withoutCitations",
@@ -104,15 +104,15 @@ const CopyButtonTrigger = memo(function CopyButtonTrigger({
       {...props}
       tabIndex={0}
       className={cn(
-        "x-cursor-pointer x-rounded-md x-p-2 x-text-muted-foreground x-transition-all hover:x-bg-secondary hover:x-text-foreground active:x-scale-95",
+        "x:cursor-pointer x:rounded-md x:p-2 x:text-muted-foreground x:transition-all x:hover:bg-muted/50 x:hover:text-foreground x:active:scale-95",
         {
-          "x-cursor-not-allowed x-opacity-50": isFetching,
+          "x:cursor-not-allowed x:opacity-50": isFetching,
         },
       )}
       onClick={onClick}
     >
       {isFetching ? (
-        <LuLoaderCircle className="x-size-4 x-animate-spin" />
+        <LuLoaderCircle className="x:size-4 x:animate-spin" />
       ) : (
         icon
       )}

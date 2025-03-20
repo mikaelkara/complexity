@@ -63,7 +63,7 @@ const MemoizedPreviewContainer = memo(function MemoizedPreviewContainer({
   }, []);
 
   return (
-    <div id="sandpack-container" className="x-relative x-size-full">
+    <div id="sandpack-container" className="x:relative x:size-full">
       <SandpackProvider
         template="react"
         customSetup={{
@@ -120,7 +120,7 @@ function FixErrorButton() {
   return (
     <Button
       variant="destructive"
-      className="x-absolute x-bottom-4 x-left-4 x-z-10 x-animate-in x-fade-in-0"
+      className="x:absolute x:bottom-4 x:left-4 x:z-10 x:animate-in x:fade-in-0"
       onClick={() => {
         if (!sandpack.error) return;
 

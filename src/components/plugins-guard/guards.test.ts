@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 
 import {
   checkDeviceType,
@@ -7,10 +7,18 @@ import {
   checkPluginDependencies,
   checkLocation,
   checkIncognito,
+  checkBrowser,
   type GuardConditions,
   type GuardCheckParams,
 } from "@/components/plugins-guard/guards";
 import { PluginId } from "@/services/extension-local-storage/plugins.types";
+
+// Mock APP_CONFIG
+vi.mock("@/app.config", () => ({
+  APP_CONFIG: {
+    BROWSER: "chrome",
+  },
+}));
 
 describe("Guard Functions", () => {
   describe("checkDeviceType", () => {
@@ -161,6 +169,28 @@ describe("Guard Functions", () => {
         isIncognito: false,
       };
       expect(checkIncognito(conditions, params)).toBe(true);
+    });
+  });
+
+  describe("checkBrowser", () => {
+    it("should return true when no browser restrictions", () => {
+      const conditions: GuardConditions = {};
+      expect(checkBrowser(conditions)).toBe(true);
+    });
+
+    it("should return true when current browser is in allowed list", () => {
+      const conditions: GuardConditions = { browser: ["chrome", "firefox"] };
+      expect(checkBrowser(conditions)).toBe(true);
+    });
+
+    it("should return false when current browser is not in allowed list", () => {
+      const conditions: GuardConditions = { browser: ["firefox"] };
+      expect(checkBrowser(conditions)).toBe(false);
+    });
+
+    it("should return true when browser list is empty", () => {
+      const conditions: GuardConditions = { browser: [] };
+      expect(checkBrowser(conditions)).toBe(true);
     });
   });
 });

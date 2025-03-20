@@ -23,18 +23,18 @@ export default function ErrorPage({ error, resetError }: ErrorPageProps) {
   };
 
   return (
-    <div className="x-flex x-h-full x-min-h-screen x-items-center x-justify-center">
+    <div className="x:flex x:h-full x:min-h-screen x:items-center x:justify-center">
       <Result
         icon={LuCircleAlert}
         title="Something went wrong"
         description={
-          <div className="x-text-balance">
-            <P className="x-mb-4 x-text-sm x-text-muted-foreground">
+          <div className="x:text-balance">
+            <P className="x:mb-4 x:text-sm x:text-muted-foreground">
               {error?.message ||
                 "An unexpected error occurred. Please check the console."}
             </P>
             <Button onClick={handleHomeClick}>Return to Homepage</Button>
-            <div className="x-my-4 x-mt-8 x-max-h-[300px] x-overflow-auto x-rounded-md x-bg-secondary x-p-2 x-font-mono">
+            <div className="x:my-4 x:mt-8 x:max-h-[300px] x:overflow-auto x:rounded-md x:bg-secondary x:p-2 x:font-mono">
               Error: {(routerError as Error).message}
             </div>
           </div>

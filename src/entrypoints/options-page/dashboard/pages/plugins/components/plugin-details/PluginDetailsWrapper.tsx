@@ -1,4 +1,3 @@
-import { useEffect, useMemo } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
@@ -38,8 +37,8 @@ export default function PluginDetailsWrapper() {
   }
 
   if (
-    pluginsStates[plugin.id].isForceDisabled ||
-    pluginsStates[plugin.id].isHiddenFromDashboard
+    pluginsStates[plugin.id].isOnMaintenance ||
+    pluginsStates[plugin.id].isOutdated
   ) {
     return <PluginUnavailable onBackClick={() => navigate("/plugins")} />;
   }
@@ -72,7 +71,7 @@ function useNavigateAwayOnInvalidRoute({ pluginId }: { pluginId?: PluginId }) {
 
 function PluginUnavailable({ onBackClick }: { onBackClick: () => void }) {
   return (
-    <div className="x-flex x-h-full x-min-h-[500px] x-flex-col x-items-center x-justify-center x-gap-4 x-text-center md:x-text-left">
+    <div className="x:flex x:h-full x:min-h-[500px] x:flex-col x:items-center x:justify-center x:gap-4 x:text-center x:md:text-left">
       This plugin is not available at the moment. Please check back later.
       <Button onClick={onBackClick}>Back to dashboard</Button>
     </div>

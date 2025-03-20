@@ -27,7 +27,7 @@ export default function PlantUmlCanvasActionButtonsWrapper() {
         window.open(url, "_blank");
       }}
     >
-      <LuExternalLink className="x-size-4" />
+      <LuExternalLink className="x:size-4" />
     </Button>
   );
 }

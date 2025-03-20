@@ -21,7 +21,7 @@ type ExportFormatSelectProps = {
 export function ExportFormatSelect({ onValueChange }: ExportFormatSelectProps) {
   return (
     <div>
-      <Label className="x-text-xs x-text-muted-foreground">
+      <Label className="x:text-xs x:text-muted-foreground">
         {t("plugin-export-thread:exportButton.format.label")}
       </Label>
 
@@ -49,14 +49,14 @@ export function ExportFormatSelect({ onValueChange }: ExportFormatSelectProps) {
       >
         <SelectContext>
           {({ value }) => (
-            <SelectTrigger variant="default" className="x-w-full x-p-2">
+            <SelectTrigger variant="default" className="x:w-full x:p-2">
               {(() => {
                 const selectedOption = EXPORT_OPTIONS.find(
                   (option) => option.value === value[0],
                 );
                 return selectedOption ? (
-                  <div className="x-flex x-items-center x-gap-2">
-                    <selectedOption.icon className="x-size-4" />
+                  <div className="x:flex x:items-center x:gap-2">
+                    <selectedOption.icon className="x:size-4" />
                     <span>{selectedOption.label}</span>
                   </div>
                 ) : (
@@ -73,8 +73,8 @@ export function ExportFormatSelect({ onValueChange }: ExportFormatSelectProps) {
         <SelectContent>
           {EXPORT_OPTIONS.map((option) => (
             <SelectItem key={option.value} item={option.value}>
-              <div className="x-flex x-items-center x-gap-2">
-                <option.icon className="x-size-4" />
+              <div className="x:flex x:items-center x:gap-2">
+                <option.icon className="x:size-4" />
                 <span>{option.label}</span>
               </div>
             </SelectItem>

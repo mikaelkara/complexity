@@ -19,7 +19,7 @@ import type {
   NavigationItem,
   SearchItem,
 } from "@/data/plugins/command-menu/types";
-import { ExtensionLocalStorageService } from "@/services/extension-local-storage";
+import { toggleZenMode } from "@/data/plugins/zen-mode/utils";
 
 export const ZENMODE_ITEMS: ZenModeItem[] = [
   {
@@ -31,18 +31,7 @@ export const ZENMODE_ITEMS: ZenModeItem[] = [
       t("plugin-command-menu:commandMenu.keywords.zen"),
       t("plugin-command-menu:commandMenu.keywords.mode"),
     ],
-    action: () => {
-      $("body").attr("data-cplx-zen-mode", "true");
-      if (
-        ExtensionLocalStorageService.getCachedSync()?.plugins["zenMode"]
-          .persistent
-      ) {
-        ExtensionLocalStorageService.set((draft) => {
-          draft.plugins["zenMode"].lastState = true;
-        });
-      }
-    },
-    shortcut: ["Ctrl", "Alt", "Z"],
+    action: () => toggleZenMode(true),
   },
   {
     type: "disable",
@@ -53,18 +42,7 @@ export const ZENMODE_ITEMS: ZenModeItem[] = [
       t("plugin-command-menu:commandMenu.keywords.zen"),
       t("plugin-command-menu:commandMenu.keywords.mode"),
     ],
-    action: () => {
-      $("body").attr("data-cplx-zen-mode", "false");
-      if (
-        ExtensionLocalStorageService.getCachedSync()?.plugins["zenMode"]
-          .persistent
-      ) {
-        ExtensionLocalStorageService.set((draft) => {
-          draft.plugins["zenMode"].lastState = false;
-        });
-      }
-    },
-    shortcut: ["Ctrl", "Alt", "Z"],
+    action: () => toggleZenMode(false),
   },
 ];
 

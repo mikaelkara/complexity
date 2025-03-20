@@ -80,14 +80,16 @@ export const SpaceSchema = z.object({
   slug: z.string(),
   emoji: z.string().nullable().optional(),
   description: z.string(),
-  file_count: z.number(),
-  focused_web_config: z.object({
-    link_configs: z.array(
-      z.object({
-        link: z.string(),
-      }),
-    ),
-  }),
+  file_count: z.number().nullable(),
+  focused_web_config: z
+    .object({
+      link_configs: z.array(
+        z.object({
+          link: z.string(),
+        }),
+      ),
+    })
+    .nullable(),
   access: z.number(),
   model_selection: z
     .string()

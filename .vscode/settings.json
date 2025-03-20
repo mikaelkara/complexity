@@ -11,6 +11,11 @@
   },
   "editor.quickSuggestionsDelay": 1,
   "editor.suggest.showWords": false,
+  "eslint.useFlatConfig": true,
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "tailwindCSS.experimental.configFile": "src/assets/index.css",
   "files.exclude": {
     "**/.DS_Store": true,
     "**/.git": true,
@@ -30,12 +35,12 @@
     "**/package/**/*": true
   },
   "i18n-ally.defaultNamespace": "common",
+  "i18n-ally.displayLanguage": "en",
   "i18n-ally.enabledFrameworks": ["i18next", "react-i18next"],
   "i18n-ally.extract.autoDetect": false,
   "i18n-ally.keystyle": "nested",
   "i18n-ally.localesPaths": ["_locales"],
   "i18n-ally.namespace": true,
-  "i18n-ally.displayLanguage": "en",
   "i18n-ally.pathMatcher": "{locale}/{namespaces}.json",
   "i18n-ally.sourceLanguage": "tr",
   "npm.exclude": ["**/build", "**/dist", "**/package"],

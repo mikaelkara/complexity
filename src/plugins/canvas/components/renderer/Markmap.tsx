@@ -61,13 +61,13 @@ export default function MarkmapRenderer() {
   }, [mutate, code, colorScheme]);
 
   return (
-    <div className="x-relative x-size-full">
+    <div className="x:relative x:size-full">
       {!isPending &&
         markmapRendererResponded &&
         !isSuccess &&
         !result?.error && (
-          <div className="x-absolute x-inset-1/2 x-w-max -x-translate-x-1/2 -x-translate-y-1/2">
-            <span className="x-animate-in x-fade-in">
+          <div className="x:absolute x:inset-1/2 x:w-max x:-translate-x-1/2 x:-translate-y-1/2">
+            <span className="x:animate-in x:fade-in">
               Failed to render provided markmap code. Try to reload the Canvas.
             </span>
           </div>
@@ -76,15 +76,15 @@ export default function MarkmapRenderer() {
         markmapRendererResponded &&
         !isSuccess &&
         result?.error && (
-          <div className="x-flex x-flex-col x-gap-4 x-p-4 x-font-mono">
-            <div className="x-text-lg x-font-bold x-text-destructive">
+          <div className="x:flex x:flex-col x:gap-4 x:p-4 x:font-mono">
+            <div className="x:text-lg x:font-bold x:text-destructive">
               An error occurred while rendering:
             </div>
-            <div className="x-whitespace-pre x-animate-in x-fade-in">
+            <div className="x:whitespace-pre x:animate-in x:fade-in">
               {result.error}
             </div>
             <Button
-              className="x-w-max"
+              className="x:w-max"
               variant="destructive"
               onClick={() => {
                 const $textarea = UiUtils.getActiveQueryBoxTextarea();
@@ -103,15 +103,15 @@ export default function MarkmapRenderer() {
       <svg
         id={`canvas-markmap-container-${selectedCodeBlockLocation?.messageBlockIndex}-${selectedCodeBlockLocation?.codeBlockIndex}`}
         className={cn(
-          "x-size-full !x-font-sans !x-text-foreground x-transition-opacity",
+          "x:size-full x:!font-sans x:!text-foreground x:transition-opacity",
           {
-            "x-opacity-0": !markmapRendererResponded || !isSuccess,
+            "x:opacity-0": !markmapRendererResponded || !isSuccess,
           },
         )}
       />
       {(isPending || isSuccess == null) && (
-        <div className="x-absolute x-inset-1/2 -x-translate-x-1/2 -x-translate-y-1/2 x-animate-in x-fade-in">
-          <LuLoaderCircle className="x-size-10 x-animate-spin x-text-muted-foreground" />
+        <div className="x:absolute x:inset-1/2 x:-translate-x-1/2 x:-translate-y-1/2 x:animate-in x:fade-in">
+          <LuLoaderCircle className="x:size-10 x:animate-spin x:text-muted-foreground" />
         </div>
       )}
     </div>

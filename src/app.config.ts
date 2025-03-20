@@ -1,4 +1,6 @@
+/* eslint-disable @limegrass/import-alias/import-alias */
 import { z } from "zod";
+
 import packageJson from "../package.json";
 
 const env = typeof process === "undefined" ? import.meta.env : process.env;

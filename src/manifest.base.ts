@@ -1,3 +1,4 @@
+/* eslint-disable @limegrass/import-alias/import-alias */
 import { ManifestV3Export } from "@crxjs/vite-plugin";
 
 import { APP_CONFIG } from "./app.config";
@@ -34,7 +35,10 @@ export const baseManifest: ExtendedManifestV3Export = {
     page: "src/entrypoints/options.html",
   },
 
-  host_permissions: APP_CONFIG["perplexity-ai"].globalMatches,
+  permissions: ["storage", "unlimitedStorage", "contextMenus"],
+  optional_permissions: [],
+
+  host_permissions: [...APP_CONFIG["perplexity-ai"].globalMatches],
   optional_host_permissions: [],
 
   content_scripts: [

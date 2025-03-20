@@ -15,25 +15,45 @@ csLoaderRegistry.register({
         id: "block-analytic-events",
         priority: { position: "first" },
         middlewareFn({ data, stopPropagation, skip }) {
-          if (data.type === "network-intercept:fetchEvent") {
+          const a: number | null = 1;
+
+          if (!a) {
             return skip();
           }
 
-          const wsMessage = parseWebSocketData(data.payload.data);
-          const payload = wsMessage.payload;
+          switch (data.type) {
+            case "network-intercept:webSocketEvent": {
+              const wsMessage = parseWebSocketData(data.payload.data);
+              const payload = wsMessage.payload;
 
-          const hasValidMessageStructure =
-            wsMessage.messageId != null &&
-            Array.isArray(payload) &&
-            payload.length > 0 &&
-            payload[0] != null;
+              const hasValidMessageStructure =
+                wsMessage.messageId != null &&
+                Array.isArray(payload) &&
+                payload.length > 0 &&
+                payload[0] != null;
 
-          if (!hasValidMessageStructure) {
-            return skip();
-          }
+              if (!hasValidMessageStructure) {
+                return skip();
+              }
 
-          if (payload[0] === "analytics_event") {
-            stopPropagation("");
+              if (payload[0] === "analytics_event") {
+                stopPropagation("");
+              }
+
+              return skip();
+            }
+            case "network-intercept:fetchEvent": {
+              if (data.payload.url.includes("browser-intake-datadoghq")) {
+                stopPropagation("");
+              }
+              break;
+            }
+            case "network-intercept:beaconEvent": {
+              if (data.payload.url === "https://www.perplexity.ai/rest/event") {
+                stopPropagation("");
+              }
+              break;
+            }
           }
 
           return skip();

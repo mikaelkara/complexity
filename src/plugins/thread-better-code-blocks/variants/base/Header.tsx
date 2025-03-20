@@ -1,3 +1,5 @@
+import { LuLoaderCircle } from "react-icons/lu";
+
 import CopyButton from "@/components/CopyButton";
 import { Separator } from "@/components/ui/separator";
 import { BetterCodeBlockFineGrainedOptions } from "@/data/dashboard/better-code-blocks/better-code-blocks-options.types";
@@ -47,29 +49,38 @@ const BaseCodeBlockWrapperHeader = memo(function BaseCodeBlockWrapperHeader() {
   return (
     <div
       className={cn(
-        "x-flex x-items-center x-justify-between x-rounded-t-md x-border-b x-border-border/50 x-bg-secondary x-p-2 x-px-4 x-pb-2 x-text-muted-foreground",
+        "x:flex x:items-center x:justify-between x:rounded-t-md x:border-b x:border-border/50 x:bg-secondary x:p-2 x:px-4 x:pb-2 x:text-muted-foreground",
         {
-          "x-sticky": isSticky,
-          "x-top-0": isSticky && (isMessageBlockInFlight || !isBottomBarSticky),
-          "x-top-[var(--message-block-bottom-bar-height)]":
+          "x:sticky": isSticky,
+          "x:top-0": isSticky && (isMessageBlockInFlight || !isBottomBarSticky),
+          "x:top-[var(--message-block-bottom-bar-height)]":
             isSticky && !isMessageBlockInFlight && isBottomBarSticky,
         },
       )}
     >
-      <div className="x-flex x-items-center x-gap-2">
-        <div className="x-line-clamp-1 x-font-mono x-text-sm">
+      <div className="x:flex x:items-center x:gap-2">
+        <div className="x:line-clamp-1 x:font-mono x:text-sm">
           {placeholderText?.title || language}
         </div>
         {!isInFlight && placeholderText?.idle && (
-          <div className="x-flex x-items-center x-gap-2">
-            <Separator orientation="vertical" className="x-h-4 x-w-[2px]" />
-            <div className="x-font-sans x-text-sm">{placeholderText.idle}</div>
+          <div className="x:flex x:items-center x:gap-2">
+            <Separator orientation="vertical" className="x:h-4 x:w-[2px]" />
+            <div className="x:font-sans x:text-sm">{placeholderText.idle}</div>
           </div>
         )}
       </div>
 
-      <div className="x-flex x-items-center x-gap-4">
-        {!isInFlight && (
+      <div className="x:flex x:items-center x:gap-4">
+        {isInFlight ? (
+          <div className="x:flex x:items-center x:gap-2">
+            {fineGrainedSettings?.placeholderText?.loading && (
+              <div className="x:animate-pulse">
+                {fineGrainedSettings?.placeholderText?.loading}
+              </div>
+            )}
+            <LuLoaderCircle className="x:size-4 x:animate-spin" />
+          </div>
+        ) : (
           <>
             <CanvasSimpleModeRenderButton />
             {isHorizontalOverflowing && <WrapToggleButton />}

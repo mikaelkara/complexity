@@ -1,6 +1,0 @@
-src/manifest.chrome.ts
-src/manifest.firefox.ts
-src/manifest.base.ts
-*.config.js
-*.config.ts
-gulpfile.js

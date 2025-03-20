@@ -2,18 +2,22 @@
   "languageModelSelector": {
     "tooltip": "Odaberi jezični model",
     "proSearch": {
-      "tooltip": "Dohvati do 3 web izvora"
+      "tooltip": "Više izvora, Python interpreter koda"
     },
     "reasoningModels": {
       "label": "Modeli zaključivanja",
       "tooltip": {
         "description": "Generiranje odgovora trajat će duže, ali odgovori su obično detaljniji i precizniji.",
-        "proSearchNote": "<emphasis>Pro Search</emphasis> je uvijek aktivan pri odabiru modela zaključivanja."
+        "proSearchNote": "<emphasis>Pro</emphasis> je uvijek aktivan pri odabiru modela zaključivanja."
       },
       "usesLeft": {
         "unlimited": "Neograničeno",
         "limited": "Preostalo {{count}} korištenja"
       }
+    },
+    "autoMode": {
+      "title": "Auto",
+      "description": "Prilagođava se vašem upitu"
     }
   },
   "imageGenModelSelector": {
